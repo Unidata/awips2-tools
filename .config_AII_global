@@ -532,29 +532,6 @@ function set_cpsbn_variable() {
 
 }
 
-function set_dx34_variable() {
-
-	debug_echo "Beginning $FUNCNAME"
-	retVal=0
-	
-	if ! ping -c1 dx3 >& /dev/null
-        then
-                debug_echo "Cannot ping dx3, trying dx4......"
-                if ! ping -c1 dx4 >& /dev/null
-                then
-                        debug_echo "\tCannot ping dx4, exiting....."
-                        color_echo red 1 "\tERROR:\tCannot access dx3 or dx4 for localization of hydro acq patterns"
-                        retVal=1
-                else
-                        _dx34=dx4
-                fi
-	else
-		_dx34=dx3
-        fi
-
-	return ${retVal}
-}
-
 function set_hydro_site_config() {
 
 	# used to set wxxxList and rxxxList if not set 
@@ -640,63 +617,10 @@ function set_global_variables() {
 	fourthoctet=$(grep GATEWAY /etc/sysconfig/network| grep -v ^# | sed 's/=/ /g'|awk '{print $2}'| cut -f 4 -d'.')
 	gway=$(grep GATEWAY /etc/sysconfig/network|grep -v ^# | sed 's/=/ /g'|awk '{print $2}')
 	SUBNET="${gway%%$fourthoctet}0"
-	while [ ! "${EDEXSVR}" ] || [ "${EDEXSVR}" == "" ]
-	do
-		echo -e "\t\$EDEXSVR Environment Variable Not Set.  Setting to default based on platform: "
-		if [[ $(hostname | cut -f1 -d'-') == adam[0-9] ]] 
-		then
-			EDEXSVR=adam1
-		else
-			if isUp dx3 ; then EDEXSVR=dx3 ; elif isUp dx4 ; then EDEXSVR=dx4 ; fi
-		fi
-		if [ ! "${EDEXSVR}" ] || [ "${EDEXSVR}" == "" ]
-		then
-			color_echo red 1 "ERROR!  No EDEXSVR set and dx3 and dx4 are not pingable!  Exiting!"
-			exit 1
-		fi
-		iSetVars=1
-	done	
-
-	while [ ! "${EDEXDBSVR}" ] || [ "${EDEXDBSVR}" == "" ]
-	do
-		echo -e "\t\$EDEXDBSVR Environment Variable Not Set.  Setting to default based on platform: "
-		if [[ $(hostname | cut -f1 -d'-') == adam[0-9] ]] 
-		then
-			EDEXDBSVR=adam1
-		else
-			if isUp dx1f ; then EDEXDBSVR=dx1f ; fi
-		fi
-		if [ ! "${EDEXDBSVR}" ] || [ "${EDEXDBSVR}" == "" ]
-		then
-			color_echo red 1 "ERROR!  No EDEXDBSVR set and dx1f is not pingable!  Exiting!"
-			exit 1
-		fi
-		iSetVars=1
-	done	
-
-	if [[ "${iSetVars}" ]] 
-	then
-		echo -e "\tSetting the following environment variables:"
-		echo -e "\tEDEXSVR:\t\t${EDEXSVR}"
-		echo -e "\tEDEXDBSVR:\t\t${EDEXDBSVR}"
-		#echo -e "\tCAVESTN:\t\t${CAVESTN}"
-		if [[ "${acceptDefaults}" ]]
-		then
-			_answer='y'
-		else
-			echo -e "\n\tIs this correct(y|n)? \c"
-			read _answer
-		fi
-		if ! answer_me ${_answer}
-		then
-			echo -e "Please set the variables manually before executing the script. "
-			exit 1
-		else
-			export EDEXDBSVR
-			export EDEXSVR
-			#export CAVESTN
-		fi		
-	fi
+	EDEXSVR=$(hostname)
+	EDEXDBSVR=$(hostname)
+	export EDEXDBSVR
+	export EDEXSVR
 
 	MYRUNTIME=$( date +%Y%m%d_%H%M%S )
 	runTimeHost=$( hostname | cut -f 1 -d'-' )
@@ -749,7 +673,6 @@ function set_global_variables() {
 	fi
 
 	#set_cpsbn_variable
-	#set_dx34_variable
 
 	DB_LOCATION="/awips2/data"
 	dbSSHcmd=
@@ -1073,28 +996,38 @@ function check_needed_mounts() {
 
 	if [ ! -d /awips/fxa/data/localizationDataSets ] 
 	then
-		mount_dir dx1f /awips/fxa/data /awips/fxa/data
-		mountList=( ${mountList[@]} "/awips/fxa/data - /awips/fxa/data - dx1f" )
+		echo "/awips/fxa/data/localizationDataSets does not exist. Exiting."
+		exit 1
+		#mount_dir dx1f /awips/fxa/data /awips/fxa/data
+		#mountList=( ${mountList[@]} "/awips/fxa/data - /awips/fxa/data - dx1f" )
 	fi
 	if [ ! -d /data/adapt/avnfps ] 
 	then
-		mount_dir nas1 dataADAPT /data/adapt
-		mountList=( ${mountList[@]} "/data/adapt - dataADAPT - nas1" )
+		echo "/data/adapt/avnfps does not exist. Exiting."
+		exit 1
+		#mount_dir nas1 dataADAPT /data/adapt
+		#mountList=( ${mountList[@]} "/data/adapt - dataADAPT - nas1" )
 	fi
 	if [ ! -d /awips/adapt/avnfps ]
 	then
-		mount_dir nas1 awipsADAPT /awips/adapt
-		mountList=( ${mountList[@]} "/awips/adapt - awipsADAPT - nas1" )
+		echo "/awips/adapt/avnfps does not exist. Exiting."
+		exit 1
+		#mount_dir nas1 awipsADAPT /awips/adapt
+		#mountList=( ${mountList[@]} "/awips/adapt - awipsADAPT - nas1" )
 	fi
 	if [ ! -d /awips/GFESuite/primary ] 
 	then
-		mount_dir nas1 awipsGFESuit /awips/GFESuite
-		mountList=( ${mountList[@]} "/awips/GFESuite - awipsGFESuit - nas1" )
+		echo "/awips/GFESuite/primary does not exist. Exiting."
+		exit 1
+		#mount_dir nas1 awipsGFESuit /awips/GFESuite
+		#mountList=( ${mountList[@]} "/awips/GFESuite - awipsGFESuit - nas1" )
 	fi
 	if [ ! -d /awips/hydroapps/whfs ]
 	then
-		mount_dir nas1 awipsHYDRO /awips/hydroapps
-		mountList=( ${mountList[@]} "/awips/hydroapps - awipsHYDRO - nas1" )
+		echo "/awips/hydroapps/whfs does not exist. Exiting."
+		exit 1
+		#mount_dir nas1 awipsHYDRO /awips/hydroapps
+		#mountList=( ${mountList[@]} "/awips/hydroapps - awipsHYDRO - nas1" )
 	fi
 
 	for i in ${neededDirectories[@]}
@@ -1715,7 +1648,7 @@ function config_common_hydro() {
 	create_subtree hydroapps/whfs/local/data/app/nrldb awips fxalpha
 	if [[ "${FORCE}" || ! -f hydroapps/whfs/local/data/app/nrldb/nrldb.conf ]]
 	then
-		if ! copy_awips_file ${pathPrefix}${whfsBaseDir}/local/data/app/nrldb/nrldb.conf hydroapps/whfs/local/data/app/nrldb awips fxalpha 775 && sed -i 's/localhost/dx1f/' hydroapps/whfs/local/data/app/nrldb/nrldb.conf; then continue; fi
+		if ! copy_awips_file ${pathPrefix}${whfsBaseDir}/local/data/app/nrldb/nrldb.conf hydroapps/whfs/local/data/app/nrldb awips fxalpha 775 && sed -i 's/localhost/'$(hostname)'/' hydroapps/whfs/local/data/app/nrldb/nrldb.conf; then continue; fi
 	else
 		echo -e "\tNOTE:  hydroapps/local/data/app/nrldb/nrldb.conf exists \t SKIPPING"
 	fi
@@ -3952,32 +3885,9 @@ function config_pqact() {
 	# Check for existance of pqact.local first, and save off...
 	color_echo green 1 "\t--> Configuring LDM pqact.conf file "
 
-
-    case "${AII_RELEASEID}" in
-        "13."[123]*  )   ldmsshHost="" ; otherLDMHosts="dx1" ;;
-        * ) 
-                    if [[ $(hostname | cut -f1 -d'-') == "adam"* ]] ; then
-                        ldmsshHost=""
-                    elif ! hostname | cut -f2 -d'-' | grep -E 'vrh|hfo|gum' > /dev/null ; then
-                        if isUp cpsbn1 ; then
-                            ldmsshHost="cpsbn1"
-                            otherLDMHosts="cpsbn1 cpsbn2" 
-                        elif isUp cpsbn2 ; then
-                            ldmsshHost="cpsbn2"
-                            otherLDMHosts="cpsbn1 cpsbn2"
-                        else   
-                            color_echo red 1 "ERROR:  No cpsbn is running and you are not running on ADAM, so can not create ldm pqact files"
-                            exit 1
-                        fi
-                    else
-                        ldmsshHost=""
-                        otherLDMHosts="dx1"
-                    fi  ;;
-    esac
-
 	if [ -f /var/tmp/pqact.conf.local ] 
 	then
-		debug_echo "/usr/local/ldm/etc/pqact.conf.local exists.  This file will be overwritten"
+		debug_echo "/awips2/ldm/etc/pqact.conf.local exists.  This file will be overwritten"
 		cat /dev/null > /var/tmp/pqact.conf.local
 	fi
 
@@ -4190,10 +4100,10 @@ function config_pqact() {
 	   if check_ldm_syntax /var/tmp/ldm_radar.tmp
 	   then
 		echo -e "OK"
-		echo -e "\tAdding onto /usr/local/ldm/etc/pqact.conf.local"
+		echo -e "\tAdding onto /awips2/ldm/etc/pqact.conf.local"
 		echo -e "####### Added by $FUNCNAME ######### " >> /var/tmp/pqact.conf.local
 		cat /var/tmp/ldm_radar.tmp >> /var/tmp/pqact.conf.local
-		echo -e "\tChecking syntax of /usr/local/ldm/etc/pqact.conf.local ................. \c"
+		echo -e "\tChecking syntax of /awips2/ldm/etc/pqact.conf.local ................. \c"
 		if check_ldm_syntax /var/tmp/pqact.conf.local
 		then
 			echo -e "OK"
@@ -4211,10 +4121,10 @@ function config_pqact() {
 		if check_ldm_syntax /var/tmp/ldm_hydro.tmp
 		then
 			echo -e "OK"
-			echo -e "\tAdding onto /usr/local/ldm/etc/pqact.conf.local"
+			echo -e "\tAdding onto /awips2/ldm/etc/pqact.conf.local"
 			echo >> /var/tmp/pqact.conf.local
 			cat /var/tmp/ldm_hydro.tmp >> /var/tmp/pqact.conf.local
-			echo -e "\tChecking syntax of /usr/local/ldm/etc/pqact.conf.local ................. \c"
+			echo -e "\tChecking syntax of /awips2/ldm/etc/pqact.conf.local ................. \c"
 			if check_ldm_syntax /var/tmp/pqact.conf.local >& /dev/null
 			then
 				echo -e "OK"
@@ -4229,35 +4139,35 @@ function config_pqact() {
 	   fi
 	
 
-	   if [[ "${ldmsshHost}" ]] ; then ssh -qn ${ldmsshHost} "cat /usr/local/ldm/etc/pqact.conf.template > /usr/local/ldm/etc/${pqfilename} && chown ldm:fxalpha /usr/local/ldm/etc/${pqfilename}" ; else cat /usr/local/ldm/etc/pqact.conf.template > /usr/local/ldm/etc/${pqfilename} && chown ldm:fxalpha /usr/local/ldm/etc/${pqfilename} ; fi
-	   if [[ "${ldmsshHost}" ]] ; then ssh -qn ${ldmsshHost} "cat /var/tmp/pqact.conf.local >> /usr/local/ldm/etc/${pqfilename}" ; else cat /var/tmp/pqact.conf.local >> /usr/local/ldm/etc/${pqfilename} ; fi 
+	   if [[ "${ldmsshHost}" ]] ; then ssh -qn ${ldmsshHost} "cat /awips2/ldm/etc/pqact.conf.template > /awips2/ldm/etc/${pqfilename} && chown ldm:fxalpha /awips2/ldm/etc/${pqfilename}" ; else cat /awips2/ldm/etc/pqact.conf.template > /awips2/ldm/etc/${pqfilename} && chown ldm:fxalpha /awips2/ldm/etc/${pqfilename} ; fi
+	   if [[ "${ldmsshHost}" ]] ; then ssh -qn ${ldmsshHost} "cat /var/tmp/pqact.conf.local >> /awips2/ldm/etc/${pqfilename}" ; else cat /var/tmp/pqact.conf.local >> /awips2/ldm/etc/${pqfilename} ; fi 
 	   case "${AII_RELEASEID}" in
-			"1"[4-5]"."[2-9]"."*  )     if [[ "${ldmsshHost}" ]] ; then ssh -qn ${ldmsshHost} "if [[ ! -f /usr/local/ldm/etc/pqact.conf.datadelivery ]] ; then cp ${fullScriptPath}/pqact.conf.datadelivery /usr/local/ldm/etc/ ; fi " ; else if [[ ! -f /usr/local/ldm/etc/pqact.conf.datadelivery ]] ; then cp ${fullScriptPath}/pqact.conf.datadelivery /usr/local/ldm/etc/ ; fi ; fi
-									if [[ "${ldmsshHost}" ]] ; then ssh -qn ${ldmsshHost} "cat /usr/local/ldm/etc/pqact.conf.datadelivery >> /usr/local/ldm/etc/${pqfilename}" ; else cat /usr/local/ldm/etc/pqact.conf.datadelivery >> /usr/local/ldm/etc/${pqfilename} ; fi 
+			"1"[4-5]"."[2-9]"."*  )     if [[ "${ldmsshHost}" ]] ; then ssh -qn ${ldmsshHost} "if [[ ! -f /awips2/ldm/etc/pqact.conf.datadelivery ]] ; then cp ${fullScriptPath}/pqact.conf.datadelivery /awips2/ldm/etc/ ; fi " ; else if [[ ! -f /awips2/ldm/etc/pqact.conf.datadelivery ]] ; then cp ${fullScriptPath}/pqact.conf.datadelivery /awips2/ldm/etc/ ; fi ; fi
+									if [[ "${ldmsshHost}" ]] ; then ssh -qn ${ldmsshHost} "cat /awips2/ldm/etc/pqact.conf.datadelivery >> /awips2/ldm/etc/${pqfilename}" ; else cat /awips2/ldm/etc/pqact.conf.datadelivery >> /awips2/ldm/etc/${pqfilename} ; fi 
 									;;
 	   esac
 	   if echo ${locSite} | grep -iw -E "gyx|okx|phi|lwx|akq|mhx|ilm|chs|jax|mlb|mfl|key|tbw|tae|mob|lix|lch|box|hgx|crp|bro" > /dev/null ; then
 			color_echo yellow 0 "\tIdentified coastal AWIPS II site, adding pqact.conf.tropical contents onto pqact.conf.local"
-			if [[ "${ldmsshHost}" ]] ; then ssh -qn ${ldmsshHost} "if [[ ! -f /usr/local/ldm/etc/pqact.conf.tropical ]] ; then cp ${fullScriptPath}/pqact.conf.tropical /usr/local/ldm/etc/ ; fi " ; else if [[ ! -f /usr/local/ldm/etc/pqact.conf.tropical ]] ; then cp ${fullScriptPath}/pqact.conf.tropical /usr/local/ldm/etc/ ; fi ; fi
-			if [[ "${ldmsshHost}" ]] ; then ssh -qn ${ldmsshHost} "cat /usr/local/ldm/etc/pqact.conf.tropical >> /usr/local/ldm/etc/${pqfilename}" ; else cat /usr/local/ldm/etc/pqact.conf.tropical >> /usr/local/ldm/etc/${pqfilename} ; fi
+			if [[ "${ldmsshHost}" ]] ; then ssh -qn ${ldmsshHost} "if [[ ! -f /awips2/ldm/etc/pqact.conf.tropical ]] ; then cp ${fullScriptPath}/pqact.conf.tropical /awips2/ldm/etc/ ; fi " ; else if [[ ! -f /awips2/ldm/etc/pqact.conf.tropical ]] ; then cp ${fullScriptPath}/pqact.conf.tropical /awips2/ldm/etc/ ; fi ; fi
+			if [[ "${ldmsshHost}" ]] ; then ssh -qn ${ldmsshHost} "cat /awips2/ldm/etc/pqact.conf.tropical >> /awips2/ldm/etc/${pqfilename}" ; else cat /awips2/ldm/etc/pqact.conf.tropical >> /awips2/ldm/etc/${pqfilename} ; fi
 	   fi
 
        #if [[ "${ldmsshHost}" ]] ; then
-       #     if ssh ${ldmsshHost} "[[ -f /usr/local/ldm/etc/pqact.conf.$( echo ${locSite} | tr [:upper:] [:lower:] ) ]]" ; then 
-       #         scp -q ${ldmsshHost}:/usr/local/ldm/etc/pqact.conf.$( echo ${locSite} | tr [:upper:] [:lower:] ) /var/tmp/ 
+       #     if ssh ${ldmsshHost} "[[ -f /awips2/ldm/etc/pqact.conf.$( echo ${locSite} | tr [:upper:] [:lower:] ) ]]" ; then 
+       #         scp -q ${ldmsshHost}:/awips2/ldm/etc/pqact.conf.$( echo ${locSite} | tr [:upper:] [:lower:] ) /var/tmp/ 
        #         localFileToAdd="/var/tmp/pqact.conf.$( echo ${locSite} | tr [:upper:] [:lower:] )"
        #     fi
        #else
-            if [[ -f /usr/local/ldm/etc/pqact.conf.$( echo ${locSite} | tr [:upper:] [:lower:] ) ]] ; then scp /usr/local/ldm/etc/pqact.conf.$( echo ${locSite} | tr [:upper:] [:lower:] ) /var/tmp ; localFileToAdd="/var/tmp/pqact.conf.$( echo ${locSite} | tr [:upper:] [:lower:] )" ; fi
+            if [[ -f /awips2/ldm/etc/pqact.conf.$( echo ${locSite} | tr [:upper:] [:lower:] ) ]] ; then scp /awips2/ldm/etc/pqact.conf.$( echo ${locSite} | tr [:upper:] [:lower:] ) /var/tmp ; localFileToAdd="/var/tmp/pqact.conf.$( echo ${locSite} | tr [:upper:] [:lower:] )" ; fi
        #fi
 
        #if [[ "${ldmsshHost}" ]] ; then
-       #     if ssh ${ldmsshHost} "[[ -f /usr/local/ldm/etc/pqact.conf.${locSite} ]]" ; then 
-       #         scp -q ${ldmsshHost}:/usr/local/ldm/etc/pqact.conf.${locSite} /var/tmp/ 
+       #     if ssh ${ldmsshHost} "[[ -f /awips2/ldm/etc/pqact.conf.${locSite} ]]" ; then 
+       #         scp -q ${ldmsshHost}:/awips2/ldm/etc/pqact.conf.${locSite} /var/tmp/ 
        #         localFileToAdd="/var/tmp/pqact.conf.${locSite}"
        #     fi
        #else
-            if [[ -f /usr/local/ldm/etc/pqact.conf.${locSite} ]] ; then scp /usr/local/ldm/etc/pqact.conf.${locSite} /var/tmp/ ; localFileToAdd="/var/tmp/pqact.conf.${locSite}"; fi
+            if [[ -f /awips2/ldm/etc/pqact.conf.${locSite} ]] ; then scp /awips2/ldm/etc/pqact.conf.${locSite} /var/tmp/ ; localFileToAdd="/var/tmp/pqact.conf.${locSite}"; fi
        #fi
 
 	   if [[ "${localFileToAdd}" ]]
@@ -4266,11 +4176,11 @@ function config_pqact() {
 		if check_ldm_syntax ${localFileToAdd} 
 		then
 			echo -e "OK"
-			echo -e "\tAdding onto /usr/local/ldm/etc/${pqfilename}" 
+			echo -e "\tAdding onto /awips2/ldm/etc/${pqfilename}" 
 			if [[ ! "${ldmsshHost}" ]] ; then 
-                cat ${localFileToAdd} >> /usr/local/ldm/etc/${pqfilename}
+                cat ${localFileToAdd} >> /awips2/ldm/etc/${pqfilename}
             else
-                ssh -qn ${ldmsshHost} "cat ${localFileToAdd} >> /usr/local/ldm/etc/${pqfilename}"
+                ssh -qn ${ldmsshHost} "cat ${localFileToAdd} >> /awips2/ldm/etc/${pqfilename}"
             fi
 		else
 			echo -e "FAILED!!"
@@ -4280,13 +4190,13 @@ function config_pqact() {
 
 	   # Send HUP to ldm
        if [[ "${ldmsshHost}" == "" ]] ; then
-            if [ -f /usr/local/ldm/ldmd.pid ]; then su ldm -lc 'ldmadmin pqactHUP' | while read line; do echo -e "\t${line}"; done; else color_echo yellow 0 "\n\tNOTE: LDM doesn't appear to be running, don't forget to start it!" ; fi
+            if [ -f /awips2/ldm/ldmd.pid ]; then su ldm -lc 'ldmadmin pqactHUP' | while read line; do echo -e "\t${line}"; done; else color_echo yellow 0 "\n\tNOTE: LDM doesn't appear to be running, don't forget to start it!" ; fi
         else
             for host in ${otherLDMHosts} ; do 
-                ssh $host "if [ -f /usr/local/ldm/ldmd.pid ]; then su ldm -lc 'ldmadmin pqactHUP' | while read line; do echo -e \"\t${line}\"; done ; fi"
+                ssh $host "if [ -f /awips2/ldm/ldmd.pid ]; then su ldm -lc 'ldmadmin pqactHUP' | while read line; do echo -e \"\t${line}\"; done ; fi"
                 if [[ "${host}" == "${ldmsshHost}" ]] ; then 
                     for partner in $( echo ${otherLDMHosts} | sed -e "s/${host}//g" ) ; do
-                        ssh -qn $host "scp -qp /usr/local/ldm/etc/${pqfilename} ${partner}:/usr/local/ldm/etc/" 
+                        ssh -qn $host "scp -qp /awips2/ldm/etc/${pqfilename} ${partner}:/awips2/ldm/etc/" 
                     done
                 fi                    
            done

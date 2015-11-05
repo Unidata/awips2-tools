@@ -392,32 +392,6 @@ do
 	fi
 done
 
-#shapefile loading must be done on dx1f if an AWIPS site, ADAM is ADAM
-if echo -e "${functionsToRun[@]}" | grep shapefile > /dev/null && ! echo -e ${runtimeHost} | grep adam > /dev/null
-then
-	dbHost=$( ssh -qn ${EDEXDBSVR} hostname )
-	if [[ "${runtimeHost}" != "${dbHost}" ]]
-	then
-		color_echo red 1 "ERROR: Functions which involve shapefile import must be run where the Database is running (Currently ${dbHost})" 
-		echo -e "Please re-run script on ${dbHost}"
-		rm -f ${fullScriptPath}/.running
-		exit 1
-	fi
-fi
-
-#force ldm to run on dx1/2 or ADAM
-if echo -e "${functionsToRun[@]}" | grep pqact > /dev/null && ! echo -e ${runtimeHost} | grep adam > /dev/null
-then
-	if [[ "${runtimeHost/-*/}" != "dx1" && "${runtimeHost/-*/}" != "dx2" ]]
-	then
-		color_echo red 1 "ERROR: ldm config must take place on dx1 or dx2. Config files will be copied to CPs"
-		echo -e "Please re-run script on dx1 or dx2"
-		rm -f ${fullScriptPath}/.running
-		exit 1
-	fi
-fi
-
-
 # Time to run the functions we need to ... 
 # new as of 04 Nov 2011
 for myFunction in ${functionsToRun[@]}
