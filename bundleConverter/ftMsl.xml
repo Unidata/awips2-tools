@@ -1,0 +1,4 @@
+@VUNIT,0.001@
+                <heightScale heightType="HEIGHT" scale="LIN" 
+                 parameterUnit="m*1524/5" parameter="GH" maxVal="@TOP@" 
+                 minVal="@BOTTOM@" name="@BOTTOM@-@TOP@kft MSL" unit="KILOFEET"/>

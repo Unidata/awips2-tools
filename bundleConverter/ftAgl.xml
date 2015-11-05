@@ -1,0 +1,4 @@
+@VUNIT,0.001@
+                <heightScale heightType="HEIGHT_AGL" scale="LIN" 
+                 parameterUnit="m*1524/5" parameter="zAGL" maxVal="@TOP@" 
+                 minVal="@BOTTOM@" name="@BOTTOM@-@TOP@kft AGL" unit="KILOFEET AGL"/>

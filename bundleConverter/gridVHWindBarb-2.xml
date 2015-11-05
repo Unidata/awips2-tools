@@ -1,0 +1,30 @@
+                <resource>
+                    <loadProperties xsi:type="gridLoadProperties" displayType="BARB" loadWithoutData="false">
+                        <resourceType>VAR_HEIGHT</resourceType>
+                        <perspectiveProperty xsi:type="d2dLoadProperties" timeMatchBasis="false"/>
+                        <capabilities>
+                            <capability xsi:type="colorableCapability" colorAsString="coral"/>
+                            <capability xsi:type="timeMatchBasisCapability"/>
+                            <capability xsi:type="displayTypeCapability" displayType="BARB"/>
+                        </capabilities>
+                    </loadProperties>
+                    <properties renderingOrderId="UNKNOWN" isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+                        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                    </properties>
+                    <resourceData xsi:type="varHeightResourceData" pointLetter="I" parameterName="@VB_LEGEND@" parameter="@VB_FIELD@" retrieveData="true" isUpdatingOnMetadataOnly="false" isRequeryNecessaryOnTimeMatch="true">
+                        <metadataMap>
+                            <mapping key="location.stationId">
+                                <constraint constraintValue="@STATION_INFO@" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="pluginName">
+                                <constraint constraintValue="@DB_NAME@" constraintType="EQUALS"/>
+                            </mapping>
+                        </metadataMap>
+                        <point>
+                            <z>NaN</z>
+                            <x>@POINT_LON@</x>
+                            <y>@POINT_LAT@</y>
+                        </point>
+                        <source>@VB_SOURCE@</source>
+                    </resourceData>
+                </resource>

@@ -1,0 +1,32 @@
+                <resource>
+                    <loadProperties loadWithoutData="true">
+                        <resourceType>PLAN_VIEW</resourceType>
+                        <perspectiveProperty xsi:type="d2dLoadProperties" timeMatchBasis="true" loadMode="VALID_TIME_SEQ"/>
+                        <capabilities>
+                            <capability xsi:type="timeMatchBasisCapability"/>
+                        </capabilities>
+                    </loadProperties>
+@REPLACE,alt_toggle_state,isVisible@
+                    <properties renderingOrderId="UNKNOWN" isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" alt_toggle_state="true">
+                        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                    </properties>
+@STATION_TABLE,raob.goodness@
+                    <resourceData xsi:type="bufruaNSharpResourceData" pointName="@STATION_ID@" soundingType="BUFRUA" retrieveData="false" isUpdatingOnMetadataOnly="false" isRequeryNecessaryOnTimeMatch="true">
+                        <metadataMap>
+                            <mapping key="location.stationId">
+                                <constraint constraintValue="@STATION_INFO@" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="pluginName">
+                                <constraint constraintValue="bufrua" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="reportType">
+                                <constraint constraintValue="2020" constraintType="EQUALS"/>
+                            </mapping>
+                        </metadataMap>
+                        <coordinate>
+                            <x>@POINT_LON@</x>
+                            <y>@POINT_LAT@</y>
+                            <z>NaN</z>
+                        </coordinate>
+                    </resourceData>
+                </resource>

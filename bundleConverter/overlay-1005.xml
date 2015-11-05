@@ -1,0 +1,53 @@
+                <resource>
+                    <loadProperties loadWithoutData="false">
+                        <resourceType>PLAN_VIEW</resourceType>
+                        <capabilities>
+                            <capability xsi:type="colorableCapability" colorAsString="#9b9b9b"/>
+                            <capability xsi:type="outlineCapability" lineStyle="SOLID" outlineOn="true" outlineWidth="1"/>
+                        </capabilities>
+                    </loadProperties>
+                    <properties renderingOrderId="MAP_OUTLINE" isSystemResource="false" isBlinking="false" isMapLayer="true" isHoverOn="false" isVisible="true">
+                        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                    </properties>
+                    <resourceData xsi:type="mapResourceGroupData">
+                        <resource>
+                            <loadProperties loadWithoutData="false">
+                                <resourceType>PLAN_VIEW</resourceType>
+                                <capabilities>
+                                    <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                                    <capability xsi:type="colorableCapability" colorAsString="#9b9b9b"/>
+                                    <capability xsi:type="shadeableCapability"/>
+                                    <capability xsi:type="labelableCapability"/>
+                                    <capability xsi:type="outlineCapability" lineStyle="SOLID" outlineOn="true" outlineWidth="1"/>
+                                </capabilities>
+                            </loadProperties>
+                            <properties isSystemResource="false" isBlinking="false" isMapLayer="true" isHoverOn="false" isVisible="true">
+                                <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                            </properties>
+                            <resourceData xsi:type="dbMapResourceData">
+                                <mapName>Lat/Lon 10 over Ocean</mapName>
+                                <table>mapdata.latlon10</table>
+                                <geomField>the_geom</geomField>
+                            </resourceData>
+                        </resource>
+                        <resource>
+                            <loadProperties loadWithoutData="false">
+                                <resourceType>PLAN_VIEW</resourceType>
+                                <capabilities>
+                                    <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                                    <capability xsi:type="pointCapability" pointStyle="CROSS"/>
+                                    <capability xsi:type="colorableCapability" colorAsString="#9b9b9b"/>
+                                    <capability xsi:type="outlineCapability" lineStyle="SOLID" outlineOn="true" outlineWidth="1"/>
+                                    <capability xsi:type="densityCapability" density="1.0"/>
+                                </capabilities>
+                            </loadProperties>
+                            <properties isSystemResource="false" isBlinking="false" isMapLayer="true" isHoverOn="false" isVisible="true">
+                                <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                            </properties>
+                            <resourceData xsi:type="lpiResourceData">
+                                <filename>latlon10.lpi</filename>
+                            </resourceData>
+                        </resource>
+                        <mapName>Lat/Lon 10 over Ocean</mapName>
+                    </resourceData>
+                </resource>

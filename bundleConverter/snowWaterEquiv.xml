@@ -1,0 +1,41 @@
+                <resource>
+                    <loadProperties loadWithoutData="false">
+                        <resourceType>PLAN_VIEW</resourceType>
+                        <perspectiveProperty xsi:type="d2dLoadProperties" timeMatchBasis="true" loadMode="VALID_TIME_SEQ"/>
+                        <capabilities>
+                            <capability xsi:type="displayTypeCapability" displayType="IMAGE"/>
+                            <capability xsi:type="timeMatchBasisCapability"/>
+                            <capability xsi:type="colorMapCapability">
+                                @COLOR_MAP_INFO@
+                            </capability>
+                            <capability xsi:type="colorableCapability" colorAsString="white"/>
+                            <capability xsi:type="imagingCapability" alpha="1.0" interpolationState="true" brightness="1.0" contrast="1.0"/>
+                        </capabilities>
+                    </loadProperties>
+                    <properties renderingOrderId="IMAGE_REGION" isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+                        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                    </properties>
+                    <resourceData xsi:type="dataMappedGridResourceData" sampleFormat="#0.00" spatial="false" sampling="true" customLegend="NOHRSC Snow Water Equivalent (in)" retrieveData="true" isUpdatingOnMetadataOnly="false" isRequeryNecessaryOnTimeMatch="true">
+                        <metadataMap>
+                            <mapping key="info.level.levelonevalue">
+                                <constraint constraintValue="0.0" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="info.parameter.abbreviation">
+                                <constraint constraintValue="swe" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="info.datasetId">
+                                <constraint constraintValue="NOHRSC-SNOW" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="info.level.leveltwovalue">
+                                <constraint constraintValue="-999999.0" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="pluginName">
+                                <constraint constraintValue="grid" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="info.level.masterLevel.name">
+                                <constraint constraintValue="SFC" constraintType="EQUALS"/>
+                            </mapping>
+                        </metadataMap>
+                        <alertParser xsi:type="dataCubeAlertMessageParser"/>
+                    </resourceData>
+                </resource>

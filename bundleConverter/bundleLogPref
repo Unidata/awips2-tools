@@ -1,0 +1,4 @@
+all all all all = off 
+convertBundles convertBundles.C tty all = on
+convertBundles BundleConversionInfo.C tty all = on
+convertBundles SignalClient.C tty all = on

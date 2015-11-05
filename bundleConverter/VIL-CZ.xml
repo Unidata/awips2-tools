@@ -1,0 +1,253 @@
+                <resource>
+                    <loadProperties loadWithoutData="false">
+                        <resourceType>PLAN_VIEW</resourceType>
+                        <perspectiveProperty xsi:type="d2dLoadProperties" timeMatchBasis="true"/>
+                        <capabilities>
+                            <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                            <capability xsi:type="imagingCapability" alpha="1.0" interpolationState="false" brightness="1.0" contrast="1.0"/>
+                            <capability xsi:type="timeMatchBasisCapability"/>
+                            <capability xsi:type="colorMapCapability">
+                                @COLOR_MAP_INFO@
+                            </capability>
+                            <capability xsi:type="colorableCapability" colorAsString="white"/>
+                            <capability xsi:type="rangeRingsOverlayCapability"/>
+                        </capabilities>
+                    </loadProperties>
+                    <properties renderingOrderId="IMAGE_LOCAL" isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+                        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                    </properties>
+                    <resourceData xsi:type="radarMosaicResourceData" mergeUpperText="true" mosaicType="MergeRaster" productName="kftg VIL/Comp Ref ({U}~)" retrieveData="true" isUpdatingOnMetadataOnly="false" isRequeryNecessaryOnTimeMatch="true">
+                        <metadataMap>
+                            <mapping key="productCode">
+                                <constraint constraintValue="38,36,37,35,57" constraintType="IN"/>
+                            </mapping>
+                            <mapping key="icao">
+                                <constraint constraintValue="kftg" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="pluginName">
+                                <constraint constraintValue="radar" constraintType="EQUALS"/>
+                            </mapping>
+                        </metadataMap>
+                        <resource>
+                            <loadProperties loadWithoutData="false">
+                                <resourceType>PLAN_VIEW</resourceType>
+                                <perspectiveProperty xsi:type="d2dLoadProperties" timeMatchBasis="true"/>
+                                <capabilities>
+                                    <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                                    <capability xsi:type="imagingCapability" alpha="1.0" interpolationState="false" brightness="1.0" contrast="1.0"/>
+                                    <capability xsi:type="timeMatchBasisCapability"/>
+                                    <capability xsi:type="colorMapCapability">
+                                        <colorMapParameters colorMapName="Radar/Storm Clear Reflectivity"/>
+                                    </capability>
+                                    <capability xsi:type="colorableCapability" colorAsString="white"/>
+                                    <capability xsi:type="rangeRingsOverlayCapability"/>
+                                </capabilities>
+                            </loadProperties>
+                            <properties renderingOrderId="IMAGE_LOCAL" isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+                                <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                            </properties>
+                            <resourceData xsi:type="bestResResourceData" productIdentifierKey="productCode" retrieveData="true" isUpdatingOnMetadataOnly="false" isRequeryNecessaryOnTimeMatch="true">
+                                <metadataMap>
+                                    <mapping key="productCode">
+                                        <constraint constraintValue="37,35" constraintType="IN"/>
+                                    </mapping>
+                                    <mapping key="icao">
+                                        <constraint constraintValue="kftg" constraintType="EQUALS"/>
+                                    </mapping>
+                                    <mapping key="pluginName">
+                                        <constraint constraintValue="radar" constraintType="EQUALS"/>
+                                    </mapping>
+                                </metadataMap>
+                                <resource>
+                                    <loadProperties loadWithoutData="false">
+                                        <resourceType>PLAN_VIEW</resourceType>
+                                        <perspectiveProperty xsi:type="d2dLoadProperties" timeMatchBasis="false"/>
+                                        <capabilities>
+                                            <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                                            <capability xsi:type="imagingCapability" alpha="1.0" interpolationState="false" brightness="1.0" contrast="1.0"/>
+                                            <capability xsi:type="timeMatchBasisCapability"/>
+                                            <capability xsi:type="colorMapCapability">
+                                                <colorMapParameters colorMapName="Radar/Storm Clear Reflectivity"/>
+                                            </capability>
+                                            <capability xsi:type="colorableCapability" colorAsString="white"/>
+                                            <capability xsi:type="rangeRingsOverlayCapability"/>
+                                        </capabilities>
+                                    </loadProperties>
+                                    <properties isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+                                        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                                    </properties>
+                                    <resourceData xsi:type="radarResourceData" rangeRings="true" latest="false" mode="" pointID="" retrieveData="true" isUpdatingOnMetadataOnly="false" isRequeryNecessaryOnTimeMatch="true">
+                                        <metadataMap>
+                                            <mapping key="productCode">
+                                                <constraint constraintValue="37" constraintType="EQUALS"/>
+                                            </mapping>
+                                            <mapping key="icao">
+                                                <constraint constraintValue="kftg" constraintType="EQUALS"/>
+                                            </mapping>
+                                            <mapping key="pluginName">
+                                                <constraint constraintValue="radar" constraintType="EQUALS"/>
+                                            </mapping>
+                                        </metadataMap>
+                                    </resourceData>
+                                </resource>
+                                <resource>
+                                    <loadProperties loadWithoutData="false">
+                                        <resourceType>PLAN_VIEW</resourceType>
+                                        <perspectiveProperty xsi:type="d2dLoadProperties" timeMatchBasis="false"/>
+                                        <capabilities>
+                                            <capability xsi:type="imagingCapability" alpha="1.0" interpolationState="false" brightness="1.0" contrast="1.0"/>
+                                            <capability xsi:type="rangeRingsOverlayCapability"/>
+                                        </capabilities>
+                                    </loadProperties>
+                                    <properties isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+                                        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                                    </properties>
+                                    <resourceData xsi:type="radarResourceData" rangeRings="true" latest="false" mode="" pointID="" retrieveData="true" isUpdatingOnMetadataOnly="false" isRequeryNecessaryOnTimeMatch="true">
+                                        <metadataMap>
+                                            <mapping key="productCode">
+                                                <constraint constraintValue="35" constraintType="EQUALS"/>
+                                            </mapping>
+                                            <mapping key="icao">
+                                                <constraint constraintValue="kftg" constraintType="EQUALS"/>
+                                            </mapping>
+                                            <mapping key="pluginName">
+                                                <constraint constraintValue="radar" constraintType="EQUALS"/>
+                                            </mapping>
+                                        </metadataMap>
+                                    </resourceData>
+                                </resource>
+                                <enabler xsi:type="radarSpatialEnabler"/>
+                            </resourceData>
+                        </resource>
+                        <resource>
+                            <loadProperties loadWithoutData="false">
+                                <resourceType>PLAN_VIEW</resourceType>
+                                <perspectiveProperty xsi:type="d2dLoadProperties" timeMatchBasis="true"/>
+                                <capabilities>
+                                    <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                                    <capability xsi:type="imagingCapability" alpha="1.0" interpolationState="false" brightness="1.0" contrast="1.0"/>
+                                    <capability xsi:type="timeMatchBasisCapability"/>
+                                    <capability xsi:type="colorMapCapability">
+                                        <colorMapParameters colorMapName="Radar/Storm Clear Reflectivity"/>
+                                    </capability>
+                                    <capability xsi:type="colorableCapability" colorAsString="white"/>
+                                    <capability xsi:type="rangeRingsOverlayCapability"/>
+                                </capabilities>
+                            </loadProperties>
+                            <properties renderingOrderId="IMAGE_LOCAL" isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+                                <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                            </properties>
+                            <resourceData xsi:type="bestResResourceData" productIdentifierKey="productCode" retrieveData="true" isUpdatingOnMetadataOnly="false" isRequeryNecessaryOnTimeMatch="true">
+                                <metadataMap>
+                                    <mapping key="productCode">
+                                        <constraint constraintValue="38,36,57" constraintType="IN"/>
+                                    </mapping>
+                                    <mapping key="icao">
+                                        <constraint constraintValue="kftg" constraintType="EQUALS"/>
+                                    </mapping>
+                                    <mapping key="pluginName">
+                                        <constraint constraintValue="radar" constraintType="EQUALS"/>
+                                    </mapping>
+                                </metadataMap>
+                                <resource>
+                                    <loadProperties loadWithoutData="false">
+                                        <resourceType>PLAN_VIEW</resourceType>
+                                        <perspectiveProperty xsi:type="d2dLoadProperties" timeMatchBasis="false"/>
+                                        <capabilities>
+                                            <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                                            <capability xsi:type="imagingCapability" alpha="1.0" interpolationState="false" brightness="1.0" contrast="1.0"/>
+                                            <capability xsi:type="timeMatchBasisCapability"/>
+                                            <capability xsi:type="outlineCapability" lineStyle="DEFAULT" outlineOn="true" outlineWidth="1"/>
+                                            <capability xsi:type="colorMapCapability">
+                                                <colorMapParameters colorMapName="Radar/Storm Clear Reflectivity"/>
+                                            </capability>
+                                            <capability xsi:type="colorableCapability" colorAsString="white"/>
+                                            <capability xsi:type="rangeRingsOverlayCapability"/>
+                                        </capabilities>
+                                    </loadProperties>
+                                    <properties isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+                                        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                                    </properties>
+                                    <resourceData xsi:type="radarResourceData" rangeRings="true" latest="false" mode="" pointID="" retrieveData="true" isUpdatingOnMetadataOnly="false" isRequeryNecessaryOnTimeMatch="true">
+                                        <metadataMap>
+                                            <mapping key="productCode">
+                                                <constraint constraintValue="38" constraintType="EQUALS"/>
+                                            </mapping>
+                                            <mapping key="icao">
+                                                <constraint constraintValue="kftg" constraintType="EQUALS"/>
+                                            </mapping>
+                                            <mapping key="pluginName">
+                                                <constraint constraintValue="radar" constraintType="EQUALS"/>
+                                            </mapping>
+                                        </metadataMap>
+                                    </resourceData>
+                                </resource>
+                                <resource>
+                                    <loadProperties loadWithoutData="false">
+                                        <resourceType>PLAN_VIEW</resourceType>
+                                        <perspectiveProperty xsi:type="d2dLoadProperties" timeMatchBasis="false"/>
+                                        <capabilities>
+                                            <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                                            <capability xsi:type="imagingCapability" alpha="1.0" interpolationState="false" brightness="1.0" contrast="1.0"/>
+                                            <capability xsi:type="timeMatchBasisCapability"/>
+                                            <capability xsi:type="colorMapCapability">
+                                                <colorMapParameters colorMapName="Radar/Storm Clear Reflectivity"/>
+                                            </capability>
+                                            <capability xsi:type="colorableCapability" colorAsString="white"/>
+                                            <capability xsi:type="rangeRingsOverlayCapability"/>
+                                        </capabilities>
+                                    </loadProperties>
+                                    <properties isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+                                        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                                    </properties>
+                                    <resourceData xsi:type="radarResourceData" rangeRings="true" latest="false" mode="" pointID="" retrieveData="true" isUpdatingOnMetadataOnly="false" isRequeryNecessaryOnTimeMatch="true">
+                                        <metadataMap>
+                                            <mapping key="productCode">
+                                                <constraint constraintValue="36" constraintType="EQUALS"/>
+                                            </mapping>
+                                            <mapping key="icao">
+                                                <constraint constraintValue="kftg" constraintType="EQUALS"/>
+                                            </mapping>
+                                            <mapping key="pluginName">
+                                                <constraint constraintValue="radar" constraintType="EQUALS"/>
+                                            </mapping>
+                                        </metadataMap>
+                                    </resourceData>
+                                </resource>
+                                <resource>
+                                    <loadProperties loadWithoutData="false">
+                                        <resourceType>PLAN_VIEW</resourceType>
+                                        <perspectiveProperty xsi:type="d2dLoadProperties" timeMatchBasis="false"/>
+                                        <capabilities>
+                                            <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                                            <capability xsi:type="imagingCapability" alpha="1.0" interpolationState="false" brightness="1.0" contrast="1.0"/>
+                                            <capability xsi:type="timeMatchBasisCapability"/>
+                                            <capability xsi:type="colorMapCapability">
+                                                <colorMapParameters colorMapName="Radar/Storm Clear Reflectivity"/>
+                                            </capability>
+                                            <capability xsi:type="colorableCapability" colorAsString="white"/>
+                                            <capability xsi:type="rangeRingsOverlayCapability"/>
+                                        </capabilities>
+                                    </loadProperties>
+                                    <properties isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+                                        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                                    </properties>
+                                    <resourceData xsi:type="radarResourceData" rangeRings="true" latest="false" mode="CZ" pointID="" retrieveData="true" isUpdatingOnMetadataOnly="false" isRequeryNecessaryOnTimeMatch="true">
+                                        <metadataMap>
+                                            <mapping key="productCode">
+                                                <constraint constraintValue="57" constraintType="EQUALS"/>
+                                            </mapping>
+                                            <mapping key="icao">
+                                                <constraint constraintValue="kftg" constraintType="EQUALS"/>
+                                            </mapping>
+                                            <mapping key="pluginName">
+                                                <constraint constraintValue="radar" constraintType="EQUALS"/>
+                                            </mapping>
+                                        </metadataMap>
+                                    </resourceData>
+                                </resource>
+                                <enabler xsi:type="radarSpatialEnabler"/>
+                            </resourceData>
+                        </resource>
+                    </resourceData>
+                </resource>

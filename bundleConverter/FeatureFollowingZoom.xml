@@ -1,0 +1,16 @@
+<resource>
+    <loadProperties loadWithoutData="false">
+        <resourceType>PLAN_VIEW</resourceType>
+        <capabilities>
+            <capability xsi:type="colorableCapability" colorAsString="green"/>
+        </capabilities>
+    </loadProperties>
+    <properties renderingOrderId="UNKNOWN" isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+    </properties>
+    <resourceData xsi:type="awipsToolsResourceData">
+        <name>Feature Following Zoom</name>
+        <classT>com.raytheon.viz.awipstools.ui.layer.FeatureFollowingZoomLayer</classT>
+    </resourceData>
+</resource>
+                

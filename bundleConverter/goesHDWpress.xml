@@ -1,0 +1,31 @@
+                <resource>
+                    <loadProperties loadWithoutData="false">
+                        <resourceType>PLAN_VIEW</resourceType>
+                        <perspectiveProperty xsi:type="d2dLoadProperties" timeMatchBasis="true" loadMode="VALID_TIME_SEQ"/>
+                        <capabilities>
+                            <capability xsi:type="outlineCapability" lineStyle="DEFAULT" outlineOn="true" outlineWidth="1"/>
+                            <capability xsi:type="densityCapability" density="1.0"/>
+                            <capability xsi:type="timeMatchBasisCapability"/>
+                            <capability xsi:type="colorableCapability" colorAsString="green"/>
+                            <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                        </capabilities>
+                    </loadProperties>
+                    <properties renderingOrderId="PLOT" isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+                        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                    </properties>
+@REPLACE,500--,600--,000--,100--,10100--,10000--@
+@REPLACE_FOR_KEY,10013,bufrhdw,bufrmthdw@
+                    <resourceData xsi:type="plotResourceData" limitTimeQuery="false" isTopOfTheHour="false" plotMissingData="false" upperLimit="1.0E7" lowerLimit="-9999.0" plotSource="@OVERLAY_LEGEND@" plotModelFile="hdwTypePlotDesign.svg" pixelSizeHint="90" retrieveData="false" isUpdatingOnMetadataOnly="false" isRequeryNecessaryOnTimeMatch="true">
+                        <metadataMap>
+                            <mapping key="pressure">
+                                <constraint constraintValue="@minMB@00--@maxMB@00" constraintType="BETWEEN"/>
+                            </mapping>
+                            <mapping key="pluginName">
+                                <constraint constraintValue="bufrhdw" constraintType="EQUALS"/>
+                            </mapping>
+                        </metadataMap>
+                        <binOffset virtualOffset="0" posOffset="1800" negOffset="1800"/>
+                        <alertParser xsi:type="plotAlertParser"/>
+                        <plotInfoRetriever xsi:type="pointDataPlotInfoRetriever"/>
+                    </resourceData>
+                </resource>

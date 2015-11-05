@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bundle xmlns:ns2="group">
+    <displayList>
+        <displays xsi:type="d2DMapRenderableDisplay" scale="State(s)" 
+          density="1.0" magnification="1.0" zoomLevel="1.000000"
+          mapCenter="-97.789726 41.429817 0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <descriptor xsi:type="mapDescriptor">
+                <resource>
+                    <loadProperties loadWithoutData="true">
+                        <resourceType>PLAN_VIEW</resourceType>
+                        <perspectiveProperty xsi:type="d2dLoadProperties" timeMatchBasis="true" loadMode="VALID_TIME_SEQ"/>
+                        <capabilities>
+                            <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                            <capability xsi:type="outlineCapability" lineStyle="SOLID" outlineOn="true" outlineWidth="2"/>
+                            <capability xsi:type="colorableCapability" colorAsString="#00ff00"/>
+                        </capabilities>
+                    </loadProperties>
+                    <properties renderingOrderId="PLOT" isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="false">
+                        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                    </properties>
+                    <resourceData xsi:type="wwaResourceData" hideSampling="true" name="Local &amp; Regional &gt;  Warnings" retrieveData="true" isUpdatingOnMetadataOnly="false" isRequeryNecessaryOnTimeMatch="false">
+                        <metadataMap>
+                            <mapping key="pil">
+                                <constraint constraintValue="SVR,TOR,SVS" constraintType="IN"/>
+                            </mapping>
+                            <mapping key="officeid">
+                                <constraint constraintValue="KOAX, KTOP, KFSD, KLBF" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="act">
+                                <constraint constraintValue="NEW,CON,CAN,EXP" constraintType="IN"/>
+                            </mapping>
+                            <mapping key="pluginName">
+                                <constraint constraintValue="warning" constraintType="EQUALS"/>
+                            </mapping>
+                        </metadataMap>
+                    </resourceData>
+                </resource>
+                <resource>
+                    <loadProperties loadWithoutData="true">
+                        <resourceType>PLAN_VIEW</resourceType>
+                        <perspectiveProperty xsi:type="d2dLoadProperties" timeMatchBasis="true" loadMode="VALID_TIME_SEQ"/>
+                        <capabilities>
+                            <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                            <capability xsi:type="outlineCapability" lineStyle="SOLID" outlineOn="true" outlineWidth="2"/>
+                            <capability xsi:type="colorableCapability" colorAsString="#ffff00"/>
+                        </capabilities>
+                    </loadProperties>
+                    <properties renderingOrderId="PLOT" isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+                        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                    </properties>
+                    <resourceData xsi:type="wwaResourceData" hideSampling="true" name="Local &amp; Regional &lt; SVR Warnings" retrieveData="true" isUpdatingOnMetadataOnly="false" isRequeryNecessaryOnTimeMatch="false">
+                        <metadataMap>
+                            <mapping key="phensig">
+                                <constraint constraintValue="SV.W" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="pil">
+                                <constraint constraintValue="SVR,SVS" constraintType="IN"/>
+                            </mapping>
+                            <mapping key="officeid">
+                                <constraint constraintValue="KOAX, KTOP, KFSD, KLBF" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="act">
+                                <constraint constraintValue="NEW,CON,CAN,EXP" constraintType="IN"/>
+                            </mapping>
+                            <mapping key="pluginName">
+                                <constraint constraintValue="warning" constraintType="EQUALS"/>
+                            </mapping>
+                        </metadataMap>
+                    </resourceData>
+                </resource>
+                <resource>
+                    <loadProperties loadWithoutData="true">
+                        <resourceType>PLAN_VIEW</resourceType>
+                        <perspectiveProperty xsi:type="d2dLoadProperties" timeMatchBasis="true" loadMode="VALID_TIME_SEQ"/>
+                        <capabilities>
+                            <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                            <capability xsi:type="outlineCapability" lineStyle="SOLID" outlineOn="true" outlineWidth="2"/>
+                            <capability xsi:type="colorableCapability" colorAsString="#ff0000"/>
+                        </capabilities>
+                    </loadProperties>
+                    <properties renderingOrderId="PLOT" isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+                        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                    </properties>
+                    <resourceData xsi:type="wwaResourceData" hideSampling="true" name="Local &amp; Regional TOR Warnings" retrieveData="true" isUpdatingOnMetadataOnly="false" isRequeryNecessaryOnTimeMatch="false">
+                        <metadataMap>
+                            <mapping key="phensig">
+                                <constraint constraintValue="TO.W" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="pil">
+                                <constraint constraintValue="TOR,SVS" constraintType="IN"/>
+                            </mapping>
+                            <mapping key="officeid">
+                                <constraint constraintValue="KOAX, KTOP, KFSD, KLBF" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="act">
+                                <constraint constraintValue="NEW,CON,CAN,EXP" constraintType="IN"/>
+                            </mapping>
+                            <mapping key="pluginName">
+                                <constraint constraintValue="warning" constraintType="EQUALS"/>
+                            </mapping>
+                        </metadataMap>
+                    </resourceData>
+                </resource>
+                <resource>
+                    <loadProperties loadWithoutData="false">
+                        <resourceType>PLAN_VIEW</resourceType>
+                        <capabilities>
+                            <capability xsi:type="colorableCapability" colorAsString="#9b9b9b"/>
+                            <capability xsi:type="outlineCapability" lineStyle="SOLID" outlineOn="true" outlineWidth="1"/>
+                        </capabilities>
+                    </loadProperties>
+                    <properties renderingOrderId="MAP_OUTLINE" isSystemResource="false" isBlinking="false" isMapLayer="true" isHoverOn="false" isVisible="true">
+                        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                    </properties>
+                    <resourceData xsi:type="mapResourceGroupData">
+                        <resource>
+                            <loadProperties loadWithoutData="false">
+                                <resourceType>PLAN_VIEW</resourceType>
+                                <capabilities>
+                                    <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                                    <capability xsi:type="colorableCapability" colorAsString="#9b9b9b"/>
+                                    <capability xsi:type="shadeableCapability"/>
+                                    <capability xsi:type="labelableCapability"/>
+                                    <capability xsi:type="outlineCapability" lineStyle="SOLID" outlineOn="true" outlineWidth="1"/>
+                                </capabilities>
+                            </loadProperties>
+                            <properties isSystemResource="false" isBlinking="false" isMapLayer="true" isHoverOn="false" isVisible="true">
+                                <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                            </properties>
+                            <resourceData xsi:type="dbMapResourceData">
+                                <mapName>World</mapName>
+                                <table>mapdata.world</table>
+                                <constraint>name not in ('CANADA', 'MEXICO', 'UNITED STATES')</constraint>
+                                <geomField>the_geom</geomField>
+                            </resourceData>
+                        </resource>
+                        <resource>
+                            <loadProperties loadWithoutData="false">
+                                <resourceType>PLAN_VIEW</resourceType>
+                                <capabilities>
+                                    <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                                    <capability xsi:type="colorableCapability" colorAsString="#9b9b9b"/>
+                                    <capability xsi:type="shadeableCapability"/>
+                                    <capability xsi:type="labelableCapability"/>
+                                    <capability xsi:type="outlineCapability" lineStyle="SOLID" outlineOn="true" outlineWidth="1"/>
+                                </capabilities>
+                            </loadProperties>
+                            <properties isSystemResource="false" isBlinking="false" isMapLayer="true" isHoverOn="false" isVisible="true">
+                                <pdProps maxDisplayWidth="100000000" minDisplayWidth="750000"/>
+                            </properties>
+                            <resourceData xsi:type="dbMapResourceData">
+                                <mapName>State Boundaries</mapName>
+                                <table>mapdata.states</table>
+                                <geomField>the_geom</geomField>
+                            </resourceData>
+                        </resource>
+                        <resource>
+                            <loadProperties loadWithoutData="false">
+                                <resourceType>PLAN_VIEW</resourceType>
+                                <capabilities>
+                                    <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                                    <capability xsi:type="colorableCapability" colorAsString="#9b9b9b"/>
+                                    <capability xsi:type="shadeableCapability"/>
+                                    <capability xsi:type="labelableCapability"/>
+                                    <capability xsi:type="outlineCapability" lineStyle="SOLID" outlineOn="true" outlineWidth="1"/>
+                                </capabilities>
+                            </loadProperties>
+                            <properties isSystemResource="false" isBlinking="false" isMapLayer="true" isHoverOn="false" isVisible="true">
+                                <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                            </properties>
+                            <resourceData xsi:type="dbMapResourceData">
+                                <mapName>Canada</mapName>
+                                <table>mapdata.canada</table>
+                                <geomField>the_geom</geomField>
+                            </resourceData>
+                        </resource>
+                        <resource>
+                            <loadProperties loadWithoutData="false">
+                                <resourceType>PLAN_VIEW</resourceType>
+                                <capabilities>
+                                    <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                                    <capability xsi:type="colorableCapability" colorAsString="#9b9b9b"/>
+                                    <capability xsi:type="shadeableCapability"/>
+                                    <capability xsi:type="labelableCapability"/>
+                                    <capability xsi:type="outlineCapability" lineStyle="SOLID" outlineOn="true" outlineWidth="1"/>
+                                </capabilities>
+                            </loadProperties>
+                            <properties isSystemResource="false" isBlinking="false" isMapLayer="true" isHoverOn="false" isVisible="true">
+                                <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                            </properties>
+                            <resourceData xsi:type="dbMapResourceData">
+                                <mapName>Mexico</mapName>
+                                <table>mapdata.mexico</table>
+                                <geomField>the_geom</geomField>
+                            </resourceData>
+                        </resource>
+                        <resource>
+                            <loadProperties loadWithoutData="false">
+                                <resourceType>PLAN_VIEW</resourceType>
+                                <capabilities>
+                                    <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                                    <capability xsi:type="colorableCapability" colorAsString="#9b9b9b"/>
+                                    <capability xsi:type="shadeableCapability"/>
+                                    <capability xsi:type="labelableCapability"/>
+                                    <capability xsi:type="outlineCapability" lineStyle="SOLID" outlineOn="true" outlineWidth="1"/>
+                                </capabilities>
+                            </loadProperties>
+                            <properties isSystemResource="false" isBlinking="false" isMapLayer="true" isHoverOn="false" isVisible="true">
+                                <pdProps maxDisplayWidth="750000" minDisplayWidth="0"/>
+                            </properties>
+                            <resourceData xsi:type="dbMapResourceData">
+                                <mapName>County Boundaries</mapName>
+                                <table>mapdata.county</table>
+                                <geomField>the_geom</geomField>
+                            </resourceData>
+                        </resource>
+                        <mapName>State/County Boundaries</mapName>
+                    </resourceData>
+                </resource>
+                <limitedNumberOfFrames>2147483647</limitedNumberOfFrames>
+                <currentAnimationMode>Latest</currentAnimationMode>
+                <numberOfFrames>12</numberOfFrames>
+                <timeMatcher xsi:type="d2DTimeMatcher" loadMode="VALID_TIME_SEQ"
+                 deltaFilter="0" forecastFilter="0"/>
+                <gridGeometry envelopeMaxY="2223896.750000"
+                              envelopeMinY="1324729.625000"
+                              envelopeMaxX="217287.093750"
+                              envelopeMinX="-681880.500000"
+                              rangeY="0 9999" rangeX="0 9999">
+                    <CRS>PROJCS["Lambert_Conformal_Conic_1SP", 
+                         GEOGCS["WGS84(DD)", DATUM["WGS84", 
+                         SPHEROID["WGS84", 6378137.0, 298.257223563]],
+                         PRIMEM["Greenwich", 0.0], 
+                         UNIT["degree", 0.017453292519943295], 
+                         AXIS["Geodetic longitude", EAST], 
+                         AXIS["Geodetic latitude", NORTH]], 
+                         PROJECTION["Lambert_Conformal_Conic_1SP"], 
+                         PARAMETER["semi_major", 6371200.0], 
+                         PARAMETER["semi_minor", 6371200.0], 
+                         PARAMETER["central_meridian", -95.000000], 
+                         PARAMETER["latitude_of_origin", 25.000000], 
+                         PARAMETER["scale_factor", 1.0], 
+                         PARAMETER["false_easting", 0.0], 
+                         PARAMETER["false_northing", 0.0], 
+                         UNIT["m", 1.0], 
+                         AXIS["Easting", EAST], 
+                         AXIS["Northing", NORTH]]
+                    </CRS>
+                </gridGeometry>
+            </descriptor>
+        </displays>
+    </displayList>
+</bundle>

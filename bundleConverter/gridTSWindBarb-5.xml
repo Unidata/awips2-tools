@@ -1,0 +1,37 @@
+                <resource>
+                    <loadProperties xsi:type="gridLoadProperties" displayType="BARB" loadWithoutData="false">
+                        <resourceType>TIME_SERIES</resourceType>
+                        <perspectiveProperty xsi:type="d2dLoadProperties" timeMatchBasis="true" loadMode="VALID_TIME_SEQ"/>
+                        <capabilities>
+                            <capability xsi:type="colorableCapability" colorAsString="green"/>
+                            <capability xsi:type="displayTypeCapability" displayType="BARB"/>
+                        </capabilities>
+                    </loadProperties>
+                    <properties renderingOrderId="UNKNOWN" isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+                        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                    </properties>
+                    <resourceData xsi:type="timeSeriesResourceData" levelKey="500MB" pointLetter="A" source="@VB_SOURCE@" retrieveData="true" isUpdatingOnMetadataOnly="false" isRequeryNecessaryOnTimeMatch="true">
+                        <metadataMap>
+@EXTRA_XML@
+                            <mapping key="location.longitude">
+                                <constraint constraintValue="@LON_MIN@--@LON_MAX@" constraintType="BETWEEN"/>
+                            </mapping>
+                            <mapping key="location.latitude">
+                                <constraint constraintValue="@LAT_MIN@--@LAT_MAX@" constraintType="BETWEEN"/>
+                            </mapping>
+                            <mapping key="pluginName">
+                                <constraint constraintValue="@DB_NAME@" constraintType="EQUALS"/>
+                            </mapping>
+                        </metadataMap>
+                        <binOffset virtualOffset="0" posOffset="3600" negOffset="3600"/>
+                        <yParameter>
+                            <code>@VB_FIELD@</code>
+                            <name>@VB_LEGEND@</name>
+                        </yParameter>
+                        <coordinate>
+                            <x>@POINT_LON@</x>
+                            <y>@POINT_LAT@</y>
+                            <z>NaN</z>
+                        </coordinate>
+                    </resourceData>
+                </resource>

@@ -1,0 +1,36 @@
+                <resource>
+                    <loadProperties xsi:type="gridLoadProperties" displayType="STREAMLINE" loadWithoutData="false">
+                        <resourceType>CROSS_SECTION</resourceType>
+                        <perspectiveProperty xsi:type="d2dLoadProperties" timeMatchBasis="true" loadMode="VALID_TIME_SEQ"/>
+                        <capabilities>
+                            <capability xsi:type="densityCapability" density="1.0"/>
+                            <capability xsi:type="displayTypeCapability" displayType="STREAMLINE"/>
+                            <capability xsi:type="colorableCapability" colorAsString="green"/>
+                            <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                            <capability xsi:type="outlineCapability" lineStyle="DEFAULT" outlineOn="true" outlineWidth="1"/>
+                            <capability xsi:type="timeMatchBasisCapability"/>
+                        </capabilities>
+                    </loadProperties>
+                    <properties renderingOrderId="CONTOUR" isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+                        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                    </properties>
+                    <resourceData xsi:type="crossSectionResourceData" source="@VB_SOURCE@" parameterName="@VB_LEGEND@" parameter="@VB_FIELD@" retrieveData="true" isUpdatingOnMetadataOnly="false" isRequeryNecessaryOnTimeMatch="true">
+                        <metadataMap>
+                            <mapping key="info.datasetId">
+                                <constraint constraintValue="@VB_SOURCE@" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="info.parameter.abbreviation">
+                                <constraint constraintValue="@VB_FIELD@" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="info.level.leveltwovalue">
+                                <constraint constraintValue="-999999.0" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="pluginName">
+                                <constraint constraintValue="grid" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="info.level.masterLevel.name">
+                                <constraint constraintValue="MB" constraintType="EQUALS"/>
+                            </mapping>
+                        </metadataMap>
+                    </resourceData>
+                </resource>

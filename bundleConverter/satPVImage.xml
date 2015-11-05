@@ -1,0 +1,37 @@
+                <resource>
+                    <loadProperties loadWithoutData="false">
+                        <resourceType>PLAN_VIEW</resourceType>
+                        <perspectiveProperty xsi:type="d2dLoadProperties" timeMatchBasis="true" loadMode="VALID_TIME_SEQ"/>
+                        <capabilities>
+                            <capability xsi:type="imagingCapability" alpha="1.0" interpolationState="false" brightness="1.0" contrast="1.0"/>
+                            <capability xsi:type="colorMapCapability">
+                                @COLOR_MAP_INFO@
+                            </capability>
+                            <capability xsi:type="colorableCapability" colorAsString="white"/>
+                            <capability xsi:type="timeMatchBasisCapability"/>
+                        </capabilities>
+                    </loadProperties>
+                    <properties renderingOrderId="IMAGE_COUNTRY" isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+                        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                    </properties>
+                    <resourceData xsi:type="satBlendedResourceData" everyImage="false" millisecondsBlendAllowance="180000" timeMatchMode="ALL_IMAGES" retrieveData="false" isUpdatingOnMetadataOnly="false" isRequeryNecessaryOnTimeMatch="true">
+                        <metadataMap>
+                            <mapping key="DERIVED">
+                                <constraint constraintValue="execute1" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="creatingEntity">
+                                <constraint constraintValue="@SAT_ENTITY@" constraintType="LIKE"/>
+                            </mapping>
+                            <mapping key="pluginName">
+                                <constraint constraintValue="satellite" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="physicalElement">
+                                <constraint constraintValue="@SAT_CHANNEL@" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="sectorID">
+                                <constraint constraintValue="@SAT_SECTOR@" constraintType="IN"/>
+                            </mapping>
+                        </metadataMap>
+@DATA_KEY_TEXT,satPVImageDK.xml@
+                    </resourceData>
+                </resource>

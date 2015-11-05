@@ -1,0 +1,13 @@
+              <resource>
+              <loadProperties loadWithoutData="false">
+              <resourceType>PLAN_VIEW</resourceType>
+              <capabilities>
+              <capability xsi:type="blendableCapability" alphaStep="8" resourceIndex="0"/>
+              <capability xsi:type="colorableCapability" colorAsString="green"/>
+              <capability xsi:type="imagingCapability" alpha="1.0" interpolationState="false" brightness="1.0" contrast="1.0"/>
+              </capabilities>
+              </loadProperties>
+              <properties renderingOrderId="IMAGE_REGION" isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+              <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+              </properties>
+              <resourceData xsi:type="blendedResourceData">

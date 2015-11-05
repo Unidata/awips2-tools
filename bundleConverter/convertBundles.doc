@@ -1,0 +1,67 @@
+
+Usage documentation for convertBundles.
+
+
+The program convertBundles converts legacy system bundle and color table
+netcdf files into A-II xml format bundles and color table files.  If run
+with no arguments, will print out this usage message.
+
+
+There are two main primary usages for convertBundles:
+
+   convertBundles {a} {q} {l} {m} {v} netcdfPath
+   convertBundles {a} {q} {l} {m} {v} netcdfPath xmlPath ...
+
+In these idealized usage examples, netcdfPath is the full path to
+any old style D-2D netcdf bundle file.  The first usage writes the
+text of a Cave xml bundle to stdout.  For the second usage, xmlPath
+is the full path to any file to write the text of a Cave xml bundle to;
+there can be any number of netcdfPath / xmlPath pairs.  There are five
+optional literal single character flags that can change the behavior of
+the program:
+
+ a - Invokes a behavior where if a useable 'overlay' entry does not
+     already exist for a given depict key in BundleConversionInfo.txt,
+     the file overlay-kkkk.xml (where kkkk is the depict key for the
+     overlay) will automatically be used for this purpose if it exists.
+ q - Any diagnostic output to stdout is suppressed.
+ l - Diagnostic output includes a list of supporting xml files used in
+     specifically to support the conversion of each overlay.
+ m - List all supporting xml files read by the program regardless of
+     purpose. 
+ v - Verbose diagnostic output, everything from l and m plus alot more.
+
+
+There are four other primary usages triggered by a different set of
+optional literal single character flags, described below.
+
+
+This usage, triggered by the 'c' literal flag, performs legacy to A-II
+color table conversion.  The legacyColorMap.nc is the path to a legacy
+color table netcdf file, which may contain many color table files.
+outColorMapDir is the path to a directory where the output A-II xml
+color table files are to be written.  This directory must already exist. 
+
+     convertBundles c legacyColorMap.nc outColorMapDir
+
+
+This usage, triggered by the 'o' literal flag, takes an input xml file
+and strips out everything before the first occurence of <resource> and
+after the last occurence of </resource>.  This is meant to help with
+preparing overlay specific xml files for customization.
+
+     convertBundles o bundleDump.xml overlaySpecific.xml
+
+
+This usage, triggered by the 'p' literal flag, removes nearly all extraneous
+whitespace from bundle xml, and formats it in a very consistent way. This is
+meant to make direct comparisons of two different bundle xml files easier.
+
+     convertBundles p anyBundle.xml minimalWhiteSpace.xml
+
+
+This usage, triggered by the 'r' literal flag, reports the contents of any
+arbitrary list of legacy netcdf bundles.
+
+     convertBundles r netcdfPath ...
+

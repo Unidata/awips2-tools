@@ -1,0 +1,79 @@
+ 2|creatingEntity | Miscellaneous
+ 3|creatingEntity | JERS
+ 4|creatingEntity | ERS-QuickSCAT-Scatterometer
+ 5|creatingEntity | POES-NPOESS
+ 6|creatingEntity | Composite
+ 7|creatingEntity | DMSP
+ 8|creatingEntity | GMS
+ 9|creatingEntity | METEOSTAT
+14|creatingEntity | GOES-11(L)
+15|creatingEntity | GOES-12(M)
+16|creatingEntity | GOES-13(N)
+26|creatingEntity | NOAA16
+27|creatingEntity | NOAA17
+28|creatingEntity | NOAA18
+29|creatingEntity | NOAA19
+ 0|sectorID | Northern Hemisphere Composite
+ 1|sectorID | East CONUS
+ 2|sectorID | West CONUS
+ 3|sectorID | Alaska Regional
+ 4|sectorID | Alaska National
+ 5|sectorID | Hawaii Regional
+ 6|sectorID | Hawaii National
+ 7|sectorID | Puerto Rico Regional
+ 8|sectorID | Puerto Rico National
+ 9|sectorID | Supernational
+10|sectorID | NH Composite - Meteosat-GOES E-GOES W-GMS
+ 1|physicalElement | Imager Visible
+ 2|physicalElement | Imager 3.9 micron IR
+ 3|physicalElement | Imager 6.7-6.5 micron IR (WV)
+ 4|physicalElement | Imager 11 micron IR
+ 5|physicalElement | Imager 12 micron IR
+ 6|physicalElement | Imager 13 micron (IR)
+13|physicalElement | Sounder Based Derived Lifted Index (LI)
+14|physicalElement | Sounder Based Derived Precipitable Water (PW)
+15|physicalElement | Sounder Based Derived Surface Skin Temp (SFC Skin)
+16|physicalElement | Sounder Based Derived Lifted Index (LI)
+17|physicalElement | Sounder Based Derived Precipitable Water (PW)
+18|physicalElement | Sounder Based Derived Surface Skin Temp (SFC Skin)
+27|physicalElement | Gridded Cloud Top Pressure or Height
+28|physicalElement | Gridded Cloud Amount
+29|physicalElement | Rain fall rate
+40|physicalElement | Low cloud base imagery
+41|physicalElement | Sounder 14.71 micron imagery
+42|physicalElement | Sounder 14.37 micron imagery
+43|physicalElement | Sounder 14.06 micron imagery
+44|physicalElement | Sounder 13.64 micron imagery
+45|physicalElement | Sounder 13.37 micron imagery
+46|physicalElement | Sounder 12.66 micron imagery
+47|physicalElement | Sounder 12.02 micron imagery
+48|physicalElement | Sounder 11.03 micron imagery
+49|physicalElement | Sounder 9.71 micron imagery
+50|physicalElement | Sounder 7.43 micron imagery
+51|physicalElement | Sounder 7.02 micron imagery
+52|physicalElement | Sounder 6.51 micron imagery
+53|physicalElement | Sounder 4.57 micron imagery
+54|physicalElement | Sounder 4.52 micron imagery
+55|physicalElement | Sounder 4.45 micron imagery
+56|physicalElement | Sounder 4.13 micron imagery
+57|physicalElement | Sounder 3.98 micron imagery
+58|physicalElement | Sounder 3.74 micron imagery
+59|physicalElement | Sounder Visible imagery
+60|physicalElement | Percent of Normal TPW
+61|physicalElement | Imager Visible
+62|physicalElement | Imager 3.9 micron IR
+63|physicalElement | Imager 3.7 micron IR
+64|physicalElement | Imager 11 micron IR
+// multiple channels treated as one for access
+2,4 | comboElement | satDif11u3_9uIR
+3,4 | comboElement | satDivWVIR
+4,5 | comboElement | satDif11u12uIR
+4,6 | comboElement | satDif11u13uIR
+// lookup entity based on sector or sector,channel
+ 10 | comboEntity  | Composite
+9,13| comboEntity  | Composite
+9,14| comboEntity  | Composite
+9,16| comboEntity  | Composite
+9,18| comboEntity  | Composite
+9,27| comboEntity  | Composite
+9,28| comboEntity  | Composite

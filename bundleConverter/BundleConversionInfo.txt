@@ -1,0 +1,310 @@
+//
+// This file, BundleConversionInfo.txt, contains information about how to
+// convert old style D-2D netcdf bundles to A-II xml format bundles.
+//
+//  There are several types of records in this file.  For each record
+//  type, an idealized example is provided. The first vertical bar delimited
+//  field is literal.  The second vertical bar delimited field refers to 
+//  something from an old D-2D style bundle, and the third vertical
+//  vertical bar delimited field refers to a corresponding item in an
+//  A-II xml format bundle.
+//
+//   source     |   VB-source-id       |     VB-source-id
+//   plane      |   VB-plane-id        |     VB-plane-id
+//   plane      |   srcId;plnId;fldId  |     VB-plane-id
+//   plane      |   plnId;fldId        |     VB-plane-id
+//   field      |   VB-field-id        |     VB-field-id
+//   field      |   srcId;plnId;fldId  |     VB-field-id
+//   field      |   plnId;fldId        |     VB-field-id
+//   pointdb    |   VB-source-id       |     database name
+//   depiction  |  frame of reference  |     display template
+//   template   |  depictable type     |     overlay template
+//   overlay    |  depict key          |     overlay entry
+//   vertscale  |  vert scale enum     |     vertical scale template
+//   colormap   |  color table key     |     colorMapName
+//   datakey    |  depictable type     |     datakey template
+//   pertconfig |  legSrcId            |     yes
+//   pertconfig |  legFieldId          |     no
+//   pertconfig |  pertIdx-legSrcId    |     perturbationString
+//
+// Notes: 
+//   The depictable type in template entries can be modified in one of several
+//      ways.  For VB overlays it can be by -vbSourceId or -vbAccessorVersion.
+//      It can also be a radar generic string key in its entirery.  The literal
+//      modifier -mosaic refers to radar mosaics specifically, often represented
+//      by a triple nested <resource>.  Since the satellite depictable (type 2),
+//      is actually used for multiple types of plan view imagery,  this depict
+//      type can be modified by the top level directory the data is in.  For
+//      plan view plots (type 72) it can be modified by the data key of the
+//      associated design file.
+//   The depictable type in datakey entries can be modified by the literal
+//      modifiers -outer and -inner, which are used when the overlay is
+//      represented by a triple nested <resource>.  It can also be modified
+//      by a radar generic string key.  An xml template that corresponds to 
+//      datakeys can also be referenced directly in the overlay template file.
+//   The database name can be modified by a trailing -n, which means
+//      also encode station number(s) in the overlay xml, or -i, which means
+//      also encode station id(s) in the overlay xml.
+//   There are entries for all default available vertical scale types, so
+//      the user should not normally ever adapt these.
+//   The station lists for the VB point data sources are looked up based on
+//      the D-2D grid source table and so are not entered here; these are
+//      the files with either .spi or .goodness extensions.  The local
+//      implementations are supplied because D-2D uses station numbers
+//      differently than Cave.
+//   colormap entries are only necessary if the algorithm for converting old
+//      D-2D color table names to A-II color table names is not working
+//      right for a particular table. For user tables, the legacy system
+//      entry should be key-username rather than only putting in the color
+//      table key.
+//   Entries of types source, plane, and field are only needed if there are
+//      instances where the ids for these in Cave are different than the
+//      ids in the legacy D-2D; in general they are the same.  Note that there
+//      are idealized examples for both plane and field where a either a combination
+//      of legacy system plane and field are entered, or a combination of source,
+//      plane, and field.  A combination entry overrides a single entry, and
+//      the ; is literal for these cases.
+//   For now, none of the radar specific VB templates (-4 ones) are
+//      implemented, because apparently the id of the radar being used
+//      is not encoded into the bundle.
+//   There are three related but different functionalities for pertconfig
+//      entries, each with a an idealized example shown.  To enable treating
+//      a source as ensemble data an entry like the first example must be
+//      present; legSrcId refers to a legacy system VB source id.  To disable
+//      treating a field as ensemble data (mostly for ensemble derived
+//      products) an entry like the second example is needed.  To identify
+//      an ensemble member with a string instead of just the perturbation
+//      index, and entry like the third example is needed; this is only
+//      needed starting with release 13.2.1.  In these examples, the strings
+//      'pertconfig', '-' 'yes' and 'no' are literal.  There are already 
+//      specific instances of all three of these in this default version of
+//      BundleConversionInfo.txt.
+//
+//
+// The file enumerationInfo.txt documents some of the D-2D code
+// embedded enumerations that are used in the bundle conversion.
+//
+depiction   |   plan-view   |  planViewDisplay.xml
+template    |   3           |  gridPVContour.xml
+template    |   10          |  gridPVImage.xml
+template    |   4           |  gridPVWindBarb.xml
+template    |   13          |  gridPVStrmln.xml
+template    |   14          |  gridPVArrow.xml
+template    |   15          |  gridPVDualArrow.xml
+template    |   9           |  gridPVIcon.xml
+template    |   3-5         |  gridPVContour-5.xml
+template    |   10-5        |  gridPVImage-5.xml
+template    |   4-5         |  gridPVWindBarb-5.xml
+//template    |   3-4         |  gridPVContour-4.xml
+//template    |   10-4        |  gridPVImage-4.xml
+depiction   |   time-series |  timeSeriesDisplay.xml
+template    |   47          |  gridTSGraph.xml
+template    |   58          |  gridTSIcon.xml
+template    |   59          |  gridTSWindBarb.xml
+template    |   60          |  gridTSArrow.xml
+template    |   61          |  timeSeriesBkgd.xml
+template    |   47-2        |  gridTSGraph-2.xml
+template    |   59-2        |  gridTSWindBarb-2.xml
+template    |   58-2        |  gridTSIcon-2.xml
+template    |   47-5        |  gridTSGraph-5.xml
+template    |   59-5        |  gridTSWindBarb-5.xml
+//template    |   47-4        |  gridTSGraph-4.xml
+depiction   | cross-section |  crossSectionDisplay.xml
+template    |   19          |  gridSHContour.xml
+template    |   20          |  gridSHImage.xml
+template    |   21          |  gridSHWindBarb.xml
+template    |   23          |  gridSHIcon.xml
+template    |   2121        |  gridSHStrmln.xml
+template    |   22          |  crossSectionBkgd.xml
+template    |   19-2        |  gridSHContour-2.xml
+template    |   20-2        |  gridSHImage-2.xml
+template    |   21-2        |  gridSHWindBarb-2.xml
+//template    |   19-4        |  gridSHContour-4.xml
+//template    |   20-4        |  gridSHImage-4.xml
+depiction   | time-height   |  timeHeightDisplay.xml
+template    |   26          |  gridTHContour.xml
+template    |   27          |  gridTHImage.xml
+template    |   28          |  gridTHWindBarb.xml
+template    |   29          |  gridTHIcon.xml
+overlay     |   1778        |  timeHeightBkgd.xml
+template    |   26-2        |  gridTHContour-2.xml
+template    |   27-2        |  gridTHImage-2.xml
+template    |   28-2        |  gridTHWindBarb-2.xml
+//template    |   26-4        |  gridTHContour-4.xml
+//template    |   27-4        |  gridTHImage-4.xml
+depiction   | var-height    |  varHeightDisplay.xml
+template    |   73          |  gridVHGraph.xml
+template    |   75          |  gridVHWindBarb.xml
+template    |   74          |  gridVHIcon.xml
+overlay     |   1775        |  varHeightBkgd.xml
+template    |   73-2        |  gridVHGraph-2.xml
+template    |   75-2        |  gridVHWindBarb-2.xml
+//template    |   73-4        |  gridVHGraph-4.xml
+depiction   |   sounding    |  soundingDisplay.xml
+template    |   25          |  gridSounding.xml
+template    |   25-2        |  gridSounding-2.xml
+template    |   25-VWP      |  null
+template    |   8           |  null
+overlay     |   1001        |  overlay-1001.xml
+overlay     |   1101        |  overlay-1001.xml
+overlay     |   1103        |  overlay-1001.xml
+overlay     |   1005        |  overlay-1005.xml
+overlay     |   1120        |  offshoreMarineZones.xml
+overlay     |   1130        |  highSeasMarineZones.xml
+overlay     |   1110        |  coastalMarineZones.xml
+overlay     |   1016        |  Cities.xml
+overlay     |   1017        |  county_names.xml
+template    |   5-spi       |  stationBkgd.xml
+template    |   5-lpi       |  locationBkgd.xml
+pointdb     |   Raob        |  bufrua-n
+pointdb     |   RaobOA      |  bufrua
+pointdb     |   Profiler    |  profiler-n
+pointdb     |   Metar       |  obs-i
+pointdb     |   MetarOA     |  obs
+pointdb     | MetarOA-extra |  reportTypeMETAR.xml
+pointdb     |   GfsBufr     |  GFS-i
+pointdb     |   EtaBufr     |  NAM-i
+pointdb     |   PoesBufr    |  poessounding-i
+pointdb     |   GoesBufr    |  goessounding-i
+pointdb     |   MDCRS       |  acarssounding-i
+vertscale   |   1           |  logPress.xml
+vertscale   |   2           |  linPress.xml
+vertscale   |   3           |  linHgt.xml
+vertscale   |   4           |  hgtAgl.xml
+vertscale   |   5           |  ftMsl.xml
+vertscale   |   6           |  ftAgl.xml
+template    |   11          |  radarPVImage.xml
+template    |   16          |  radRasPVImage.xml
+template    |   CZ;1km      |  CZ-1km.xml
+template    |   VIL;CZ      |  VIL-CZ.xml
+template    |   GSM         |  GSM.xml
+depiction   |   NUSM        |  radarXYDisplay.xml
+template    |   VWP         |  VWP.xml
+depiction   |   VWP         |  radarXYDisplay.xml
+depiction   |   radarXsect  |  radarXYDisplay.xml
+template    |   34          |  radarPVGraphic.xml
+template    |   11-mosaic   |  radarMosaic.xml
+template    |   16-mosaic   |  radRasMosaic.xml
+template    |   CZ;Pg1;1km  |  combAttTable.xml
+template    |   CZ;Pg2;1km  |  combAttTable.xml
+template    |   CZ;Pg3;1km  |  combAttTable.xml
+template    |   CZ;Pg4;1km  |  combAttTable.xml
+template    |   CZ;Pg5;1km  |  combAttTable.xml
+template    |   CZ;Pg6;1km  |  combAttTable.xml
+template    |   CZ;Pg1;4km  |  combAttTable.xml
+template    |   CZ;Pg2;4km  |  combAttTable.xml
+template    |   CZ;Pg3;4km  |  combAttTable.xml
+template    |   CZ;Pg4;4km  |  combAttTable.xml
+template    |   CZ;Pg5;4km  |  combAttTable.xml
+template    |   CZ;Pg6;4km  |  combAttTable.xml
+datakey     |   16-CZ;1km   |  CZ-1km.xml
+datakey     |   VIL;CZ      |  VIL-CZ.xml
+template    |   2-sat       |  satPVImage.xml
+template    |   7           |  raobSounding.xml
+depiction   |   profTH      |  profilerDisplay.xml
+template    |   17          |  profTH.xml
+overlay     |   11000       |  null
+template    |   72-27001    |  metarStd.xml
+template    |   72-27501    |  raobPlot.xml
+template    |   72-27502    |  raobPlot.xml
+template    |   18          |  ncepPlot.xml
+template    |   72-27104    |  profilerPlot.xml
+template    |   72-27103    |  profPlotAgl.xml
+overlay     |   3000        |  profPlotSfc.xml
+template    |   72-27114    |  vwpPlot.xml
+template    |   72-27113    |  vwpPlotAgl.xml
+overlay     |   1082        |  overlay-1082.xml
+template    |   72-27871    |  pirepPlot.xml
+template    |   72-27877    |  pirepPlot.xml
+template    |   72-27874    |  pirepPlot.xml
+template    |   72-27881    |  acarsPlot.xml
+template    |   72-10625    |  goesHDWpress.xml
+template    |   72-10626    |  goesHDWchan.xml
+overlay     |   10700       |  goesHDW39.xml
+overlay     |   10850       |  goesHDW39.xml
+template    |   33          |  redbook.xml
+template    |   35          |  lightning.xml
+overlay     |   6111        |  convWatches.xml
+template    |   54          |  svrWxPlot.xml
+template    |   43          |  warningPlot.xml
+overlay     |   25502       |  snowWaterEquiv.xml
+plane       | BLyr;SLI      |  Surface
+plane       | GFS213;Layer;RH |  SIG;0.44;1.0
+source      | RUC           |  RUC236
+source      | ECMF1         | ECMF-NorthernHemisphere
+source      | ENSEMBLE37    | ENSEMBLE
+pertconfig  | ENSEMBLE37    | yes
+pertconfig  | GH_avg        | no
+pertconfig  | GH_std        | no
+pertconfig  | TP_avg        | no
+pertconfig  | TP_std        | no
+pertconfig  | TPrun_avg     | no
+pertconfig  | TPrun_std     | no
+pertconfig  | T_avg         | no
+pertconfig  | T_std         | no
+pertconfig  | MxT_avg       | no
+pertconfig  | MxT_std       | no
+pertconfig  | MnT_avg       | no
+pertconfig  | MnT_std       | no
+pertconfig  | msl-P_avg     | no
+pertconfig  | msl-P_std     | no
+pertconfig  | wSp_avg       | no
+pertconfig  | wSp_std       | no
+pertconfig  | Wind_avg      | no
+pertconfig  | 1-ENSEMBLE37  | ctl1
+pertconfig  | 2-ENSEMBLE37  | ctl2
+pertconfig  | 3-ENSEMBLE37  | n1
+pertconfig  | 4-ENSEMBLE37  | p1
+pertconfig  | 5-ENSEMBLE37  | n2
+pertconfig  | 6-ENSEMBLE37  | p2
+pertconfig  | 7-ENSEMBLE37  | n2
+pertconfig  | 8-ENSEMBLE37  | p3
+pertconfig  | 9-ENSEMBLE37  | n4
+pertconfig  | 10-ENSEMBLE37 | p4
+pertconfig  | 11-ENSEMBLE37 | n5
+pertconfig  | 12-ENSEMBLE37 | p5
+// From OAX
+overlay     | 1440          |  HiResTopo.xml
+overlay     | 1441          |  HiResTopo.xml
+overlay     | 1442          |  HiResTopo.xml
+overlay     | 1443          |  HiResTopo.xml
+overlay     | 1444          |  HiResTopo.xml
+overlay     | 1445          |  HiResTopo.xml
+overlay     | 1446          |  HiResTopo.xml
+overlay     | 1447          |  HiResTopo.xml
+overlay     | 1448          |  HiResTopo.xml
+overlay     | 1449          |  HiResTopo.xml
+// From OAX 8/15/2011
+overlay     | 1042          |  Interstates.xml
+overlay     | 1084          |  CountyWarningAreas.xml
+overlay     | 220           |  AGLcigvis.xml
+overlay     | 222           |  FixedBuoys.xml
+overlay     | 224           |  MovingBuoys.xml
+overlay     | 238           |  30minLocalData.xml
+overlay     | 139           |  15minLocalData.xml
+overlay     | 230           |  15minMetar.xml
+overlay     | 27999         |  MMLplot.xml
+overlay     | 12004         |  HomeLocation.xml
+overlay     | 12006         |  DistanceSpeed.xml
+overlay     | 112006        |  FeatureFollowingZoom.xml
+overlay     | 1002          |  CountyBoundaries.xml
+overlay     | 1083          |  CountyBoundaries.xml
+overlay     | 231           |  Metar1hrPrecip.xml
+overlay     | 27961         |  SpotterReadout.xml
+overlay     | 10601         |  NAMsoundingSFCplot.xml
+// From OAX 9/10/2011
+overlay     | 1252          |  riverDrainageBasins.xml
+overlay     | 223           |  WC-HI.xml
+overlay     | 25600         |  10kmRadarCodedMessage.xml
+overlay     | 25500         |  NOHRSCsnowCover.xml
+overlay     | 221           |  Metar24hrChange.xml
+overlay     | 233           |  Metar3hrPrecip.xml
+overlay     | 234           |  Metar24hrPrecip.xml
+overlay     | 236           |  Metar6hrPrecip.xml
+overlay     | 12003         |  InteractivePoints.xml
+overlay     | 6150          |  CountyFFG.xml
+overlay     | 1088          |  Lakes.xml
+overlay     | 12000         |  InteractiveWarngen.xml
+overlay     | 6431          |  AtlanticHurrTracks.xml
+overlay     | 6441          |  WestPacHurrTracks.xml
+#include "LocalBundleInfo.txt"

@@ -1,0 +1,32 @@
+                <resource>
+                    <loadProperties xsi:type="gridLoadProperties" displayType="CONTOUR" loadWithoutData="false">
+                        <resourceType>PLAN_VIEW</resourceType>
+                        <perspectiveProperty xsi:type="d2dLoadProperties" timeMatchBasis="true" loadMode="VALID_TIME_SEQ"/>
+                        <capabilities>
+                            <capability xsi:type="timeMatchBasisCapability"/>
+                            <capability xsi:type="colorableCapability" colorAsString="green"/>
+                            <capability xsi:type="densityCapability" density="1.0"/>
+                            <capability xsi:type="outlineCapability" lineStyle="DEFAULT" outlineOn="true" outlineWidth="1"/>
+                            <capability xsi:type="displayTypeCapability" displayType="CONTOUR"/>
+                        </capabilities>
+                    </loadProperties>
+                    <properties renderingOrderId="CONTOUR" isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+                        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                    </properties>
+                    <resourceData xsi:type="oaResourceData" source="@VB_SOURCE@" levelKey="Surface" parameterName="@VB_LEGEND@" parameter="@VB_FIELD@" retrieveData="false" isUpdatingOnMetadataOnly="true" isRequeryNecessaryOnTimeMatch="true">
+                        <metadataMap>
+@EXTRA_XML@
+                            <mapping key="location.latitude">
+                                <constraint constraintValue="@LAT_MIN@--@LAT_MAX@" constraintType="BETWEEN"/>
+                            </mapping>
+                            <mapping key="location.longitude">
+                                <constraint constraintValue="@LON_MIN@--@LON_MAX@" constraintType="BETWEEN"/>
+                            </mapping>
+                            <mapping key="pluginName">
+                                <constraint constraintValue="@DB_NAME@" constraintType="EQUALS"/>
+                            </mapping>
+                        </metadataMap>
+                        <binOffset virtualOffset="0" posOffset="1800" negOffset="1800"/>
+                        <alertParser xsi:type="oaAlertParser"/>
+                    </resourceData>
+                </resource>

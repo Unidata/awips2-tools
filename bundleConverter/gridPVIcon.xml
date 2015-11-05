@@ -1,0 +1,38 @@
+                <resource>
+                    <loadProperties xsi:type="gridLoadProperties" displayType="ICON" loadWithoutData="false">
+                        <resourceType>PLAN_VIEW</resourceType>
+                        <perspectiveProperty xsi:type="d2dLoadProperties" timeMatchBasis="true" loadMode="VALID_TIME_SEQ"/>
+                        <capabilities>
+                            <capability xsi:type="densityCapability" density="99999.0"/>
+                            <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                            <capability xsi:type="colorableCapability" colorAsString="green"/>
+                            <capability xsi:type="displayTypeCapability" displayType="ICON"/>
+                        </capabilities>
+                    </loadProperties>
+                    <properties renderingOrderId="UNKNOWN" isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+                        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                    </properties>
+                    <resourceData xsi:type="gridResourceData" spatial="false" sampling="false" retrieveData="true" isUpdatingOnMetadataOnly="false" isRequeryNecessaryOnTimeMatch="true">
+                        <metadataMap>
+                            <mapping key="info.parameter.abbreviation">
+                                <constraint constraintValue="@VB_FIELD@" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="info.datasetId">
+                                <constraint constraintValue="@VB_SOURCE@" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="info.level.leveltwovalue">
+                                <constraint constraintValue="@VB_LEVEL_TWO@" constraintType="IN"/>
+                            </mapping>
+                            <mapping key="pluginName">
+                                <constraint constraintValue="grid" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="info.level.masterLevel.name">
+                                <constraint constraintValue="@VB_LEVEL_TYPE@" constraintType="IN"/>
+                            </mapping>
+                            <mapping key="info.level.levelonevalue">
+                                <constraint constraintValue="@VB_LEVEL_ONE@" constraintType="IN"/>
+                            </mapping>
+                        </metadataMap>
+                        <alertParser xsi:type="dataCubeAlertMessageParser"/>
+                    </resourceData>
+                </resource>

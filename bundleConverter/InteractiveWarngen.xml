@@ -1,0 +1,19 @@
+                <resource>
+                    <loadProperties loadWithoutData="false">
+                        <resourceType>PLAN_VIEW</resourceType>
+                        <capabilities>
+                            <capability xsi:type="editableCapability" editable="true"/>
+                            <capability xsi:type="colorableCapability" colorAsString="white"/>
+                            <capability xsi:type="timeMatchBasisCapability"/>
+                            <capability xsi:type="outlineCapability" lineStyle="DEFAULT" outlineOn="true" outlineWidth="1"/>
+                        </capabilities>
+                    </loadProperties>
+                    <properties renderingOrderId="UNKNOWN" isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+                        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                    </properties>
+                    <resourceData xsi:type="awipsToolsResourceData">
+                        <name>Interactive Warngen</name>
+                        <classT>com.raytheon.viz.warngen.gui.WarngenLayer</classT>
+                    </resourceData>
+                </resource>
+                

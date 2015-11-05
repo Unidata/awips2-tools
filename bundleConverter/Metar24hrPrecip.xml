@@ -1,0 +1,24 @@
+                <resource>
+                    <loadProperties loadWithoutData="false">
+                        <resourceType>PLAN_VIEW</resourceType>
+                        <perspectiveProperty xsi:type="d2dLoadProperties" timeMatchBasis="true" loadMode="VALID_TIME_SEQ"/>
+                        <capabilities>
+                            <capability xsi:type="colorableCapability" colorAsString="green"/>
+                            <capability xsi:type="timeMatchBasisCapability"/>
+                            <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                            <capability xsi:type="densityCapability" density="1.0"/>
+                        </capabilities>
+                    </loadProperties>
+                    <properties renderingOrderId="UNKNOWN" isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+                        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                    </properties>
+                    <resourceData xsi:type="metarPrecipResourceData" duration="24" retrieveData="false" isUpdatingOnMetadataOnly="false" isRequeryNecessaryOnTimeMatch="true">
+                        <metadataMap>
+                            <mapping key="pluginName">
+                                <constraint constraintValue="obs" constraintType="EQUALS"/>
+                            </mapping>
+                        </metadataMap>
+                        <binOffset virtualOffset="0" posOffset="21600" negOffset="0"/>
+                    </resourceData>
+                </resource>
+                

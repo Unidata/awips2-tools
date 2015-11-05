@@ -1,0 +1,13 @@
+                <resource>
+                    <loadProperties loadWithoutData="false">
+                        <resourceType>PLAN_VIEW</resourceType>
+                        <capabilities>
+                            <capability xsi:type="colorableCapability" colorAsString="gray75"/>
+                            <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                        </capabilities>
+                    </loadProperties>
+                    <properties renderingOrderId="MAP_OUTLINE" isSystemResource="false" isBlinking="false" isMapLayer="true" isHoverOn="false" isVisible="true">
+                        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                    </properties>
+                    <resourceData xsi:type="skewTBkgResourceData"/>
+                </resource>

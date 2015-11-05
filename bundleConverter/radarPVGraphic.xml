@@ -1,0 +1,31 @@
+                <resource>
+                    <loadProperties loadWithoutData="false">
+                        <resourceType>PLAN_VIEW</resourceType>
+                        <perspectiveProperty xsi:type="d2dLoadProperties" timeMatchBasis="true" loadMode="VALID_TIME_SEQ"/>
+                        <capabilities>
+                            <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                            <capability xsi:type="timeMatchBasisCapability"/>
+                            <capability xsi:type="colorableCapability" colorAsString="green"/>
+                            <capability xsi:type="rangeRingsOverlayCapability"/>
+                        </capabilities>
+                    </loadProperties>
+                    <properties renderingOrderId="PLOT" isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+                        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                    </properties>
+                    <resourceData xsi:type="radarResourceData" rangeRings="true" latest="false" mode="" pointID="" retrieveData="true" isUpdatingOnMetadataOnly="false" isRequeryNecessaryOnTimeMatch="true">
+                        <metadataMap>
+                            <mapping key="primaryElevationAngle">
+                                <constraint constraintValue="@TILT_MIN@--@TILT_MAX@" constraintType="BETWEEN"/>
+                            </mapping>
+                            <mapping key="productCode">
+                                <constraint constraintValue="@CODE_LIST@" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="icao">
+                                <constraint constraintValue="@RADAR_ID@" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="pluginName">
+                                <constraint constraintValue="radar" constraintType="EQUALS"/>
+                            </mapping>
+                        </metadataMap>
+                    </resourceData>
+                </resource>

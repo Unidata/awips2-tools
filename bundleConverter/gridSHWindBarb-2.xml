@@ -1,0 +1,24 @@
+                <resource>
+                    <loadProperties xsi:type="gridLoadProperties" displayType="BARB" loadWithoutData="false">
+                        <resourceType>CROSS_SECTION</resourceType>
+                        <perspectiveProperty xsi:type="d2dLoadProperties" timeMatchBasis="true" loadMode="VALID_TIME_SEQ"/>
+                        <capabilities>
+                            <capability xsi:type="timeMatchBasisCapability"/>
+                            <capability xsi:type="colorableCapability" colorAsString="green"/>
+                            <capability xsi:type="displayTypeCapability" displayType="BARB"/>
+                        </capabilities>
+                    </loadProperties>
+                    <properties renderingOrderId="CONTOUR" isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="false">
+                        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                    </properties>
+                    <resourceData xsi:type="crossSectionResourceData" source="Raob" stationIDs="XXXX XXXX" parameterName="@VB_LEGEND@" parameter="@VB_FIELD@" retrieveData="true" isUpdatingOnMetadataOnly="false" isRequeryNecessaryOnTimeMatch="true">
+                        <metadataMap>
+                            <mapping key="location.stationId">
+                                <constraint constraintValue="@STATION_INFO@" constraintType="IN"/>
+                            </mapping>
+                            <mapping key="pluginName">
+                                <constraint constraintValue="@DB_NAME@" constraintType="EQUALS"/>
+                            </mapping>
+                        </metadataMap>
+                    </resourceData>
+                </resource>

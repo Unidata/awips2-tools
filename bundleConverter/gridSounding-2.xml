@@ -1,0 +1,29 @@
+                <resource>
+                    <loadProperties xsi:type="gridLoadProperties" displayType="CONTOUR" loadWithoutData="false">
+                        <resourceType>SOUNDING</resourceType>
+                        <perspectiveProperty xsi:type="d2dLoadProperties" timeMatchBasis="true" loadMode="VALID_TIME_SEQ"/>
+                        <capabilities>
+                            <capability xsi:type="displayTypeCapability" displayType="CONTOUR"/>
+                            <capability xsi:type="timeMatchBasisCapability"/>
+                            <capability xsi:type="colorableCapability" colorAsString="green"/>
+                        </capabilities>
+                    </loadProperties>
+                    <properties renderingOrderId="UNKNOWN" isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+                        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                    </properties>
+                    <resourceData xsi:type="bufruaNSharpResourceData" pointName="@STATION_ID@" soundingType="@VB_TITLE@" retrieveData="false" isUpdatingOnMetadataOnly="false" isRequeryNecessaryOnTimeMatch="true">
+                        <metadataMap>
+                            <mapping key="location.stationId">
+                                <constraint constraintValue="@STATION_INFO@" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="pluginName">
+                                <constraint constraintValue="@DB_NAME@" constraintType="EQUALS"/>
+                            </mapping>
+                        </metadataMap>
+                        <coordinate>
+                            <x>-100.70056</x>
+                            <y>41.14972</y>
+                            <z>NaN</z>
+                        </coordinate>
+                    </resourceData>
+                </resource>

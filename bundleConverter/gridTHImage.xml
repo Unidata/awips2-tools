@@ -1,0 +1,42 @@
+                <resource>
+                    <loadProperties xsi:type="gridLoadProperties" displayType="IMAGE" loadWithoutData="false">
+                        <resourceType>TIME_HEIGHT</resourceType>
+                        <perspectiveProperty xsi:type="d2dLoadProperties" timeMatchBasis="false"/>
+                        <capabilities>
+                            <capability xsi:type="imagingCapability" alpha="1.0" interpolationState="true" brightness="1.0" contrast="1.0"/>
+                            <capability xsi:type="colorMapCapability">
+                                @COLOR_MAP_INFO@
+                            </capability>
+                            <capability xsi:type="colorableCapability" colorAsString="coral"/>
+                            <capability xsi:type="displayTypeCapability" displayType="IMAGE"/>
+                        </capabilities>
+                    </loadProperties>
+                    <properties renderingOrderId="IMAGE_COUNTRY" isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+                        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                    </properties>
+                    <resourceData xsi:type="timeHeightResourceData" pointLetter="E" parameterName="@VB_LEGEND@" parameter="@VB_FIELD@" retrieveData="true" isUpdatingOnMetadataOnly="false" isRequeryNecessaryOnTimeMatch="true">
+                        <metadataMap>
+                            <mapping key="info.datasetId">
+                                <constraint constraintValue="@VB_SOURCE@" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="info.parameter.abbreviation">
+                                <constraint constraintValue="@VB_FIELD@" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="info.level.leveltwovalue">
+                                <constraint constraintValue="-999999.0" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="pluginName">
+                                <constraint constraintValue="grid" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="info.level.masterLevel.name">
+                                <constraint constraintValue="MB" constraintType="EQUALS"/>
+                            </mapping>
+                        </metadataMap>
+                        <point>
+                            <x>@POINT_LON@</x>
+                            <y>@POINT_LAT@</y>
+                            <z>NaN</z>
+                        </point>
+                        <source>@VB_SOURCE@</source>
+                    </resourceData>
+                </resource>

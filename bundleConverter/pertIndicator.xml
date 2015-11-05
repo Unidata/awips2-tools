@@ -1,0 +1,3 @@
+                            <mapping key="info.ensembleId">
+                                <constraint constraintValue="@PERT_IDX@" constraintType="EQUALS"/>
+                            </mapping>

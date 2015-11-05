@@ -1,0 +1,3 @@
+                <heightScale heightType="HEIGHT_AGL" scale="LIN" 
+                 parameterUnit="m" parameter="zAGL" maxVal="@TOP@" 
+                 minVal="@BOTTOM@" name="@BOTTOM@-@TOP@m AGL" unit="METERS AGL"/>

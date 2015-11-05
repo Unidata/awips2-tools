@@ -1,0 +1,29 @@
+                <resource>
+                    <loadProperties loadWithoutData="true">
+                        <resourceType>PLAN_VIEW</resourceType>
+                        <perspectiveProperty xsi:type="d2dLoadProperties" timeMatchBasis="true" loadMode="VALID_TIME_SEQ"/>
+                        <capabilities>
+                            <capability xsi:type="colorableCapability" colorAsString="green"/>
+                            <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                            <capability xsi:type="densityCapability" density="1.0"/>
+                            <capability xsi:type="timeMatchBasisCapability"/>
+                            <capability xsi:type="outlineCapability" lineStyle="DEFAULT" outlineOn="true" outlineWidth="1"/>
+                        </capabilities>
+                    </loadProperties>
+                    <properties renderingOrderId="PLOT" isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+                        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                    </properties>
+                    <resourceData xsi:type="plotResourceData" limitTimeQuery="false" isTopOfTheHour="false" plotMissingData="false" upperLimit="1.0E7" lowerLimit="-9999.0" levelKey="@levelMB@MB" plotSource="raob @levelMB@" plotModelFile="raobUpperDesign.svg" pixelSizeHint="90" retrieveData="true" isUpdatingOnMetadataOnly="false" isRequeryNecessaryOnTimeMatch="true">
+                        <metadataMap>
+                            <mapping key="pluginName">
+                                <constraint constraintValue="bufrua" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="reportType">
+                                <constraint constraintValue="2020" constraintType="EQUALS"/>
+                            </mapping>
+                        </metadataMap>
+                        <binOffset virtualOffset="0" posOffset="3600" negOffset="3600"/>
+                        <alertParser xsi:type="plotAlertParser"/>
+                        <plotInfoRetriever xsi:type="pointDataPlotInfoRetriever"/>
+                    </resourceData>
+                </resource>

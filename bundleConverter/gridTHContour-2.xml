@@ -1,0 +1,31 @@
+                <resource>
+                    <loadProperties xsi:type="gridLoadProperties" displayType="CONTOUR" loadWithoutData="false">
+                        <resourceType>TIME_HEIGHT</resourceType>
+                        <perspectiveProperty xsi:type="d2dLoadProperties" timeMatchBasis="false"/>
+                        <capabilities>
+                            <capability xsi:type="colorableCapability" colorAsString="coral"/>
+                            <capability xsi:type="outlineCapability" lineStyle="DEFAULT" outlineOn="true" outlineWidth="1"/>
+                            <capability xsi:type="displayTypeCapability" displayType="CONTOUR"/>
+                            <capability xsi:type="densityCapability" density="1.0"/>
+                        </capabilities>
+                    </loadProperties>
+                    <properties renderingOrderId="CONTOUR" isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+                        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                    </properties>
+                    <resourceData xsi:type="timeHeightResourceData" pointLetter="D" parameterName="@VB_LEGEND@" parameter="@VB_FIELD@" retrieveData="true" isUpdatingOnMetadataOnly="false" isRequeryNecessaryOnTimeMatch="true">
+                        <metadataMap>
+                            <mapping key="location.stationId">
+                                <constraint constraintValue="@STATION_INFO@" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="pluginName">
+                                <constraint constraintValue="@DB_NAME@" constraintType="EQUALS"/>
+                            </mapping>
+                        </metadataMap>
+                        <point>
+                            <x>@POINT_LON@</x>
+                            <y>@POINT_LAT@</y>
+                            <z>NaN</z>
+                        </point>
+                        <source>@VB_SOURCE@</source>
+                    </resourceData>
+                </resource>

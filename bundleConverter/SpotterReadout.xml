@@ -1,0 +1,14 @@
+<resource>
+    <loadProperties loadWithoutData="true">
+        <resourceType>PLAN_VIEW</resourceType>
+        <capabilities>
+            <capability xsi:type="colorableCapability" colorAsString="green"/>
+            <capability xsi:type="magnificationCapability" magnification="1.0"/>
+            <capability xsi:type="pointCapability" pointStyle="STAR"/>
+        </capabilities>
+    </loadProperties>
+    <properties renderingOrderId="PLOT" isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+    </properties>
+    <resourceData xsi:type="adaptivePlotResourceData" filePath="basemaps/adaptivePlots/spotter.dat" name="spotter" plotName="Spotters Readout"/>
+</resource>

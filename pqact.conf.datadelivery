@@ -1,0 +1,7 @@
+### Data Delivery
+ANY	^(LZ..9.) (KWBC|KNCF) (..)(..)(..)
+	PIPE	-close /usr/local/ldm/decoders/decrypt_file
+	/data_store/datadelivery/(\3:yyyy)(\3:mm)\3/\4/shared_subscription/\1_\2_\3\4\5_(seq).%Y%m%d%H
+
+EXP	^(.*shared_subscription.*)
+	FILE	-overwrite -log -close -edex	\1

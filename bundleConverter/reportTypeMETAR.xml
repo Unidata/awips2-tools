@@ -1,0 +1,3 @@
+                            <mapping key="reportType">
+                                <constraint constraintValue="METAR" constraintType="EQUALS"/>
+                            </mapping>

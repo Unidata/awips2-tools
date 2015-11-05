@@ -1,0 +1,32 @@
+                <resource>
+                    <loadProperties loadWithoutData="true">
+                        <resourceType>PLAN_VIEW</resourceType>
+                        <perspectiveProperty xsi:type="d2dLoadProperties" timeMatchBasis="false" loadMode="VALID_TIME_SEQ"/>
+                        <capabilities>
+                            <capability xsi:type="colorableCapability" colorAsString="white"/>
+                            <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                            <capability xsi:type="timeMatchBasisCapability"/>
+                            <capability xsi:type="outlineCapability" lineStyle="DEFAULT" outlineOn="true" outlineWidth="1"/>
+                            <capability xsi:type="densityCapability" density="1.0"/>
+                            <capability xsi:type="imagingCapability" alpha="1.0" interpolationState="false" brightness="1.0" contrast="1.0"/>
+                        </capabilities>
+                    </loadProperties>
+                    <properties renderingOrderId="PLOT" isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+                        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                    </properties>
+@REPLACE_FOR_KEY,6423,constraintValue="A",constraintValue="W"@
+@REPLACE_FOR_KEY,6403,constraintValue="A",constraintValue="T"@
+                    <resourceData xsi:type="plotResourceData" limitTimeQuery="false" isTopOfTheHour="false" plotMissingData="false" upperLimit="1.0E7" lowerLimit="-9999.0" plotSource="@OVERLAY_LEGEND@" plotModelFile="svrWxDesign.svg" pixelSizeHint="45" retrieveData="false" isUpdatingOnMetadataOnly="false" isRequeryNecessaryOnTimeMatch="true">
+                        <metadataMap>
+                            <mapping key="pluginName">
+                                <constraint constraintValue="svrwx" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="reportType">
+                                <constraint constraintValue="A" constraintType="EQUALS"/>
+                            </mapping>
+                        </metadataMap>
+                        <binOffset virtualOffset="0" posOffset="1800" negOffset="1800"/>
+                        <alertParser xsi:type="plotAlertParser"/>
+                        <plotInfoRetriever xsi:type="pointDataPlotInfoRetriever"/>
+                    </resourceData>
+                </resource>

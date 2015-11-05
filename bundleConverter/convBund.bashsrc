@@ -1,0 +1,64 @@
+#
+# The purpose of this file is to be sourced before running the program
+# convertBundles.  Assuming there are a bare minimum of legacy D-2D data
+# structures under the directory /awips/fxa/, this will set the environment
+# variables needed to allow convertBundles to function.
+#
+echo $shell | grep -v '^$' && \
+  echo convBund.bashsrc can only be successfully sourced from a bash shell
+export FXA_HOME=/awips/fxa
+export FXA_NATL_CONFIG_DATA=${FXA_HOME}/data/localization
+export FXA_LOCALIZATION_ROOT=${FXA_HOME}/data/localizationDataSets
+export FXA_LOCALIZATION_SCRIPTS=${FXA_HOME}/data/localization/scripts
+lll=`find $FXA_LOCALIZATION_ROOT -maxdepth 1 -name '???' | sed 's|^.*/||g'`
+nnn=`echo $lll | wc -w`
+if [ $nnn != 1 -a $FXA_INGEST_SITE != "" ] ; then
+    lll=$FXA_INGEST_SITE
+    nnn=`echo $lll | wc -w`
+else
+    export FXA_INGEST_SITE=$lll
+fi
+if [ $nnn != 1 ] ; then
+    echo "Localization site to use is ambiguous...please set the"
+    echo "environment variable FXA_INGEST_SITE"
+elif [ -d $FXA_LOCALIZATION_ROOT/$FXA_INGEST_SITE ] ; then
+    export FXA_LOCAL_SITE=$FXA_INGEST_SITE
+else
+    echo "The directory $FXA_LOCALIZATION_ROOT/$FXA_INGEST_SITE"
+    echo "does not exist, the files necessary to support a legacy"
+    echo "D-2D environment do not appear to be present."
+fi
+if [ "$SITE_BUNDLE_INFO" != "" ] ; then
+    echo "SITE_BUNDLE_INFO already set to '$SITE_BUNDLE_INFO'"
+elif [ -x convertBundles ] ; then
+    sbiparent=`dirname $PWD`
+    export SITE_BUNDLE_INFO=${sbiparent}/siteBundleInfo
+    echo "SITE_BUNDLE_INFO defaulted to '$SITE_BUNDLE_INFO'"
+else
+    echo "No value established for SITE_BUNDLE_INFO"
+fi
+if [ "$FXA_DATA" == "" ] ; then
+    export FXA_DATA=/quertyuiop/asdfghjkl
+fi
+if [ ! -d $FXA_DATA ] ; then
+    if [ -d /data/fxa ] ; then
+        export FXA_DATA=/data/fxa
+    else
+        mkdir -p /scratch/data/fxa >& /dev/null
+        chmod 775 /scratch/data/fxa >& /dev/null
+        if [ -d /scratch/data/fxa ] ; then
+            export FXA_DATA=/scratch/data/fxa
+        else
+            mkdir -p $FXA_HOME/data/fxa >& /dev/null
+            chmod 775 $FXA_HOME/data/fxa >& /dev/null
+            export FXA_DATA=$FXA_HOME/data/fxa
+        fi
+    fi
+    mkdir -p $FXA_DATA/workFiles >& /dev/null
+    chmod 775 $FXA_DATA/workFiles >& /dev/null
+    if [ -e $FXA_DATA/workFiles/customColorMaps.nc ] ; then
+        echo >& /dev/null
+    elif [ -e $FXA_HOME/data/siteCustomColorMaps.nc ] ; then
+        cp $FXA_HOME/data/siteCustomColorMaps.nc $FXA_DATA/workFiles
+    fi
+fi

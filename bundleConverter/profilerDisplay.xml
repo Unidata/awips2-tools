@@ -1,0 +1,14 @@
+        <displays xsi:type="profilerDisplay" density="1.0" magnification="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <descriptor xsi:type="profilerDescriptor">
+                <limitedNumberOfFrames>2147483647</limitedNumberOfFrames>
+                <numberOfFrames>12</numberOfFrames>
+                <timeMatcher xsi:type="d2DTimeMatcher" loadMode="VALID_TIME_SEQ" deltaFilter="0" forecastFilter="0"/>
+                <geometry envelopeMaxY="1000.0" envelopeMinY="0.0" envelopeMaxX="1000.0" envelopeMinX="0.0" rangeY="0 999" rangeX="0 999">
+                    <CRS>LOCAL_CS["Cartesian 2D", 
+  LOCAL_DATUM["Unknow", 0], 
+  UNIT["m", 1.0], 
+  AXIS["x", EAST], 
+  AXIS["y", NORTH]]</CRS>
+                </geometry>
+            </descriptor>
+        </displays>

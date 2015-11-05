@@ -1,0 +1,21 @@
+<resource>
+    <loadProperties loadWithoutData="false">
+        <resourceType>PLAN_VIEW</resourceType>
+        <capabilities>
+            <capability xsi:type="colorableCapability" colorAsString="#9b9b9b"/>
+            <capability xsi:type="magnificationCapability" magnification="1.0"/>
+            <capability xsi:type="outlineCapability" lineStyle="SOLID" outlineOn="true" outlineWidth="1"/>
+            <capability xsi:type="shadeableCapability"/>
+            <capability xsi:type="labelableCapability" yOffset="0" xOffset="0"/>
+        </capabilities>
+    </loadProperties>
+    <properties renderingOrderId="MAP_OUTLINE" isSystemResource="false" isBlinking="false" isMapLayer="true" isHoverOn="false" isVisible="true">
+        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+    </properties>
+    <resourceData xsi:type="dbMapResourceData">
+        <mapName>County Boundaries</mapName>
+        <table>mapdata.county</table>
+        <geomField>the_geom</geomField>
+    </resourceData>
+</resource>
+                

@@ -1,0 +1,3 @@
+                <heightScale heightType="PRESSURE" scale="LIN" 
+                 parameterUnit="hPa" parameter="P" maxVal="@TOP@"
+                 minVal="@BOTTOM@" name="Lin @BOTTOM@-@TOP@" unit="MILLIBARS"/>

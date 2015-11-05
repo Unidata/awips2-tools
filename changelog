@@ -1,0 +1,196 @@
+## CHANGELOG
+## 2 Dec 2010 :	Confirmed works with R1G1-7
+## 16 March 2011 : Fixed basemaps copy for R1G2-9+ 
+## 18 March 2011 : Fixed pqact.template copy
+##		 : Fixed trigger subscription for actions with -i in them
+## 06 April 2011 : Added AVNFPS ish-* copy
+##		 : Added conditional to not perform sed on idents line in 11.3 and upstream
+## 14 May 2011	 : Certified for 11.5
+##       	 : Fixed the hydroapps link finding code
+##		 : Fixed the RFC trimming code
+##		 : Fixed shef.xml putting ( ) around RFC and WFO names in patterns
+## 17 May 2011	 : Forced build of menus/sat/index.xml for all sites (for 11.5)
+## 		 : Forced creation of AVNFPS DEFAULT file if it doesn't exist
+## 24 May 2011	 : Per SeanB email, changed geo_data into whfs subdir
+## 26 May 2011	 : Added pghost into Apps_defaults
+##  9 Jun 2011	 : Did something
+## 13 Jun 2011	 : Changed -ldad to -pil in textdb cli line
+## 28 Jun 2011	 : Changed script so it doesn't ever copy over localConfig.py file -- must be done manually
+##		 : Fixed config_spi_files to correctly check for 11.7 build
+##		 : Fixed config_cave_maps to look for new syntax of cave_static_site.tar.gz file
+##		 : Fixed create_min_ffmp_config to add DHRMOSAIC and BDHRMOSAIC
+##		 : Added mpe_center_lat and mpe_center_lon to Apps_defaults checks
+## 30 Jun 2011	 : Added config_mpe_hydroapps
+## 07 Jul 2011	 : Added GFE migration scripts except convertEditAreas.py
+## 13 Jul 2011	 : Wrapped convertEditAreas, have backup DB restore look in today's directories first.
+## 25 Jul 2011	 : Fixed config_distribution and config_pqact based on RFC realization hydro_acq_patterns.txt
+## 27 Jul 2011	 : Changed location of WarnGen config.xml per DR 10330
+## 28 Jul 2011	 : Changed myRFC determination per email from Mike Magsig to include multiple RFCs for FFMPRunConfig.xml
+#		 : Changed config_warngen_viz to use base config.xml template in preparation for no delivery of OAX files
+#		 : scaleInfo.xml created from AWIPS I config files scaleInfo.txt
+## 04 Aug 2011	 : Fixed but in config_warngen_viz 
+#		 : Changed config_cave_avnfps to check for forecaster in NIS passwd 
+## 09 Aug 2011	 : Fixed st3_rfc token parsing
+#		 : Implemented fix for empty wxxxList and rxxxList
+#		 : Added GFESUITE_LOGDIR for 11.8.0-2 and beyond 
+## 10 Aug 2011   : Fixed local shape file import path ( call to import_shape_file didn't find the full path )
+## 26 Aug 2011	 : Added the creation of a map XML file in cave_static/site/LLL/bundles/maps with import of a shape file 
+## 01 Sep 2011	 : Added utiltriangles to migration for hydro configuration 
+## 02 Sep 2011	 : Added import of spotters.dat to config_cave_maps
+## 13 Sep 2011	 : Added DHR-MOSAIC into config_mpe_grid based on DR 10929 -- requires new collect_files for non-native hosts
+#		 : Added new config_spotters to import spotters.dat file.
+## 18 Sep 2011	 : FIXED bug in config_cave_menus that added K in front of warnings.xml for PR sites.
+## 21 Sep 2011	 : Added save-localization variables for site level files for config_warngen so when a new baseline version exists, it re-adds
+## 22 Sep 2011 	 : No longer supports hydroapps in the hdf5 mount (only OB11.7 and newer)
+## 28 Sep 2011	 : Wrapped Matt Foster's textAlarmAlert converter -- tested on tbdw
+## 04 Oct 2011	 : Fixed DHR-MOSAIC.xml creation so it has unique grid number -- See TT#474938
+#		 : Fixed bug in case statement in config_warngen_viz for 11.7* sites
+## 07 Oct 2011	 : Wrapped SeanW code for creating TextWS product menu from AWIPS I file 
+## 13 Oct 2011	 : Fixed bug with lower case db name in local_shapefiles import.
+## 14 Oct 2011	 : Fixed bug with line too long in hydro patterns with extended wxxxList 
+## 21 Oct 2011   : Added new TextAlarmConverter.py 
+##		 : Fixed bugs in GFE migration scripts
+##		 : Added migrate_gfe_combo for GFE COMBINATION file migration 
+##		 : Disable creation of the satllite menu xml on force.
+## 28 Oct 2011	 : Fixed distribution patterns per email from Richard Peter
+## 01 Nov 2011	 : Fixed bug in config_pqact with cut command on hydro patterns
+## 03 Nov 2011	 : Changed config_common_menus to build raobSitesInUse with same algorithm as mainScript in AWIPS I.. those in 200km are on Upper Air menu, those within 600km are in local submenu
+## 04 Nov 2011   : Fixed bug in importing spotters 
+## 14 Nov 2011   : Wrapped Jim Ramer's bundle conversion script into config_awips2.sh 
+##		 : Wrapped/modified Jim Calkins code on migrating VB menus into migrate_vb_menu
+## 15 Nov 2011	 : Added creation of ispan_table.dat from same AWIPS I logic and place into config_ndm
+## 16 Nov 2011 	 : Changed config_common_hydro and initialize_configuration_variables to be more intelligent about configuration files pointed to by tokens in Apps_defaults
+##		 : Modified config_mpe_grid to take dx/dy/lov values from base template file.
+## 17 Nov 2011   : Fixed bug in migrate_vb_menu that didn't account for subMenus in AWIPS I file which don't have a closing endSubmenu
+##		 : Fixed config_common_menus to handle file names in mosaicInfo.txt instead of lists of radars.
+##		 : Changed the tail -5 in the handle_request to tail -20
+## 18 Nov 2011	 : Added code in migrate_vb_menu to attempt creating testGridKeyServer_v.txt if it doesn't already exist.
+##		 : Fixed bug in config_common_menus when getting mosaicRadarList from radarsInUse - it didn't put values into an array.
+##		 : Changes to FFMPRunConfig.xml per email from David Hladky for builds > 11.9.0-5 
+## 21 Nov 2011 	 : Added functionality to config_common_menus to allow for multiple mosaics from mosaicInfo.txt 
+##		 : Fixed bug in config_common_menus missing part of an if statement
+##		 : Changed how site location text is assinged to a new return_location_text for config_warngen_viz
+##		 : Wrapped python code from David Friedman to migrate AWIPS I RMR to AWIPS II code
+##		 : Fixed bug in initialize_configuration_variables where pproc_dir might return another token.  
+## 22 Nov 2011	 : Fixed bug in creation of FFMPRunConfig.xml where xml tag did not come first
+## 29 Nov 2011	 : Added raobStationInfo.txt to config_ndm per DR 10213
+## 05 Dec 2011	 : Fixed bug in config_min_ffmp_run_config when adding non-primary domain the line did not start with < 
+## 07 Dec 2011	 : Completed mosaic menu building. Supports all mosaicInfo.txt file now, as it supports getting closest radars from a lat/lon point.  
+## 09 Dec 2011	 : Fixed bug in run_bundle_converter which deals with spaces at the end of userPrefs directory names
+## 12 Dec 2011	 : Fixed bug in procedure converter where name can't contain a & character, it must be escaped to &amp; TT #483360
+## 20 Dec 2011	 : Fixed bug in config_min_ffmp_run_config to add xml line at top of the file (had a > and not >> on following line)
+## 05 Jan 2012   : Fixed bug in wrap_text_alarmalert for compLocDir detection and lxa-lxz detection (thanks BradS!)
+## 16 Jan 2012   : Added metarStationInfo.txt to config_ndm
+## 17 Jan 2012	 : Changed shef.xml creation in config_distribution
+## 18 Jan 2012	 : Fixed case statement on AII_RELEASEID to include OB12.*
+## 30 Jan 2012	 : Fixed id= to not include & symbols for otherRadarMosaic.xml 
+## 31 Jan 2012	 : Fixed bug in metarToShefFilter.xml comment 
+## 		 : Fixed bug in migrate_vb_menu where it added an extra </contribute> (site EAX)
+## 20 Feb 2012	 : Fixed import_wg_file to work properly for import of LocalCitiesInfo
+##		 : Fixed bug looking for ispan_table.template instead of ispan_table.dat 
+## 22 Feb 2012	 : Run Jim Ramer's convertBundles with 'a' option just in case. 
+##		 : Utilize colorTable conversion part of Jim Ramer's convertBundles executable 
+## 13 Mar 2012	 : Fixed empty bundle xml creation when bundleConverter fails with Signal 11
+## 		 : Implemented $FORCE in config_avnfps and run_bundle_converter
+## 04 Apr 2012	 : Implemented smarter local shape file import (will import if shp file is newer than file that has been imported)
+## 05 Apr 2012	 : Fixed bug in run_procedure_converted where procFileName and procName will not be unset if previous run of bundle converter fails
+##		 : Handle condition where index file references FXA.* netcdf which doesn't exist. 
+## 11 Apr 2012	 : Fixed bug in reload_base_shapefiles which used gzip instead of compress to re-compress
+## 02 May 2012	 : Changed reload_base_shapefiles to be smart about compression depending on initial compressions
+##				 : Changed trigger delete on force trigger run to not include Async triggers.
+## 18 May 2012	 : Changed config_common_menus to ignore lines in radarsOnMenu which have + but are commented out 
+## 21 May 2012	 : Fixed logic in HazCollect trigger creation
+## 25 May 2012	 : Added functionality in run_bundle_converter.  Will over-write bundles with config_awips2 comment now unless forced 
+##		 : config_local_shapefiles will not overwrite bundle xml unless forced. 
+## 11 Jun 2012	 : DR_14621 change in config_min_ffmp_run_config for RFC-HiRes
+##		 : added fsl-wsr88d shapefiles to config_ndm 
+## 21 Jun 2012	 : Fixed office_colormaps storing in parent directory of colormaps
+## 22 Jun 2012	 : FFMP Radars now come from FFMPSourceConfig.dat not radarsInUse.txt 
+## 25 Jun 2012	 : config_cave_avnfps changed to copy XXXX in place now.  
+## 26 Jun 2012	 : fixed bug in migrate_gfe_combo with errant break
+## 02 Jul 2012	 : fixed bug in config_min_ffmp_run_config that didn't look for radars which start with the letter p as in polkadot 
+## 05 Jul 2012	 : fixed bug in run_bundle_converter to properly handle situation where index file references a FXA* procedure netcdf which doesn't exist.
+## 17 Jul 2012 	 : fixed bug in run_bundle_converter to handle *, ', ", & in procedure names
+## 18 Jul 2012 	 : fixed bug in reload_base_shapefiles when loading only AGMG named files.  
+## 20 Jul 2012	 : fixed bug in reload_base_shapefiles preventing new shapefiles to be loaded.  
+## 31 Jul 2012 	 : improved logic of reload_base_shapefiles per Tiger Team actions
+## 02 Aug 2012   : fixed bug in config_pqact which hangs on adding pqact.conf.xxx when it doesn't exist. 
+## 02 Aug 2012 	 : fixed bug in collect_files.sh that wouldn't grab a linked .Apps_defaults_site file if it had a full path in it's readlink return,
+## 09 Aug 2012 	 : fixed bug in run_bundle_converter which put an aposthrophe (') at the end of every procedure name.
+## 10 Aug 2012 	 : new functionality in config_local_shapefiles which creates submenus based on the structure defined by maps setup.
+## 16 Aug 2012 	 : fixed bug in config_min_ffmp_run_config where -HiRes didn't get put after KTIR for newer builds
+## 20 Aug 2012 	 : fixed bundle resourceData in config_local_shapefiles to include dbPointMapResourceData when necessary
+## 21 Aug 2012 	 : added support for /data/fxa/nationalData/national_category_table.template to NDM and collect_files.sh
+##		 : fixed MxT and MnT for MDL MOS in fieldsMenu.xml and TURB for Aviation
+## 27 Aug 2012 	 :  added support for renaming AMGM shapefiles to AWIPS shapefile name after import per tiger team.
+## 	       	 :  fixed bug in config_local_shapefiles to properly create submenu structure in cave_static for multiple submenus.
+## 28 Aug 2012 	 :  fixed EDEX_HOME variable set for 12.9.1 and upstream.  
+##	       	 :  added migration of NWWS_exclude_LLL.txt to config_cleanup
+## 10 Sep 2012 	 :  Added migration of iscSendSampleDef file.  - Webb
+##		 :  Fixed appsDefaultSiteFile detection for testbeds - Webb
+##		 :  config_local_shapefiles -- added pointStyle to POINT for Point shapefiles 
+## 27 Sep 2012 	 :  Fixed handling of comments in dialRadar.txt so it doesn't add bad sending sites. 
+## 01 Oct 2012 	 :  Fixed bug in migrate_vb_menu that didn't handle the * in a button name properly.
+## 11 Oct 2012 	 :  Fixed bug in convertColorTables.py for GFE color tables being not migrated when they had a space in the name of the file.
+## 12 Oct 2012 	 :  Fixed bug in convert_vb_menu that didn't handle the & in the button name properly. 
+##               :  Added Cities.xml and county_names.xml as overlay in baseline BundleConversionInfo.txt
+## 16 Oct 2012	 :  Removed the rm -f of CONUS, N.Hemisphere and North American scales from config_cave_maps
+## 24 Oct 2012   :  Fixed bug in convertColorTables.py file
+## 25 Oct 2012	 :  Changed metarToShefFilter plugininfo file from SAUS70 to S[AP]US[78]0
+## 26 Oct 2012   :  added textCCChelp.txt textNNNhelp.txt textOriginTable.txt afosMasterPIL.txt to collect_files.sh
+## 29 Oct 2012	 :  fixed bug in build_ldad_triggers which added triggers even if they ended with xxx. 
+## 19 Nov 2012	 :  cleanup on aisle config_ldm.  pqact.conf.local no longer preserved. 
+## 19 Dec 2012	 :  fixed pqact.conf.local creation.  does not insert patterns already present in pqact.conf.template
+##		 :  added new migrate function for GFE.  Converts cdl files in /data/fxa/customFiles to parameterInfo files in AWIPS II
+## 04 Feb 2013	 :  Updated Jim Ramer's bundle conversion scripts. 
+## 13 Feb 2013	 :  FFMPRunConfig - increased granularity to handle DPR in source and product sections
+## 14 Feb 2013	 :  updated fixed ctRepairFinish.csh from Jim Ramer which accounts for procedures with spaces in the names
+## 25 Feb 2013   :  updated config_spotters to no longer need a tmp file since fixes were put into importAdaptivePlot
+## 26 Feb 2013   :  fixed apps_dir extraction by using grep -w and fixed PTR's wfoSite in initialize_configuration_variables
+##               :  changes config_spotters to remove work around in place before DR 14432 was implemented.
+## 28 Feb 2013   :  changed config_spotters to account for blank fields.  
+## 01 Mar 2013   :  New BundleConverter which works with 13.1.2 unified grid.
+## 11 May 2013   :  Changed config_pqact for 13.4.1 with combined ldm running on CPs now. Also change FFMPRunConfig.xml generation to use site list in A1 ffmpSourceConfig.dat for primary and backup site definition. Finally, changed shef.xml generation to use generic SRUS and SXUS patterns.
+## 15 May 2013   :  Fixed config_min_ffmp_run_config
+##               :  finished config_ldm to run for ldm on cpsbn machines
+## 20 May 2013   :  fixed shapefile import when table is missing
+## 23 May 2013   :  added -T template0 to xtraCmds based on test bed import on 13.4.1
+## 23 May 2013   :  hard coded EDEX_HOME to /awips2/edex due to depreciation of INSTALLPREFIX. (RHEL6 preparation)
+## 31 May 2013   :  changed edexServerList for data delivery.  had to separate remote CP sites
+## 27 Jun 2013   :  moved modify_pgsec on baseline shape import so it can check the version in the table
+## 08 Jul 2013   :  added ndmMenus for showing menus when ndm option is used only.  
+##               :  added synopticStationTable.txt to the ndm function
+## 09 Jul 2013   :  added textOriginTable to ndm function
+##               :  added note on reload_base_shapefiles about calling NCF if there are errors
+##               :  updated collect_files for config_ndm
+## 24 Jul 2013	 :  Updated vb function to change TPCSG_ key to TPCSG- and fixed sed command for menuText not to replace ampersand from gt/lt replacement.
+## 29 Jul 2013	 :  localize_AII_global : fixed check_ldm_syntax quote issue which wasn't actually checking ldm syntax on cpsbns
+## 08 Aug 2013	 :  reload_base_shapefile: Implemented WarnGenLoc
+## 30 Aug 2013	 :  Fixed NOTE quotations when ldm isn't running
+## 05 Sep 2013	 :  Added config_wg_points to shp option.  Have not removed it from wg function yet
+## 				 :  Added switch in config_pqact to test for release ID so it doesn't set ldmsshHost before 13.4.1
+## 09 Sep 2013   :  Changes to support -e option
+## 12 Sep 2013	 :  localize_AII_global: added localVTECPartners.py migration to config_gfe
+## 16 Sep 2013	 :  localize_AII_global: changed apps_dir bug per email from Webb
+## 17 Sep 2013	 : 	localize_AII_global: config_min_ffmp_run_config fixed ffmp_backupSites to ffmp_backupList
+## 30 Sep 2013	 : 	fixed firewxaor to reload_base_shapefiles
+## 1  Oct 2013	 : 	localize_AII_global : config_gfe() : fixed typo in if statement for localVTECpartners migration
+## 18 Oct 2013	 :  config_pqact: fixed case statement to set ldmsshHost; fixed radar store path
+## 24 Oct 2013	 : 	localize_AII_global: fixed hydro token finding - take first token if multiple are defined 
+## 31 Oct 2013	 :	localize_AII_global: config_min_ffmp_run_config : fixed typo getting ffmp_backupList had an extra pipe
+## 15 Nov 2013	 :	config_vb_menu : added Aviation fileID changes from AWIPS 1 --> AWIPS II and ensured that a contribute line would not be added if there are no buttons or submenus to it
+## 				 :	config_triggers : added work around for DR 16215.
+## 03 Dec 2013	 :	handle_edex : added in smarts for restart wait time on multiple GFE domains being active. 
+##				 :	also added test_restart_edex() to test
+## 13 Dec 2013	 :	localize_AII_global : handle_request : added stderr to stdout when checking for EDEX instances to avoid edex_camel service not found error
+##				 :	localize_AII_global : config_plugin_filter : Added customization for Hawaii, Alaska and Guam pattern on metarToShef
+## 16 Dec 2013	 :	localize_AII_global: config_plugin_filter: fixed metarToShef case statement
+## 18 Dec 2013	 :	localize_AII_global: reload_base_shapefiles : added force to mv commmadn when creating AWIPS I files
+## 13 Jan 2014	 :	localize_AII_global : config_triggers : changed check for duplicate trigger per TT# 608651
+##				 :	localize_AII_global : config_min_ffmp_config : fixed ffmp_backupList extraction by adding global option to sed command.
+## 10 Mar 2014   :  localize_AII_global : fixed bug setting restartEDEX=true in reload_base_shapefiles.  now check for directory existance first,if it doesn't exist do not run through restartEDEX=true code block
+## 12 Mar 2014   :  localize_AII_global : handle_request() only check for activeSites.txt if it exists.  If it does not, set numberOfActiveGFESites = 1 by default
+## 14 Apr 2014   :  Updating Jim Ramer bundleConverter
+
+
+

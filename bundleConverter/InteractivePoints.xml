@@ -1,0 +1,17 @@
+                <resource>
+                    <loadProperties loadWithoutData="false">
+                        <resourceType>PLAN_VIEW</resourceType>
+                        <capabilities>
+                            <capability xsi:type="editableCapability" editable="true"/>
+                            <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                            <capability xsi:type="colorableCapability" colorAsString="green"/>
+                        </capabilities>
+                    </loadProperties>
+                    <properties renderingOrderId="UNKNOWN" isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+                        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                    </properties>
+                    <resourceData xsi:type="awipsToolsResourceData">
+                        <name>Interactive Points</name>
+                        <classT>com.raytheon.uf.viz.points.ui.layer.PointsToolLayer</classT>
+                    </resourceData>
+                </resource>

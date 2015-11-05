@@ -1,0 +1,4 @@
+@VUNIT,0.001@
+                <heightScale heightType="HEIGHT_MSL" scale="LIN" 
+                 parameterUnit="km" parameter="GH" maxVal="@TOP@" 
+                 minVal="@BOTTOM@" name="@BOTTOM@-@TOP@km MSL" unit="KILOMETERS"/>

@@ -1,0 +1,44 @@
+                <resource>
+                    <loadProperties xsi:type="gridLoadProperties" displayType="BARB" loadWithoutData="false">
+                        <resourceType>TIME_SERIES</resourceType>
+                        <perspectiveProperty xsi:type="d2dLoadProperties" timeMatchBasis="true" loadMode="VALID_TIME_SEQ"/>
+                        <capabilities>
+                            <capability xsi:type="colorableCapability" colorAsString="green"/>
+                            <capability xsi:type="displayTypeCapability" displayType="BARB"/>
+                        </capabilities>
+                    </loadProperties>
+                    <properties renderingOrderId="UNKNOWN" isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+                        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                    </properties>
+                    <resourceData xsi:type="timeSeriesResourceData" levelKey="250MB" pointLetter="B" source="@VB_SOURCE@" retrieveData="true" isUpdatingOnMetadataOnly="false" isRequeryNecessaryOnTimeMatch="true">
+                        <metadataMap>
+                            <mapping key="info.parameter.abbreviation">
+                                <constraint constraintValue="@VB_FIELD@" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="info.datasetId">
+                                <constraint constraintValue="@VB_SOURCE@" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="info.level.leveltwovalue">
+                                <constraint constraintValue="@VB_LEVEL_TWO@" constraintType="IN"/>
+                            </mapping>
+                            <mapping key="pluginName">
+                                <constraint constraintValue="grid" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="info.level.masterLevel.name">
+                                <constraint constraintValue="@VB_LEVEL_TYPE@" constraintType="IN"/>
+                            </mapping>
+                            <mapping key="info.level.levelonevalue">
+                                <constraint constraintValue="@VB_LEVEL_ONE@" constraintType="IN"/>
+                            </mapping>
+                        </metadataMap>
+                        <yParameter>
+                            <code>@VB_FIELD@</code>
+                            <name>@VB_LEGEND@</name>
+                        </yParameter>
+                        <coordinate>
+                            <x>@POINT_LON@</x>
+                            <y>@POINT_LAT@</y>
+                            <z>NaN</z>
+                        </coordinate>
+                    </resourceData>
+                </resource>

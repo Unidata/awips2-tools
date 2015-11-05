@@ -1,0 +1,216 @@
+                <resource>
+                    <loadProperties loadWithoutData="false">
+                        <resourceType>PLAN_VIEW</resourceType>
+                        <capabilities>
+                            <capability xsi:type="colorableCapability" colorAsString="#9b9b9b"/>
+                            <capability xsi:type="outlineCapability" lineStyle="SOLID" outlineOn="true" outlineWidth="1"/>
+                        </capabilities>
+                    </loadProperties>
+                    <properties renderingOrderId="MAP_OUTLINE" isSystemResource="false" isBlinking="false" isMapLayer="true" isHoverOn="false" isVisible="true">
+                        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                    </properties>
+                    <resourceData xsi:type="mapResourceGroupData">
+                        <resource>
+                            <loadProperties loadWithoutData="false">
+                                <resourceType>PLAN_VIEW</resourceType>
+                                <capabilities>
+                                    <capability xsi:type="shadeableCapability"/>
+                                    <capability xsi:type="labelableCapability" yOffset="0" xOffset="0"/>
+                                    <capability xsi:type="colorableCapability" colorAsString="#9b9b9b"/>
+                                    <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                                    <capability xsi:type="outlineCapability" lineStyle="SOLID" outlineOn="true" outlineWidth="1"/>
+                                </capabilities>
+                            </loadProperties>
+                            <properties isSystemResource="false" isBlinking="false" isMapLayer="true" isHoverOn="false" isVisible="true">
+                                <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                            </properties>
+                            <resourceData xsi:type="dbMapResourceData">
+                                <mapName>World</mapName>
+                                <table>mapdata.world</table>
+                                <constraint>name not in ('CANADA', 'MEXICO', 'UNITED STATES')</constraint>
+                                <geomField>the_geom</geomField>
+                            </resourceData>
+                        </resource>
+                        <resource>
+                            <loadProperties loadWithoutData="false">
+                                <resourceType>PLAN_VIEW</resourceType>
+                                <capabilities>
+                                    <capability xsi:type="shadeableCapability"/>
+                                    <capability xsi:type="labelableCapability" yOffset="0" xOffset="0"/>
+                                    <capability xsi:type="colorableCapability" colorAsString="#9b9b9b"/>
+                                    <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                                    <capability xsi:type="outlineCapability" lineStyle="SOLID" outlineOn="true" outlineWidth="1"/>
+                                </capabilities>
+                            </loadProperties>
+                            <properties isSystemResource="false" isBlinking="false" isMapLayer="true" isHoverOn="false" isVisible="true">
+                                <pdProps maxDisplayWidth="100000000" minDisplayWidth="750000"/>
+                            </properties>
+                            <resourceData xsi:type="dbMapResourceData">
+                                <mapName>State Boundaries</mapName>
+                                <table>mapdata.states</table>
+                                <geomField>the_geom</geomField>
+                            </resourceData>
+                        </resource>
+                        <resource>
+                            <loadProperties loadWithoutData="false">
+                                <resourceType>PLAN_VIEW</resourceType>
+                                <capabilities>
+                                    <capability xsi:type="shadeableCapability"/>
+                                    <capability xsi:type="labelableCapability" yOffset="0" xOffset="0"/>
+                                    <capability xsi:type="colorableCapability" colorAsString="#9b9b9b"/>
+                                    <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                                    <capability xsi:type="outlineCapability" lineStyle="SOLID" outlineOn="true" outlineWidth="1"/>
+                                </capabilities>
+                            </loadProperties>
+                            <properties isSystemResource="false" isBlinking="false" isMapLayer="true" isHoverOn="false" isVisible="true">
+                                <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                            </properties>
+                            <resourceData xsi:type="dbMapResourceData">
+                                <mapName>Canada</mapName>
+                                <table>mapdata.canada</table>
+                                <geomField>the_geom</geomField>
+                            </resourceData>
+                        </resource>
+                        <resource>
+                            <loadProperties loadWithoutData="false">
+                                <resourceType>PLAN_VIEW</resourceType>
+                                <capabilities>
+                                    <capability xsi:type="shadeableCapability"/>
+                                    <capability xsi:type="labelableCapability" yOffset="0" xOffset="0"/>
+                                    <capability xsi:type="colorableCapability" colorAsString="#9b9b9b"/>
+                                    <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                                    <capability xsi:type="outlineCapability" lineStyle="SOLID" outlineOn="true" outlineWidth="1"/>
+                                </capabilities>
+                            </loadProperties>
+                            <properties isSystemResource="false" isBlinking="false" isMapLayer="true" isHoverOn="false" isVisible="true">
+                                <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                            </properties>
+                            <resourceData xsi:type="dbMapResourceData">
+                                <mapName>Mexico</mapName>
+                                <table>mapdata.mexico</table>
+                                <geomField>the_geom</geomField>
+                            </resourceData>
+                        </resource>
+                        <resource>
+                            <loadProperties loadWithoutData="false">
+                                <resourceType>PLAN_VIEW</resourceType>
+                                <capabilities>
+                                    <capability xsi:type="shadeableCapability"/>
+                                    <capability xsi:type="labelableCapability" yOffset="0" xOffset="0"/>
+                                    <capability xsi:type="colorableCapability" colorAsString="#9b9b9b"/>
+                                    <capability xsi:type="outlineCapability" lineStyle="SOLID" outlineOn="true" outlineWidth="1"/>
+                                </capabilities>
+                            </loadProperties>
+                            <properties isSystemResource="false" isBlinking="false" isMapLayer="true" isHoverOn="false" isVisible="true">
+                                <pdProps maxDisplayWidth="750000" minDisplayWidth="0"/>
+                            </properties>
+                            <resourceData xsi:type="dbMapResourceData">
+                                <mapName>County Boundaries</mapName>
+                                <table>mapdata.county</table>
+                                <geomField>the_geom</geomField>
+                            </resourceData>
+                        </resource>
+                        <mapName>State/County Boundaries</mapName>
+                    </resourceData>
+                </resource>
+                <resource>
+                    <loadProperties loadWithoutData="true">
+                        <resourceType>PLAN_VIEW</resourceType>
+                        <capabilities>
+                            <capability xsi:type="densityCapability" density="1.0"/>
+                            <capability xsi:type="colorableCapability" colorAsString="green"/>
+                            <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                            <capability xsi:type="outlineCapability" lineStyle="DEFAULT" outlineOn="true" outlineWidth="1"/>
+                            <capability xsi:type="timeMatchBasisCapability"/>
+                        </capabilities>
+                    </loadProperties>
+                    <properties renderingOrderId="PLOT" isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+                        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                    </properties>
+                    <resourceData xsi:type="plotBlendedResourceData">
+                        <resource>
+                            <loadProperties loadWithoutData="true">
+                                <resourceType>PLAN_VIEW</resourceType>
+                                <perspectiveProperty xsi:type="d2dLoadProperties" timeMatchBasis="true" loadMode="VALID_TIME_SEQ"/>
+                                <capabilities>
+                                    <capability xsi:type="densityCapability" density="1.0"/>
+                                    <capability xsi:type="colorableCapability" colorAsString="green"/>
+                                    <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                                    <capability xsi:type="timeMatchBasisCapability"/>
+                                    <capability xsi:type="outlineCapability" lineStyle="DEFAULT" outlineOn="true" outlineWidth="1"/>
+                                </capabilities>
+                            </loadProperties>
+                            <properties isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+                                <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                            </properties>
+                            <resourceData xsi:type="plotResourceData" isTopOfTheHour="true" plotMissingData="false" upperLimit="1.0E7" lowerLimit="-9999.0" plotSource="METAR/Maritime/LDAD" plotModelFile="stdObsDesign.svg" spiFile="basemaps/MTR.spi" pixelSizeHint="45" pixelSampleDistance="32" retrieveData="false" isUpdatingOnMetadataOnly="true" isRequeryNecessaryOnTimeMatch="true">
+                                <metadataMap>
+                                    <mapping key="pluginName">
+                                        <constraint constraintValue="obs" constraintType="EQUALS"/>
+                                    </mapping>
+                                    <mapping key="reportType">
+                                        <constraint constraintValue="METAR" constraintType="EQUALS"/>
+                                    </mapping>
+                                </metadataMap>
+                                <binOffset virtualOffset="0" posOffset="1800" negOffset="1800"/>
+                                <alertParser xsi:type="plotAlertParser"/>
+                                <plotInfoRetriever xsi:type="pointDataPlotInfoRetriever"/>
+                            </resourceData>
+                        </resource>
+                        <resource>
+                            <loadProperties loadWithoutData="true">
+                                <resourceType>PLAN_VIEW</resourceType>
+                                <perspectiveProperty xsi:type="d2dLoadProperties" timeMatchBasis="false" loadMode="VALID_TIME_SEQ"/>
+                                <capabilities>
+                                    <capability xsi:type="densityCapability" density="1.0"/>
+                                    <capability xsi:type="colorableCapability" colorAsString="green"/>
+                                    <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                                    <capability xsi:type="timeMatchBasisCapability"/>
+                                    <capability xsi:type="outlineCapability" lineStyle="DEFAULT" outlineOn="true" outlineWidth="1"/>
+                                </capabilities>
+                            </loadProperties>
+                            <properties isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+                                <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                            </properties>
+                            <resourceData xsi:type="plotResourceData" isTopOfTheHour="false" plotMissingData="false" upperLimit="1.0E7" lowerLimit="-9999.0" plotSource="METAR/Maritime/LDAD" plotModelFile="maritimeDesign.svg" pixelSizeHint="90" pixelSampleDistance="32" retrieveData="false" isUpdatingOnMetadataOnly="true" isRequeryNecessaryOnTimeMatch="true">
+                                <metadataMap>
+                                    <mapping key="pluginName">
+                                        <constraint constraintValue="sfcobs" constraintType="EQUALS"/>
+                                    </mapping>
+                                    <mapping key="reportType">
+                                        <constraint constraintValue="1003,1005,1007" constraintType="IN"/>
+                                    </mapping>
+                                </metadataMap>
+                                <binOffset virtualOffset="0" posOffset="1800" negOffset="1800"/>
+                                <alertParser xsi:type="plotAlertParser"/>
+                                <plotInfoRetriever xsi:type="pointDataPlotInfoRetriever"/>
+                            </resourceData>
+                        </resource>
+                        <resource>
+                            <loadProperties loadWithoutData="true">
+                                <resourceType>PLAN_VIEW</resourceType>
+                                <perspectiveProperty xsi:type="d2dLoadProperties" timeMatchBasis="false" loadMode="VALID_TIME_SEQ"/>
+                                <capabilities>
+                                    <capability xsi:type="densityCapability" density="1.0"/>
+                                    <capability xsi:type="colorableCapability" colorAsString="green"/>
+                                    <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                                    <capability xsi:type="timeMatchBasisCapability"/>
+                                    <capability xsi:type="outlineCapability" lineStyle="DEFAULT" outlineOn="true" outlineWidth="1"/>
+                                </capabilities>
+                            </loadProperties>
+                            <properties isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+                                <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                            </properties>
+                            <resourceData xsi:type="plotResourceData" isTopOfTheHour="false" plotMissingData="false" upperLimit="1.0E7" lowerLimit="-9999.0" plotSource="METAR/Maritime/LDAD" plotModelFile="ldadMesoDesign.svg" pixelSizeHint="90" pixelSampleDistance="32" retrieveData="false" isUpdatingOnMetadataOnly="true" isRequeryNecessaryOnTimeMatch="true">
+                                <metadataMap>
+                                    <mapping key="pluginName">
+                                        <constraint constraintValue="ldadmesonet" constraintType="EQUALS"/>
+                                    </mapping>
+                                </metadataMap>
+                                <binOffset virtualOffset="0" posOffset="1800" negOffset="1800"/>
+                                <alertParser xsi:type="plotAlertParser"/>
+                                <plotInfoRetriever xsi:type="pointDataPlotInfoRetriever"/>
+                            </resourceData>
+                        </resource>
+                    </resourceData>
+                </resource>

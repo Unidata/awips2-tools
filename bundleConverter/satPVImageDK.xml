@@ -1,0 +1,42 @@
+                        <resource>
+                            <loadProperties loadWithoutData="false">
+                                <resourceType>PLAN_VIEW</resourceType>
+                                <perspectiveProperty xsi:type="d2dLoadProperties" timeMatchBasis="false" loadMode="VALID_TIME_SEQ"/>
+                                <capabilities>
+                                    <capability xsi:type="imagingCapability" alpha="1.0" interpolationState="false" brightness="1.0" contrast="1.0"/>
+                                    <capability xsi:type="colorMapCapability">
+                                        @COLOR_MAP_INFO@
+                                    </capability>
+                                    <capability xsi:type="colorableCapability" colorAsString="white"/>
+                                    <capability xsi:type="timeMatchBasisCapability"/>
+                                </capabilities>
+                            </loadProperties>
+                            <properties isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+                                <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                            </properties>
+                            <resourceData xsi:type="satResourceData" retrieveData="true" isUpdatingOnMetadataOnly="false" isRequeryNecessaryOnTimeMatch="true">
+                                <metadataMap>
+                                    <mapping key="DERIVED">
+                                        <constraint constraintValue="execute1" constraintType="EQUALS"/>
+                                    </mapping>
+                                    <mapping key="sectorID">
+                                        <constraint constraintValue="@SAT_SECTOR@" constraintType="EQUALS"/>
+                                    </mapping>
+                                    <mapping key="creatingEntity">
+                                        <constraint constraintValue="@SAT_ENTITY@" constraintType="LIKE"/>
+                                    </mapping>
+                                    <mapping key="pluginName">
+                                        <constraint constraintValue="satellite" constraintType="EQUALS"/>
+                                    </mapping>
+                                    <mapping key="physicalElement">
+                                        <constraint constraintValue="@SAT_CHANNEL@" constraintType="EQUALS"/>
+                                    </mapping>
+                                </metadataMap>
+@REMOVE_BY_SUBSTR:~CONUS,@
+                                <binOffset virtualOffset="0" posOffset="150" negOffset="150"/>
+@END_REMOVE@
+@REMOVE_BY_SUBSTR:AND_TEST:~Supernational:~Hemisphere Composite@
+                                <binOffset virtualOffset="0" posOffset="900" negOffset="900"/>
+@END_REMOVE@
+                            </resourceData>
+                        </resource>

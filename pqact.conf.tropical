@@ -1,0 +1,7 @@
+# TPCSurge PHISH heights
+ANY	^(L[I-X]X[QP][1-5]0) KNHC (..)(..)(..)
+	FILE	-overwrite -log -close -edex	/data_store/grib2/(\2:yyyy)(\2:mm)\2/\3/TPC/\3\4Z_SURGE-\1_KNHC_\2\3\4_(seq).grib2.%Y%m%d%H
+
+# TPCSurge PHISH probabilities
+ANY	^(L[GH]X[A-M][0-2][0-9]) KNHC (..)(..)(..)
+	FILE	-overwrite -log -close -edex	/data_store/grib2/(\2:yyyy)(\2:mm)\2/\3/TPC/\3\4Z_SURGE-\1_KNHC_\2\3\4_(seq).grib2.%Y%m%d%H

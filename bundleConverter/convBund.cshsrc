@@ -1,0 +1,62 @@
+#
+# The purpose of this file is to be sourced before running the program
+# convertBundles.  Assuming there are a bare minimum of legacy D-2D data
+# structures under the directory /awips/fxa/, this will set the environment
+# variables needed to allow convertBundles to function.
+#
+set convBundOK = no
+echo $shell | grep -v csh && \
+  echo convBund.cshsrc can only be successfully sourced from a C shell
+setenv FXA_HOME /awips/fxa
+setenv FXA_NATL_CONFIG_DATA ${FXA_HOME}/data/localization
+setenv FXA_LOCALIZATION_ROOT ${FXA_HOME}/data/localizationDataSets
+setenv FXA_LOCALIZATION_SCRIPTS ${FXA_HOME}/data/localization/scripts
+set lll = `find $FXA_LOCALIZATION_ROOT -maxdepth 1 -name '???' | \
+           sed 's|^.*/||g'`
+if ( ( $#lll != 1 ) && ( $?FXA_INGEST_SITE ) ) then
+    set lll = $FXA_INGEST_SITE
+else
+    setenv FXA_INGEST_SITE $lll
+endif
+if ( $#lll != 1 ) then
+    echo "Localization site to use is ambiguous...please set the"
+    echo "environment variable FXA_INGEST_SITE"
+else if ( -d $FXA_LOCALIZATION_ROOT/$FXA_INGEST_SITE ) then
+    setenv FXA_LOCAL_SITE $FXA_INGEST_SITE
+    set convBundOK = yes
+else
+    echo "The directory $FXA_LOCALIZATION_ROOT/$FXA_INGEST_SITE"
+    echo "does not exist, the files necessary to support a legacy"
+    echo "D-2D environment do not appear to be present."
+endif
+if ( $?SITE_BUNDLE_INFO ) then
+    echo "SITE_BUNDLE_INFO already set to '$SITE_BUNDLE_INFO'"
+else if ( -x convertBundles ) then
+    set sbiparent = `dirname $PWD`
+    setenv SITE_BUNDLE_INFO ${sbiparent}/siteBundleInfo
+    echo "SITE_BUNDLE_INFO defaulted to '$SITE_BUNDLE_INFO'"
+else
+    echo "No value established for SITE_BUNDLE_INFO"
+endif
+if ( ! $?FXA_DATA ) then
+    if ( -d /data/fxa ) then
+        setenv FXA_DATA /data/fxa
+    else
+        mkdir -p /scratch/data/fxa >& /dev/null
+        chmod 775 /scratch/data/fxa >& /dev/null
+        if ( -d /scratch/data/fxa ) then
+            setenv FXA_DATA /scratch/data/fxa
+        else
+            mkdir -p $FXA_HOME/data/fxa >& /dev/null
+            chmod 775 $FXA_HOME/data/fxa >& /dev/null
+            setenv FXA_DATA $FXA_HOME/data/fxa
+        endif
+    endif
+    mkdir -p $FXA_DATA/workFiles >& /dev/null
+    chmod 775 $FXA_DATA/workFiles >& /dev/null
+    if ( -e $FXA_DATA/workFiles/customColorMaps.nc ) then
+        echo >& /dev/null
+    else if ( -e $FXA_HOME/data/siteCustomColorMaps.nc ) then
+        cp $FXA_HOME/data/siteCustomColorMaps.nc $FXA_DATA/workFiles
+    endif
+endif

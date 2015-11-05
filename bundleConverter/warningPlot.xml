@@ -1,0 +1,45 @@
+                <resource>
+                    <loadProperties loadWithoutData="true">
+                        <resourceType>PLAN_VIEW</resourceType>
+                        <perspectiveProperty xsi:type="d2dLoadProperties" timeMatchBasis="true" loadMode="VALID_TIME_SEQ"/>
+                        <capabilities>
+                            <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                            <capability xsi:type="outlineCapability" lineStyle="SOLID" outlineOn="true" outlineWidth="2"/>
+                            <capability xsi:type="colorableCapability" colorAsString="gray33"/>
+                        </capabilities>
+                    </loadProperties>
+                    <properties renderingOrderId="PLOT" isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+                        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                    </properties>
+                    <resourceData xsi:type="wwaResourceData" hideSampling="true" name="@OVERLAY_LEGEND@" retrieveData="true" isUpdatingOnMetadataOnly="false" isRequeryNecessaryOnTimeMatch="false">
+                        <metadataMap>
+@REPLACE_FOR_KEY|DEPICT|
+      6120|"PP.S"|"TO.W,SV.W,EW.W"|6310|"PP.S"|"FF.W,FL.W,FL.Y"|
+      61200|"PP.S"|"TO.W,SV.W,EW.W"|61281|"PP.S"|"FF.W,FL.W,FL.Y"|
+      61301|"PP.S"|"TO.W,SV.W,EW.W,MA.W,FF.W,FL.W,FL.Y"|
+      61311|"PP.S"|"TO.W,SV.W,EW.W,MA.W,FF.W,FL.W,FL.Y"|
+      61211|"PP.S"|"SV.W"|61212|"PP.S"|"TO.W"|61213|"PP.S"|"EW.W"|
+      61221|"PP.S"|"SV.W"|61222|"PP.S"|"TO.W"|61223|"PP.S"|"EW.W"|
+      61411|"PP.S"|"FF.W"|61412|"PP.S"|"FL.W"|61413|"PP.S"|"FL.Y"|
+      61421|"PP.S"|"FF.W"|61422|"PP.S"|"FL.W"|61423|"PP.S"|"FL.Y"|
+      6770|"PP.S"|"MA.W"|6771|"PP.S"|"MA.W"@
+@REMOVE_BY_SUBSTR,TEST_INSIDE,PP.S@
+                            <mapping key="phensig">
+                                <constraint constraintValue="PP.S" constraintType="EQUALS"/>
+                            </mapping>
+@END_REMOVE@
+                            <mapping key="pil">
+                                <constraint constraintValue="@NNN_LIST@" constraintType="IN"/>
+                            </mapping>
+                            <mapping key="officeid">
+                                <constraint constraintValue="@WMO_ID@" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="act">
+                                <constraint constraintValue="NEW,CON,CAN,EXP" constraintType="IN"/>
+                            </mapping>
+                            <mapping key="pluginName">
+                                <constraint constraintValue="warning" constraintType="EQUALS"/>
+                            </mapping>
+                        </metadataMap>
+                    </resourceData>
+                </resource>

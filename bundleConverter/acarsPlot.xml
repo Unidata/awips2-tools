@@ -1,0 +1,31 @@
+                <resource>
+                    <loadProperties loadWithoutData="false">
+                        <resourceType>PLAN_VIEW</resourceType>
+                        <perspectiveProperty xsi:type="d2dLoadProperties" timeMatchBasis="true" loadMode="VALID_TIME_SEQ"/>
+                        <capabilities>
+                            <capability xsi:type="outlineCapability" lineStyle="DEFAULT" outlineOn="true" outlineWidth="1"/>
+                            <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                            <capability xsi:type="timeMatchBasisCapability"/>
+                            <capability xsi:type="colorableCapability" colorAsString="green"/>
+                            <capability xsi:type="densityCapability" density="1.0"/>
+                        </capabilities>
+                    </loadProperties>
+                    <properties renderingOrderId="PLOT" isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+                        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                    </properties>
+@TRANSLATE,top,50,0--1524,100,1524--3048,150,3048--4572,200,4572--6096,250,
+               6096--7620,300,7620--9144,350,9144--10668,400,10668--12192,
+               450,12192--13716,500,13716--15240,999,0--20000@
+                    <resourceData xsi:type="plotResourceData" limitTimeQuery="false" isTopOfTheHour="false" plotMissingData="false" upperLimit="1.0E7" lowerLimit="-9999.0" plotSource="@OVERLAY_LEGEND@" plotModelFile="acarsPlotDesign.svg" pixelSizeHint="90" retrieveData="false" isUpdatingOnMetadataOnly="false" isRequeryNecessaryOnTimeMatch="true">
+                        <metadataMap>
+                            <mapping key="pluginName">
+                                <constraint constraintValue="acars" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="location.flightLevel">
+                                <constraint constraintValue="@top@" constraintType="BETWEEN"/>
+                            </mapping>
+                        </metadataMap>
+                        <binOffset virtualOffset="0" posOffset="0" negOffset="1800"/>
+                        <plotInfoRetriever xsi:type="pointDataPlotInfoRetriever"/>
+                    </resourceData>
+                </resource>

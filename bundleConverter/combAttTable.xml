@@ -1,0 +1,30 @@
+                <resource>
+                    <loadProperties loadWithoutData="false">
+                        <resourceType>PLAN_VIEW</resourceType>
+                        <perspectiveProperty xsi:type="d2dLoadProperties" loadMode="VALID_TIME_SEQ" timeMatchBasis="true"/>
+                        <capabilities>
+                            <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                            <capability xsi:type="rangeRingsOverlayCapability"/>
+                            <capability xsi:type="colorableCapability" colorAsString="green"/>
+                        </capabilities>
+                    </loadProperties>
+                    <properties isVisible="true" isHoverOn="false" isMapLayer="false" isBlinking="false" isSystemResource="false" renderingOrderId="PLOT">
+                        <pdProps minDisplayWidth="0" maxDisplayWidth="100000000"/>
+                    </properties>
+                    <resourceData xsi:type="radarResourceData" pointID="" mode="CZ-Pg" latest="false" rangeRings="true" isRequeryNecessaryOnTimeMatch="true" isUpdatingOnMetadataOnly="false" retrieveData="true">
+                        <metadataMap>
+                            <mapping key="primaryElevationAngle">
+                                 <constraint constraintType="BETWEEN" constraintValue="0.0--360.0"/>
+                            </mapping>
+                            <mapping key="productCode">
+                                 <constraint constraintType="EQUALS" constraintValue="@CODE_LIST@"/>
+                            </mapping>
+                            <mapping key="pluginName">
+                                 <constraint constraintType="EQUALS" constraintValue="radar"/>
+                            </mapping>
+                            <mapping key="icao">
+                                 <constraint constraintType="EQUALS" constraintValue="@RADAR_ID@"/>
+                            </mapping>
+                        </metadataMap>
+                    </resourceData>
+                </resource>

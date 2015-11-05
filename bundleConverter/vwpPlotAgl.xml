@@ -1,0 +1,32 @@
+                <resource>
+                    <loadProperties loadWithoutData="true">
+                        <resourceType>PLAN_VIEW</resourceType>
+                        <perspectiveProperty xsi:type="d2dLoadProperties" timeMatchBasis="false" loadMode="VALID_TIME_SEQ"/>
+                        <capabilities>
+                            <capability xsi:type="densityCapability" density="1.0"/>
+                            <capability xsi:type="outlineCapability" lineStyle="DEFAULT" outlineOn="true" outlineWidth="1"/>
+                            <capability xsi:type="colorableCapability" colorAsString="burlywood"/>
+                            <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                            <capability xsi:type="timeMatchBasisCapability"/>
+                        </capabilities>
+                    </loadProperties>
+                    <properties renderingOrderId="PLOT" isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+                        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                    </properties>
+@TRANSLATE,levelAGL,500,0.5k@
+@REPLACE,000mAgl,kmAgl,500mAgl,.5kmAgl@
+                    <resourceData xsi:type="plotResourceData" limitTimeQuery="false" isTopOfTheHour="false" plotMissingData="false" upperLimit="1.0E7" lowerLimit="-9999.0" levelKey="@levelAGL@mAgl" plotSource="@OVERLAY_LEGEND@" plotModelFile="vwp.svg" pixelSizeHint="90" retrieveData="false" isUpdatingOnMetadataOnly="true" isRequeryNecessaryOnTimeMatch="true">
+                        <metadataMap>
+                            <mapping key="productCode">
+                                <constraint constraintValue="48" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="pluginName">
+                                <constraint constraintValue="radar" constraintType="EQUALS"/>
+                            </mapping>
+                        </metadataMap>
+                        <binOffset virtualOffset="0" posOffset="180" negOffset="180"/>
+                        <alertParser xsi:type="vwpAlertParser"/>
+                        <plotInfoRetriever xsi:type="radarPlotInfoRetriever"/>
+                        <defaultPeriod virtualOffset="0" posOffset="300" negOffset="300"/>
+                    </resourceData>
+                </resource>

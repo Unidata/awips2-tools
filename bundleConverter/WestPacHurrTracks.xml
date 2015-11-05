@@ -1,0 +1,25 @@
+                <resource>
+                    <loadProperties loadWithoutData="true">
+                        <resourceType>PLAN_VIEW</resourceType>
+                        <perspectiveProperty xsi:type="d2dLoadProperties" timeMatchBasis="true" loadMode="VALID_TIME_SEQ"/>
+                        <capabilities>
+                            <capability xsi:type="colorableCapability" colorAsString="green"/>
+                            <capability xsi:type="timeMatchBasisCapability"/>
+                            <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                        </capabilities>
+                    </loadProperties>
+                    <properties renderingOrderId="UNKNOWN" isSystemResource="false" isBlinking="false" isMapLayer="false" isHoverOn="false" isVisible="true">
+                        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                    </properties>
+                    <resourceData xsi:type="tcsResourceData" isHourlyForecast="false" plotSource="W Pacific Hurricane Tracks" retrieveData="true" isUpdatingOnMetadataOnly="false" isRequeryNecessaryOnTimeMatch="true">
+                        <metadataMap>
+                            <mapping key="pluginName">
+                                <constraint constraintValue="tcs" constraintType="EQUALS"/>
+                            </mapping>
+                            <mapping key="productType">
+                                <constraint constraintValue="TCMWP1,TCMWP2,TCMWP3,TCMWP4,TCMWP5,TCP" constraintType="IN"/>
+                            </mapping>
+                        </metadataMap>
+                    </resourceData>
+                </resource>
+                

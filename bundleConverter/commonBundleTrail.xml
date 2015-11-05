@@ -1,0 +1,10 @@
+    </displayList>
+    <loopProperties>
+        <fwdFrameTime>250</fwdFrameTime>
+        <revFrameTime>0</revFrameTime>
+        <firstFrameDwell>750</firstFrameDwell>
+        <lastFrameDwell>1500</lastFrameDwell>
+        <mode>Forward</mode>
+        <looping>true</looping>
+    </loopProperties>
+</bundle>

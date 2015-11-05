@@ -1,0 +1,20 @@
+                <resource>
+                    <loadProperties loadWithoutData="false">
+                        <resourceType>PLAN_VIEW</resourceType>
+                        <capabilities>
+                            <capability xsi:type="magnificationCapability" magnification="1.0"/>
+                            <capability xsi:type="densityCapability" density="1.0"/>
+                            <capability xsi:type="colorableCapability" colorAsString="#9b9b9b"/>
+                            <capability xsi:type="pointCapability" pointStyle="CROSS"/>
+                            <capability xsi:type="labelableCapability" yOffset="0" xOffset="0" labelField="Label"/>
+                            <capability xsi:type="outlineCapability" lineStyle="SOLID" outlineOn="true" outlineWidth="1"/>
+                        </capabilities>
+                    </loadProperties>
+                    <properties renderingOrderId="MAP_OUTLINE" isSystemResource="false" isBlinking="false" isMapLayer="true" isHoverOn="false" isVisible="true">
+                        <pdProps maxDisplayWidth="100000000" minDisplayWidth="0"/>
+                    </properties>
+                    <resourceData xsi:type="lpiResourceData">
+                        <filename>88D.lpi</filename>
+                        <mapName>WSR-88D Station Locs</mapName>
+                    </resourceData>
+                </resource>
