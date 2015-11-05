@@ -415,8 +415,6 @@ then
 	handle_request stop
 fi
 
-cleanup
-
 echo -e "$( basename $0 ) Complete - $( date )"
 
 rm -f ${fullScriptPath}/.running

@@ -618,7 +618,7 @@ function set_global_variables() {
 	export EDEXSVR
 
 	MYRUNTIME=$( date +%Y%m%d_%H%M%S )
-	runTimeHost=$(hostname)
+	EDEXSVR=$(hostname)
 	
 	#if rpm -q awips2-edex > /dev/null ; then EDEX_HOME=$( rpm -q --qf '%{INSTALLPREFIX}' awips2-edex ) ; fi
 	#if rpm -q awips2-edex-core > /dev/null ; then EDEX_HOME=$( rpm -q --qf '%{INSTALLPREFIX}' awips2-edex-core )/edex ; fi
@@ -712,17 +712,6 @@ function initialize_configuration_variables {
 
 	find_awips_config ${LOC_SITE}-hydroSiteConfig.txt LC && wxxxList=$(grep ^Wxxx ${retLocation}/${LOC_SITE}-hydroSiteConfig.txt | cut -f2 -d' ' | xargs | sed -e 's/ /\|/g') && rxxxList=$(grep ^Rxxx ${retLocation}/${LOC_SITE}-hydroSiteConfig.txt | cut -f2 -d' ' | xargs | sed -e 's/ /\|/g') && regList=$(grep ^RegCode ${retLocation}/${LOC_SITE}-hydroSiteConfig.txt | awk '{print $2}')
 
-	if [[ ${mountList} ]]
-	then
-		for i in $( seq 0 ${#mountList[@]} )
-		do
-			mountDev=$( echo ${mountList[$i]} | cut -f2 -d- )
-			mountDir=$( echo ${mountList[$i]} | cut -f1 -d- )
-#			mount_dir dx1f /awips/fxa/data /awips/fxa/data
-			mount_dir ${mountDev} ${mountDir} ${mountDir}
-			unset mountList
-		done
-	fi
 
 	appDefaultSiteFile=${pathPrefix}/awips/hydroapps/.Apps_defaults_site
 	if [ -h ${appDefaultSiteFile} ]
@@ -807,7 +796,7 @@ function initialize_configuration_variables {
 	fi
 
 	platformName=$( hostname | cut -f 2 -d '-' | cut -f 1 -d '.' )
-	runTimeHost=$(hostname)
+	EDEXSVR=$(hostname)
 	edexServerList=$(hostname)
     
 	xmlHeader="# This software was developed and / or modified by Raytheon Company,
@@ -1015,25 +1004,6 @@ function check_needed_mounts() {
 
 	export mountList
 
-}
-
-function cleanup() {
-
-	if [[ ${mountList} ]]
-	then
-		for i in $( seq 0 ${#mountList[@]} )
-		do
-			mountDev=$( echo ${mountList[$i]} | cut -f3 -d- )
-			mountPnt=$( echo ${mountList[$i]} | cut -f1 -d- )
-			mountDir=$( echo ${mountList[$i]} | cut -f2 -d- )
-			mount_dir ${mountDev} ${mountDir} ${mountPnt}
-		done
-	fi
-#	mount_dir dx1f /awips/fxa/data /awips/fxa/data
-#	mount_dir nas1 dataADAPT /data/adapt
-#	mount_dir nas1 awipsADAPT /awips/adapt
-#	mount_dir nas1 awipsGFESuit /awips/GFESuite
-#	mount_dir nas1 awipsHYDRO /awips/hydroapps
 }
 
 function copy_awips_file() {
@@ -4203,14 +4173,10 @@ function config_ndm() {
                                 debug_echo "\tCopying ${pathPrefix}/awips/fxa/data/${myFile} to ${compLocDir}/${myFile}"
                                 case ${myFile} in 
                                 "prodList.txt"|"tdwrProdList.txt" | "wmoSiteInfo.txt" )	
-											if [[ ${runTimeHost} == "dx"[34] ]] ; then
-												extraCopyCommand="dx1:"
-											else
-												extraCopyCommand=""
-											fi
-								;;
-								*	)	extraCopyCommand="" ;;
-								esac
+				extraCopyCommand=""
+				;;
+				*	)	extraCopyCommand="" ;;
+			esac
                                 copy_awips_file ${extraCopyCommand}${pathPrefix}/awips/fxa/data/${myFile} ${compLocDir}/${myFile} awips fxalpha 644
                             done 
                             ;;
@@ -4220,14 +4186,10 @@ function config_ndm() {
                             echo -e "\nUser Choice: ${myFile}"
                             case ${myFile} in 
                                 "prodList.txt"|"tdwrProdList.txt" | "wmoSiteInfo.txt" )	
-											if [[ ${runTimeHost} == "dx"[34] ]] ; then
-												extraCopyCommand="dx1:"
-											else
-												extraCopyCommand=""
-											fi
-								;;
-								*	)	extraCopyCommand="" ;;
-							esac
+					extraCopyCommand=""
+					;;
+					*	)	extraCopyCommand="" ;;
+				esac
                             debug_echo "\tCopying ${extraCopyCommand}${pathPrefix}/awips/fxa/data/${myFile} to ${compLocDir}/${myFile}"
                             copy_awips_file ${extraCopyCommand}${pathPrefix}/awips/fxa/data/${myFile} ${compLocDir}/${myFile} awips fxalpha 644
                             ;;

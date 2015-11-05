@@ -179,7 +179,7 @@ do
 					do
 						  newEditAreaName=$( python -c "import sys,re,os,string; from sys import argv; from socket import gethostname; from GFE_unmangler import *;name = \"$editAreaName\";newFileName = unmangler(name,\"\");print newFileName" )
 						  echo -e "Working on converting ${editAreaName} as ${newEditAreaName} in $(pwd) for gfe migration"
-						  /awips/GFESuite/primary/bin/ifpServerText -h dx4f -p 98000000 -u ${i} -g -n ${newEditAreaName} -c EditAreaGroup 2>/dev/null > /data/local/gfe_editareas/${i}/${newEditAreaName}.out
+						  /awips/GFESuite/primary/bin/ifpServerText -h $(hostname) -p 98000000 -u ${i} -g -n ${newEditAreaName} -c EditAreaGroup 2>/dev/null > /data/local/gfe_editareas/${i}/${newEditAreaName}.out
 					done
 					cd /
 					;;
@@ -194,7 +194,7 @@ for editAreaName in $( ls )
 do
 	newEditAreaName=$( python -c "import sys,re,os,string; from sys import argv; from socket import gethostname; from GFE_unmangler import *;name = \"$editAreaName\";newFileName = unmangler(name,\"\");print newFileName" )
 	echo -e "Working on converting ${editAreaName} as ${newEditAreaName} in $(pwd) for gfe migration"
-	/awips/GFESuite/primary/bin/ifpServerText -h dx4f -p 98000000 -u SITE -g -n ${newEditAreaName} -c EditAreaGroup 2>/dev/null > /data/local/gfe_editareas/SITE/${newEditAreaName}.out
+	/awips/GFESuite/primary/bin/ifpServerText -h $(hostname) -p 98000000 -u SITE -g -n ${newEditAreaName} -c EditAreaGroup 2>/dev/null > /data/local/gfe_editareas/SITE/${newEditAreaName}.out
 done
 cd /
 
@@ -212,7 +212,7 @@ do
 					do
 						  newColorTable=$( python -c "import sys,re,os,string; from sys import argv; from socket import gethostname; from GFE_unmangler import *;name = \"$colorTable\";newFileName = unmangler(name,\"\");print newFileName" )
 						  echo -e "Working on converting ${colorTable} as ${newColorTable} in $( pwd ) for gfe migration"
-						  /awips/GFESuite/primary/bin/ifpServerText -h dx4f -p 98000000 -u ${dirName} -g -n "${newColorTable}" -c ColorTable 2>/dev/null > /data/local/gfe_colortables/${dirName}/"${newColorTable}".out
+						  /awips/GFESuite/primary/bin/ifpServerText -h $(hostname) -p 98000000 -u ${dirName} -g -n "${newColorTable}" -c ColorTable 2>/dev/null > /data/local/gfe_colortables/${dirName}/"${newColorTable}".out
 					done
 					cd /
 					;;
@@ -230,7 +230,7 @@ do
 	if [[ "${newColorTable}" != "" ]]
 	then
 	      echo -e "Working on converting ${colorTable} as ${newColorTable} in $(pwd) for gfe migration"
-	      /awips/GFESuite/primary/bin/ifpServerText -h dx4f -p 98000000 -u SITE -g -n ${newColorTable} -c ColorTable 2>/dev/null > /data/local/gfe_colortables/SITE/${newColorTable}.out
+	      /awips/GFESuite/primary/bin/ifpServerText -h $(hostname) -p 98000000 -u SITE -g -n ${newColorTable} -c ColorTable 2>/dev/null > /data/local/gfe_colortables/SITE/${newColorTable}.out
 	fi
 done
 cd /
