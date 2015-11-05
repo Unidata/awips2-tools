@@ -156,32 +156,6 @@ retLocation=
 
 }
 
-function mount_dir() {
-
-
-	# Tool used to mount an AWIPS I directory RO if needed for localization
-	# Will unmount if already mounted
-	# Usage mount_dir [ host ] [ mount ] [ mountpoint ]
-
-	remoteHost=$1
-	remoteMount=$2
-	mountPoint=$3
-
-	if ! mount | grep ${mountPoint} >& /dev/null
-	then
-		# Not mounted, time to mount
-		if ! mount -o ro ${remoteHost}:${remoteMount} ${mountPoint}
-		then
-			retVal=1
-		fi
-	else
-		# Mounted, unmount
-		umount ${mountPoint}
-	fi
-
-	return ${retVal}
-
-}
 
 function answer_me() {
 
@@ -961,36 +935,26 @@ function check_needed_mounts() {
 	then
 		echo "/awips/fxa/data/localizationDataSets does not exist. Exiting."
 		exit 1
-		#mount_dir dx1f /awips/fxa/data /awips/fxa/data
-		#mountList=( ${mountList[@]} "/awips/fxa/data - /awips/fxa/data - dx1f" )
 	fi
 	if [ ! -d /data/adapt/avnfps ] 
 	then
 		echo "/data/adapt/avnfps does not exist. Exiting."
 		exit 1
-		#mount_dir nas1 dataADAPT /data/adapt
-		#mountList=( ${mountList[@]} "/data/adapt - dataADAPT - nas1" )
 	fi
 	if [ ! -d /awips/adapt/avnfps ]
 	then
 		echo "/awips/adapt/avnfps does not exist. Exiting."
 		exit 1
-		#mount_dir nas1 awipsADAPT /awips/adapt
-		#mountList=( ${mountList[@]} "/awips/adapt - awipsADAPT - nas1" )
 	fi
 	if [ ! -d /awips/GFESuite/primary ] 
 	then
 		echo "/awips/GFESuite/primary does not exist. Exiting."
 		exit 1
-		#mount_dir nas1 awipsGFESuit /awips/GFESuite
-		#mountList=( ${mountList[@]} "/awips/GFESuite - awipsGFESuit - nas1" )
 	fi
 	if [ ! -d /awips/hydroapps/whfs ]
 	then
 		echo "/awips/hydroapps/whfs does not exist. Exiting."
 		exit 1
-		#mount_dir nas1 awipsHYDRO /awips/hydroapps
-		#mountList=( ${mountList[@]} "/awips/hydroapps - awipsHYDRO - nas1" )
 	fi
 
 	for i in ${neededDirectories[@]}
@@ -1001,8 +965,6 @@ function check_needed_mounts() {
 			exit 1
 		fi
 	done
-
-	export mountList
 
 }
 
