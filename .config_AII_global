@@ -481,26 +481,6 @@ function create_subtree() {
 
 }
 
-function set_cpsbn_variable() {
-
-	debug_echo "Beginning $FUNCNAME"
-	retVal=0
-
-	if ping -c2 cpsbn1 >& /dev/null
-	then	
-		_cp=cpsbn1
-	elif ping -c2 cpsbn2 >& /dev/null
-	then
-		_cp=cpsbn2
-	else
-		color_echo red 1 "\tERROR:\t\aNo pingable cpsbn found.  Exiting"
-		retVal=1
-	fi
-
-	return ${retVal}
-
-}
-
 function set_hydro_site_config() {
 
 	# used to set wxxxList and rxxxList if not set 
@@ -641,7 +621,6 @@ function set_global_variables() {
 		fi
 	fi
 
-	#set_cpsbn_variable
 
 	DB_LOCATION="/awips2/data"
 	dbaccessType="host"
@@ -771,7 +750,6 @@ function initialize_configuration_variables {
 
 	platformName=$( hostname | cut -f 2 -d '-' | cut -f 1 -d '.' )
 	EDEXSVR=$(hostname)
-	edexServerList=$(hostname)
     
 	xmlHeader="# This software was developed and / or modified by Raytheon Company,
 # pursuant to Contract DG133W-05-CQ-1067 with the US Government.
