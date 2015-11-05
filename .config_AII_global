@@ -244,7 +244,7 @@ function modify_pgsec() {
 	lMethod=$3
 
         #Check for line, first
-        if ! ${dbSSHcmd} grep ^${lType} ${DB_LOCATION}/pg_hba.conf | grep ${lDB} > /dev/null
+        if ! grep ^${lType} ${DB_LOCATION}/pg_hba.conf | grep ${lDB} > /dev/null
         then
                 echo -e "ERROR: The database ${lDB} does not have a ${lType} entry in ${DB_LOCATION}/pg_hba.conf"
                 exit 1
@@ -259,7 +259,7 @@ function modify_pgsec() {
 
 	#Check to see if we should make the modification
 	madePgHbaChange=0
-	if ${dbSSHcmd} grep ^${lType} ${DB_LOCATION}/pg_hba.conf | grep ${lDB} | grep ${lMethod} | grep ${SUBNET} &> /dev/null 
+	if grep ^${lType} ${DB_LOCATION}/pg_hba.conf | grep ${lDB} | grep ${lMethod} | grep ${SUBNET} &> /dev/null 
 	then
 		return 0		# We don't need to do anything if it is already set to ${lMethod}
 	else
@@ -268,18 +268,13 @@ function modify_pgsec() {
 	
 	#Make the modification
 	case ${lType} in
-		"host"	)	${dbSSHcmd} sed -i "/^${lType}.*${lDB}.*${SUBNET}/s/${oMethod}/${lMethod}/1" ${DB_LOCATION}/pg_hba.conf ;;
-		"local"	)	${dbSSHcmd} sed -i "/^${lType}.*${lDB}.*all/s/${oMethod}/${lMethod}/1" ${DB_LOCATION}/pg_hba.conf ;;
+		"host"	)	sed -i "/^${lType}.*${lDB}.*${SUBNET}/s/${oMethod}/${lMethod}/1" ${DB_LOCATION}/pg_hba.conf ;;
+		"local"	)	sed -i "/^${lType}.*${lDB}.*all/s/${oMethod}/${lMethod}/1" ${DB_LOCATION}/pg_hba.conf ;;
 		*	)	echo -e "Invalid connection type:  Valid values are host, local, or hostssl" ; exit 1 ;;
 	esac
 
 	# Read in new file
-	if [[ "${dbSSHcmd}" ]]
-	then 
-		${dbSSHcmd} "su awips -lc \"pg_ctl -D ${DB_LOCATION} reload\" " > /dev/null 2>&1
-	else
-	    su awips -lc "pg_ctl -D ${DB_LOCATION} reload" > /dev/null 2>&1
-	fi
+	su - awips -lc "pg_ctl -D ${DB_LOCATION} reload" > /dev/null 2>&1
 	debug_echo "Completed $FUNCNAME .....\n"
 
 }
@@ -623,7 +618,7 @@ function set_global_variables() {
 	export EDEXSVR
 
 	MYRUNTIME=$( date +%Y%m%d_%H%M%S )
-	runTimeHost=$( hostname | cut -f 1 -d'-' )
+	runTimeHost=$(hostname)
 	
 	#if rpm -q awips2-edex > /dev/null ; then EDEX_HOME=$( rpm -q --qf '%{INSTALLPREFIX}' awips2-edex ) ; fi
 	#if rpm -q awips2-edex-core > /dev/null ; then EDEX_HOME=$( rpm -q --qf '%{INSTALLPREFIX}' awips2-edex-core )/edex ; fi
@@ -675,24 +670,11 @@ function set_global_variables() {
 	#set_cpsbn_variable
 
 	DB_LOCATION="/awips2/data"
-	dbSSHcmd=
-	if [[ $( hostname | cut -f1 -d'-' ) != ${EDEXDBSVR} && $( hostname | cut -f1 -d'-' ) != $( ssh -qn ${EDEXDBSVR} hostname | cut -f1 -d'-') ]]
-	then
-		dbSSHcmd="ssh -qn ${EDEXDBSVR}"
-	fi
 	dbaccessType="host"
 	
-	
-	# Version being localized:
-	edexSSHcmd=""
-	if [[ $(hostname | cut -f1 -d'-' ) != "${EDEXSVR}" ]]
-	then
-		edexSSHcmd="ssh -qn ${EDEXSVR}"
-	fi
-
 	if ! rpm -qi awips2 &> /dev/null 
 	then
-		AII_RELEASEID=$( ${edexSSHcmd} grep Version: ${EDEX_HOME}/conf/banner.txt | cut -f2 -d':' | sed -e 's/^[[:space:]]*//g' -e 's/\*//g' -e 's/[[:space:]]*$//g' )
+		AII_RELEASEID=$( grep Version: ${EDEX_HOME}/conf/banner.txt | cut -f2 -d':' | sed -e 's/^[[:space:]]*//g' -e 's/\*//g' -e 's/[[:space:]]*$//g' )
 	else
 		edexVersion=$( rpm -qi awips2 | grep Version | cut -f2 -d: | sed -e "s/[[:space:]]*//g" -e "s/Vendor.*$//g" )
 		edexRelease=$( rpm -qi awips2 | grep Release | cut -f2 -d: | sed -e "s/[[:space:]]*//g" -e "s/Build.*$//g" )
@@ -825,17 +807,9 @@ function initialize_configuration_variables {
 	fi
 
 	platformName=$( hostname | cut -f 2 -d '-' | cut -f 1 -d '.' )
-	runTimeHost=$( hostname | cut -f 1 -d '-' )
+	runTimeHost=$(hostname)
+	edexServerList=$(hostname)
     
-	case ${platformName} in 
-		"tbw4"|"afc"	)	                        debug_echo "setting edexServerList to dx3 dx4 px3 px4 cpsbn1 cpsbn2" ; edexServerList="dx3 dx4 px3 px4 cpsbn1 cpsbn2" ;;
-        "vrh"   )                                   debug_echo "setting edexServerList to dx3 dx4 px3 px4 px1 px2" ; edexServerList="dx3 dx4 px1 px2 px3 px4" ;;
-        "hfo"|"gum")                         debug_echo "setting edexServerList to dx3 dx4 px1 px2" ; edexServerList="dx3 dx4 px1 px2" ;;
-        [A-Za-z][A-Za-z][A-Za-z]n               )   debug_echo "setting edexServerList to dx3 dx4 dx5 dx6 cpsbn1 cpsbn2" ; edexServerList="dx3 dx4 dx5 dx6 cpsbn1 cpsbn2" ;;
-		"alr"|"tbwo"	)									if [[ ${runTimeHost} == "px"* ]] ; then debug_echo "setting edexServerList to px1 px2" ; edexServerList="px1 px2" ; else debug_echo "setting edexServerList to dx3 dx4 cpsbn1 cpsbn2" ; edexServerList="dx3 dx4 cpsbn1 cpsbn2" ; fi ;; 
-		*					)	                    debug_echo "setting edexServerList to dx3 dx4 cpsbn1 cpsbn2" ; edexServerList="dx3 dx4 cpsbn1 cpsbn2" ;;
-	esac
-
 	xmlHeader="# This software was developed and / or modified by Raytheon Company,
 # pursuant to Contract DG133W-05-CQ-1067 with the US Government.
 #\n# U.S. EXPORT CONTROLLED TECHNICAL DATA
@@ -901,9 +875,9 @@ function import_shape_file() {
 		_unzipped=0
 	fi
 	
-	debug_echo "\tImport Command: ${dbSSHcmd} su awips -lc \" ${sqlBasename}/importShapeFile.sh ${shpFile} mapdata ${dbSchema} ${shpSimpLev} awips 5432 ${EDEX_INSTALL} \" "
+	debug_echo "\tImport Command: su awips -lc \" ${sqlBasename}/importShapeFile.sh ${shpFile} mapdata ${dbSchema} ${shpSimpLev} awips 5432 ${EDEX_INSTALL} \" "
 		
-	${dbSSHcmd} su awips -lc " ${sqlBasename}/importShapeFile.sh ${shpFile} mapdata ${dbSchema} ${shpSimpLev} awips 5432 ${EDEX_INSTALL} "  2>&1 | while read line
+	su - awips -lc " ${sqlBasename}/importShapeFile.sh ${shpFile} mapdata ${dbSchema} ${shpSimpLev} awips 5432 ${EDEX_INSTALL} "  2>&1 | while read line
 	do
 		echo -e "\t${line}"
 	done
@@ -966,7 +940,7 @@ function import_wg_file() {
 	fi
 
 
-	${dbSSHcmd} su awips -lc " ${sqlBasename}/${scriptName} ${shpFile} mapdata ${dbTable}"  2>&1 | while read line
+	su - awips -lc " ${sqlBasename}/${scriptName} ${shpFile} mapdata ${dbTable}"  2>&1 | while read line
 	do
 		echo -e "\t${line}"
 	done
@@ -1314,13 +1288,6 @@ function handle_request() {
 
 	actionArg=$1
 
-	if [ $EDEXSVR == $( hostname | cut -f1 -d- ) ]
-	then
-		mySSHcmd=""
-	else
-		mySSHcmd="ssh -qn $EDEXSVR"
-	fi
-
     if [[ -f /awips2/edex/data/utility/edex_static/site/${locSite}/config/activeSites.txt ]] ; then 
         numberOfActiveGFESites=$( wc -l /awips2/edex/data/utility/edex_static/site/${locSite}/config/activeSites.txt | awk '{print $1}' )
     else
@@ -1338,12 +1305,12 @@ function handle_request() {
 	case "${actionArg}" in 
 		"start"		)
 
-					if ${mySSHcmd} ps -fu awips | grep edex.run.mode=request > /dev/null 
+					if ps -fu awips | grep edex.run.mode=request > /dev/null 
 					then
 						debug_echo "\tNOTE:  EDEX Request already running..... moving on...."
 					else
 						debug_echo "\tNOTE:  EDEX Request not running ($EDEXSVR) .. starting............"
-						if ! ${mySSHcmd} service edex_camel start request 2>&1 > /dev/null
+						if ! service edex_camel start request 2>&1 > /dev/null
 						then
 							color_echo red 1 "\tERROR:  EDEX Request Server must be running and failed to start on $EDEXSVR.  Exiting"
 							return 1
@@ -1355,7 +1322,7 @@ function handle_request() {
 						local reqBooted=
 						while [ ! "${reqBooted}" ] 
 						do
-							if ${mySSHcmd} tail -25 ${EDEX_HOME}/logs/edex-request-$( date +%Y%m%d ).log | grep "EDEX ESB is now operational" > /dev/null
+							if tail -25 ${EDEX_HOME}/logs/edex-request-$( date +%Y%m%d ).log | grep "EDEX ESB is now operational" > /dev/null
 							then
 								reqBooted=1
 							else
@@ -1387,7 +1354,7 @@ function handle_request() {
 					if [ "${startedService}" ]  
 					then
 						debug_echo "\tNOTE:  EDEX Request started on $EDEXSVR... stopping now...."
-						if ! ${mySSHcmd} service edex_camel stop request 2>&1 > /dev/null
+						if ! service edex_camel stop request 2>&1 > /dev/null
 						then
 							color_echo yellow 0 "\tNOTE:  Stopping of EDEX Request FAILED.  Please contact support!"
 						fi
@@ -2025,14 +1992,8 @@ function config_common_menus() {
 				fi
 			done
 			echo -e "</menuTemplate>" >> ${extraMosaicFile}
-			if [[ ${runTimeHost} == "adam"* ]] 
-			then
-				radarPluginDirName=$( ls -d /awips2/cave/plugins/com.raytheon.viz.radar_* )
-				scp -qp ${radarPluginDirName}/localization/menus/radar/baseRadarMenu.xml ${EDEX_HOME}/data/utility/cave_static/site/${locSite}/menus/radar/
-			else
-				radarPluginDirName=$( ssh -qn px1f ls -d /awips2/cave/plugins/com.raytheon.viz.radar_* )
-				scp -qp px1f:${radarPluginDirName}/localization/menus/radar/baseRadarMenu.xml ${EDEX_HOME}/data/utility/cave_static/site/${locSite}/menus/radar/
-			fi
+			radarPluginDirName=$( ls -d /awips2/cave/plugins/com.raytheon.viz.radar_* )
+			scp -qp ${radarPluginDirName}/localization/menus/radar/baseRadarMenu.xml ${EDEX_HOME}/data/utility/cave_static/site/${locSite}/menus/radar/
 			sed -i -e "/belowRadarMosaics/i 	<contribute xsi:type=\"separator\" id=\"beforeMoreMosaics\" />" ${EDEX_HOME}/data/utility/cave_static/site/${locSite}/menus/radar/baseRadarMenu.xml 
 			sed -i -e "/beforeMoreMosaics/a         <contribute xsi:type=\"subinclude\" fileName=\"menus/radar/otherMosaicMenus.xml\" />" ${EDEX_HOME}/data/utility/cave_static/site/${locSite}/menus/radar/baseRadarMenu.xml 
 			chown awips:fxalpha ${EDEX_HOME}/data/utility/cave_static/site/${locSite}/menus/radar/*
@@ -2588,14 +2549,6 @@ function config_setup_env() {
 		elif [[ "${siteType}" == "WFO" ]]
 		then
 			sed -i "/fog/s/false/true/1" ${EDEX_HOME}/data/utility/common_static/base/monitoring/MonitorPluginState.xml
-		fi
-		if [[ "${runTimeHost}" != adam* ]] 
-		then
-			for otherEdex in $( echo ${edexServerList//${runTimeHost}/} )
-			do
-				echo -e "\t\tCopying setup.env to ${otherEdex}....\c"
-				scp ${EDEX_HOME}/bin/setup.env ${otherEdex}:${EDEX_HOME}/bin/ && echo -e "OK!" || color_echo red 1 "FAILED"
-			done
 		fi
 	fi
 	color_echo blue 1 " -----------------------------------------------"
@@ -3830,38 +3783,11 @@ function check_ldm_syntax() {
 	tmpFile=$1
 	if [ -n "${tmpFile}" ] 
 	then
-        if [[ "${ldmsshHost}" != "" ]] ; then
-            scp -q ${tmpFile} ${ldmsshHost}:${tmpFile} >& /dev/null
-            ssh ${ldmsshHost} "su ldm -lc \"~/bin/ldmadmin pqactcheck -p ${tmpFile}\" " >& /dev/null
+            su - awips -c "ldmadmin pqactcheck -p ${tmpFile}" >& /dev/null
             retVal=$?
-        else
-            su ldm -c "~/bin/ldmadmin pqactcheck -p ${tmpFile}" >& /dev/null
-            retVal=$?
-        fi
 	else
-        if [[ "${ldmsshHost}" != "" ]] ; then
-            ssh ${ldmsshHost} "su ldm -lc \"~/bin/ldmadmin pqactcheck\" " >& /dev/null
+            su - awips -c "ldmadmin pqactcheck" >& /dev/null
             retVal=$?
-        else
-            su ldm -c "~/bin/ldmadmin pqactcheck" >& /dev/null
-            retVal=$?
-        fi
-	fi
-
-	return $retVal
-}
-
-function check_ldm_syntax_CP() {
-
-	tmpFile=$1
-	if [ -n "${tmpFile}" ] 
-	then
-        scp $tmpFile cpsbn1:$tmpFile
-		ssh cpsbn1 "su ldm -c \"~/bin/ldmadmin pqactcheck -p ${tmpFile}\" " >& /dev/null
-		retVal=$?
-	else
-		ssh cpsbn1 "su ldm -c \"~/bin/ldmadmin pqactcheck\" " >& /dev/null
-		retVal=$?
 	fi
 
 	return $retVal
@@ -4138,38 +4064,36 @@ function config_pqact() {
 		fi
 	   fi
 	
-
-	   if [[ "${ldmsshHost}" ]] ; then ssh -qn ${ldmsshHost} "cat /awips2/ldm/etc/pqact.conf.template > /awips2/ldm/etc/${pqfilename} && chown ldm:fxalpha /awips2/ldm/etc/${pqfilename}" ; else cat /awips2/ldm/etc/pqact.conf.template > /awips2/ldm/etc/${pqfilename} && chown ldm:fxalpha /awips2/ldm/etc/${pqfilename} ; fi
-	   if [[ "${ldmsshHost}" ]] ; then ssh -qn ${ldmsshHost} "cat /var/tmp/pqact.conf.local >> /awips2/ldm/etc/${pqfilename}" ; else cat /var/tmp/pqact.conf.local >> /awips2/ldm/etc/${pqfilename} ; fi 
+	   cat /awips2/ldm/etc/pqact.conf.template > /awips2/ldm/etc/${pqfilename} && chown ldm:fxalpha /awips2/ldm/etc/${pqfilename}
+	   cat /var/tmp/pqact.conf.local >> /awips2/ldm/etc/${pqfilename}
+	
 	   case "${AII_RELEASEID}" in
-			"1"[4-5]"."[2-9]"."*  )     if [[ "${ldmsshHost}" ]] ; then ssh -qn ${ldmsshHost} "if [[ ! -f /awips2/ldm/etc/pqact.conf.datadelivery ]] ; then cp ${fullScriptPath}/pqact.conf.datadelivery /awips2/ldm/etc/ ; fi " ; else if [[ ! -f /awips2/ldm/etc/pqact.conf.datadelivery ]] ; then cp ${fullScriptPath}/pqact.conf.datadelivery /awips2/ldm/etc/ ; fi ; fi
-									if [[ "${ldmsshHost}" ]] ; then ssh -qn ${ldmsshHost} "cat /awips2/ldm/etc/pqact.conf.datadelivery >> /awips2/ldm/etc/${pqfilename}" ; else cat /awips2/ldm/etc/pqact.conf.datadelivery >> /awips2/ldm/etc/${pqfilename} ; fi 
-									;;
+		"1"[4-5]"."[2-9]"."*  )   
+		    if [[ ! -f /awips2/ldm/etc/pqact.conf.datadelivery ]]
+		    then
+			cp ${fullScriptPath}/pqact.conf.datadelivery /awips2/ldm/etc/
+		    fi
+		    cat /awips2/ldm/etc/pqact.conf.datadelivery >> /awips2/ldm/etc/${pqfilename}
+		;;
 	   esac
-	   if echo ${locSite} | grep -iw -E "gyx|okx|phi|lwx|akq|mhx|ilm|chs|jax|mlb|mfl|key|tbw|tae|mob|lix|lch|box|hgx|crp|bro" > /dev/null ; then
-			color_echo yellow 0 "\tIdentified coastal AWIPS II site, adding pqact.conf.tropical contents onto pqact.conf.local"
-			if [[ "${ldmsshHost}" ]] ; then ssh -qn ${ldmsshHost} "if [[ ! -f /awips2/ldm/etc/pqact.conf.tropical ]] ; then cp ${fullScriptPath}/pqact.conf.tropical /awips2/ldm/etc/ ; fi " ; else if [[ ! -f /awips2/ldm/etc/pqact.conf.tropical ]] ; then cp ${fullScriptPath}/pqact.conf.tropical /awips2/ldm/etc/ ; fi ; fi
-			if [[ "${ldmsshHost}" ]] ; then ssh -qn ${ldmsshHost} "cat /awips2/ldm/etc/pqact.conf.tropical >> /awips2/ldm/etc/${pqfilename}" ; else cat /awips2/ldm/etc/pqact.conf.tropical >> /awips2/ldm/etc/${pqfilename} ; fi
+
+	   if echo ${locSite} | grep -iw -E "gyx|okx|phi|lwx|akq|mhx|ilm|chs|jax|mlb|mfl|key|tbw|tae|mob|lix|lch|box|hgx|crp|bro" > /dev/null
+	   then
+		color_echo yellow 0 "\tIdentified coastal AWIPS II site, adding pqact.conf.tropical contents onto pqact.conf.local"
+		if [[ ! -f /awips2/ldm/etc/pqact.conf.tropical ]]
+		then
+			cp ${fullScriptPath}/pqact.conf.tropical /awips2/ldm/etc/
+		fi 
+		cat /awips2/ldm/etc/pqact.conf.tropical >> /awips2/ldm/etc/${pqfilename}
 	   fi
-
-       #if [[ "${ldmsshHost}" ]] ; then
-       #     if ssh ${ldmsshHost} "[[ -f /awips2/ldm/etc/pqact.conf.$( echo ${locSite} | tr [:upper:] [:lower:] ) ]]" ; then 
-       #         scp -q ${ldmsshHost}:/awips2/ldm/etc/pqact.conf.$( echo ${locSite} | tr [:upper:] [:lower:] ) /var/tmp/ 
-       #         localFileToAdd="/var/tmp/pqact.conf.$( echo ${locSite} | tr [:upper:] [:lower:] )"
-       #     fi
-       #else
-            if [[ -f /awips2/ldm/etc/pqact.conf.$( echo ${locSite} | tr [:upper:] [:lower:] ) ]] ; then scp /awips2/ldm/etc/pqact.conf.$( echo ${locSite} | tr [:upper:] [:lower:] ) /var/tmp ; localFileToAdd="/var/tmp/pqact.conf.$( echo ${locSite} | tr [:upper:] [:lower:] )" ; fi
-       #fi
-
-       #if [[ "${ldmsshHost}" ]] ; then
-       #     if ssh ${ldmsshHost} "[[ -f /awips2/ldm/etc/pqact.conf.${locSite} ]]" ; then 
-       #         scp -q ${ldmsshHost}:/awips2/ldm/etc/pqact.conf.${locSite} /var/tmp/ 
-       #         localFileToAdd="/var/tmp/pqact.conf.${locSite}"
-       #     fi
-       #else
-            if [[ -f /awips2/ldm/etc/pqact.conf.${locSite} ]] ; then scp /awips2/ldm/etc/pqact.conf.${locSite} /var/tmp/ ; localFileToAdd="/var/tmp/pqact.conf.${locSite}"; fi
-       #fi
-
+           if [[ -f /awips2/ldm/etc/pqact.conf.$( echo ${locSite} | tr [:upper:] [:lower:] ) ]]
+	   then
+		scp /awips2/ldm/etc/pqact.conf.$( echo ${locSite} | tr [:upper:] [:lower:] ) /var/tmp ; localFileToAdd="/var/tmp/pqact.conf.$( echo ${locSite} | tr [:upper:] [:lower:] )"
+	   fi
+           if [[ -f /awips2/ldm/etc/pqact.conf.${locSite} ]]
+	   then
+		scp /awips2/ldm/etc/pqact.conf.${locSite} /var/tmp/ ; localFileToAdd="/var/tmp/pqact.conf.${locSite}"
+	   fi
 	   if [[ "${localFileToAdd}" ]]
 	   then
 	      echo -ne "\tFound ${localFileToAdd}, checking syntax.... "
@@ -4177,30 +4101,18 @@ function config_pqact() {
 		then
 			echo -e "OK"
 			echo -e "\tAdding onto /awips2/ldm/etc/${pqfilename}" 
-			if [[ ! "${ldmsshHost}" ]] ; then 
-                cat ${localFileToAdd} >> /awips2/ldm/etc/${pqfilename}
-            else
-                ssh -qn ${ldmsshHost} "cat ${localFileToAdd} >> /awips2/ldm/etc/${pqfilename}"
-            fi
+                	cat ${localFileToAdd} >> /awips2/ldm/etc/${pqfilename}
 		else
 			echo -e "FAILED!!"
 			echo -e "\tERROR: Syntax of ${localFileToAdd} is improper, please check and run ldmadmin pqactHUP to test" 
 		fi
 	   fi
 
-	   # Send HUP to ldm
-       if [[ "${ldmsshHost}" == "" ]] ; then
-            if [ -f /awips2/ldm/ldmd.pid ]; then su ldm -lc 'ldmadmin pqactHUP' | while read line; do echo -e "\t${line}"; done; else color_echo yellow 0 "\n\tNOTE: LDM doesn't appear to be running, don't forget to start it!" ; fi
-        else
-            for host in ${otherLDMHosts} ; do 
-                ssh $host "if [ -f /awips2/ldm/ldmd.pid ]; then su ldm -lc 'ldmadmin pqactHUP' | while read line; do echo -e \"\t${line}\"; done ; fi"
-                if [[ "${host}" == "${ldmsshHost}" ]] ; then 
-                    for partner in $( echo ${otherLDMHosts} | sed -e "s/${host}//g" ) ; do
-                        ssh -qn $host "scp -qp /awips2/ldm/etc/${pqfilename} ${partner}:/awips2/ldm/etc/" 
-                    done
-                fi                    
-           done
-        fi
+	# Send HUP to ldm
+        if [ -f /awips2/ldm/ldmd.pid ]
+	then
+		su - awips -lc 'ldmadmin pqactHUP' | while read line; do echo -e "\t${line}"; done; else color_echo yellow 0 "\n\tNOTE: LDM doesn't appear to be running, don't forget to start it!"
+	fi
 
 	echo_function COMPLETED $FUNCNAME
 }
@@ -4762,27 +4674,15 @@ function reload_base_shapefiles() {
 		cd ..
 	done
 
-    if [[ "${restartEDEX}" ]] ; then
-        echo -e "\t\tChecking for EDEX to restart for regeneration of warngen geom files..."
-        debug_echo "\tRestarting EDEX to regenerate" 
-        localEdexCnt=0
-        for edexHost in $( echo ${edexServerList//$(hostname | cut -f1 -d-)} )  ; do 
-        # Check for at least two servers.. if none active, do not restart reuqest
-            if ssh -qn ${edexHost} service edex_camel status request > /dev/null 2>&1 ; then
-                #found one running.. 
-                (( localEdexCnt += 1 ))
-            fi
-        done
-        if [[ ${localEdexCnt} -ge 2 ]] ; then
+        if [[ "${restartEDEX}" ]] ; then
+            echo -e "\t\tChecking for EDEX to restart for regeneration of warngen geom files..."
+            debug_echo "\tRestarting EDEX to regenerate" 
             startedService=1 && handle_request stop 
-            while ${mySSHcmd} ps -wef|grep mode=request | grep -v grep > /dev/null ; do 
+            while ps -wef|grep mode=request | grep -v grep > /dev/null ; do 
                 sleep 15
             done
             handle_request start 
-        else
-            echo -e "\t\tNot restarting EDEX request -- only found ${localEdexCnt} request JVM running, and need at least 2"
         fi
-    fi
 
 	
 	echo_function Complete $FUNCNAME
@@ -4793,23 +4693,11 @@ function test_restart_edex() {
 
         echo -e "\t\tChecking for EDEX to restart for regeneration of warngen geom files..."
         debug_echo "\tRestarting EDEX to regenerate" 
-        localEdexCnt=0
-        for edexHost in $( echo ${edexServerList//$(hostname | cut -f1 -d-)} )  ; do 
-        # Check for at least two servers.. if none active, do not restart reuqest
-            if ssh -qn ${edexHost} service edex_camel status request > /dev/null 2>&1 ; then
-                #found one running.. 
-                (( localEdexCnt += 1 ))
-            fi
+        startedService=1 && handle_request stop 
+        while ps -wef|grep mode=request | grep -v grep > /dev/null ; do 
+            sleep 15
         done
-        if [[ ${localEdexCnt} -ge 2 ]] ; then
-            startedService=1 && handle_request stop 
-            while ${mySSHcmd} ps -wef|grep mode=request | grep -v grep > /dev/null ; do 
-                sleep 15
-            done
-            handle_request start 
-        else
-            echo -e "\t\tNot restarting EDEX request -- only found ${localEdexCnt} request JVM running, and need at least 2"
-        fi
+        handle_request start 
 }
 
 function config_local_shapefiles() {
