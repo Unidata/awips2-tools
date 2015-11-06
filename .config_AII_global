@@ -665,68 +665,10 @@ function initialize_configuration_variables {
 
 	find_awips_config ${LOC_SITE}-hydroSiteConfig.txt LC && wxxxList=$(grep ^Wxxx ${retLocation}/${LOC_SITE}-hydroSiteConfig.txt | cut -f2 -d' ' | xargs | sed -e 's/ /\|/g') && rxxxList=$(grep ^Rxxx ${retLocation}/${LOC_SITE}-hydroSiteConfig.txt | cut -f2 -d' ' | xargs | sed -e 's/ /\|/g') && regList=$(grep ^RegCode ${retLocation}/${LOC_SITE}-hydroSiteConfig.txt | awk '{print $2}')
 
-
-	appDefaultSiteFile=${pathPrefix}/awips/hydroapps/.Apps_defaults_site
-	if [ -h ${appDefaultSiteFile} ]
-	then
-		appDefaultSiteFile=$( readlink ${appDefaultSiteFile} )
-		if ! echo ${appDefaultSiteFile} | grep '/' > /dev/null 
-		then 
-			appDefaultSiteFile=${pathPrefix}/awips/hydroapps/${appDefaultSiteFile}
-		else
-			appDefaultSiteFile=${pathPrefix}/${appDefaultSiteFile}
-		fi
-	fi
-
-	if ! grep ^st3_rfc ${appDefaultSiteFile} > /dev/null
-	then
-		st3Value=$( grep ^st3_rfc ${EDEX_HOME}/data/utility/common_static/base/hydro/Apps_defaults | cut -f2 -d':'| sed -e "s/^[[:space:]]*//g" -e "s/#.*//g" -e "s/[[:space:]]*$//g" )
-	else
-		st3Value=$( grep ^st3_rfc ${appDefaultSiteFile} | head -1 | cut -f2 -d':'| sed -e "s/^[[:space:]]*//g" -e "s/#.*//g" -e "s/[[:space:]]*$//g" )
-	fi
-
-	if ! grep -w ^apps_dir ${appDefaultSiteFile} > /dev/null
-	then
-		appsDirValue=/awips/hydroapps
-	else
-		appsDirValue=$( grep -w ^apps_dir ${appDefaultSiteFile} | head -1 | cut -f2 -d':'| sed -e "s/^[[:space:]]*//g" -e "s/#.*//g" -e "s/[[:space:]]*$//g" )
-		if echo ${appsDirValue} | grep '$(' > /dev/null 
-		then
-			tmpSubToken=$( echo ${appsDirValue} | sed -e "s/\$(//g" -e "s/).*//g" )
-			get_hydro_token ${appDefaultSiteFile} ${tmpSubToken}
-            if echo ${tokenValue} | grep '/' > /dev/null ; then tokenValue=$(echo ${tokenValue} | sed -e "s/\//\\\\\//g" ) ; fi
-			appsDirValue=$( echo ${appsDirValue} | sed -e "s/\$(${tmpSubToken})/${tokenValue}/g" )
-		fi
-	fi
-
-	if ! grep ^pproc_dir ${appDefaultSiteFile} > /dev/null
-	then
-		pprocDir=/awips/hydroapps/precip_proc
-	else
-		pprocDir=$( grep ^pproc_dir ${appDefaultSiteFile} | head -1 | cut -f2 -d':'| sed -e "s/^[[:space:]]*//g" -e "s/#.*//g" -e "s/[[:space:]]*$//g" )
-		if echo ${pprocDir} | grep '$(' > /dev/null 
-		then
-			tmpSubToken=$( echo ${pprocDir} | sed -e "s/\$(//g" -e "s/).*//g" )
-			get_hydro_token ${appDefaultSiteFile} ${tmpSubToken}
-            if echo ${tokenValue} | grep '/' > /dev/null ; then tokenValue=$(echo ${tokenValue} | sed -e "s/\//\\\\\//g" ) ; fi 
-			pprocDir=$( echo ${pprocDir} | sed -e "s/\$(${tmpSubToken})/${tokenValue}/g" )
-		fi
-	fi
-
-	if ! grep ^whfs_base_dir ${appDefaultSiteFile} > /dev/null
-	then
-		whfsBaseDir=/awips/hydroapps/whfs
-	else
-		whfsBaseDir=$( grep ^whfs_base_dir ${appDefaultSiteFile} | head -1 | cut -f2 -d':'| sed -e "s/^[[:space:]]*//g" -e "s/#.*//g" -e "s/[[:space:]]*$//g" )
-		if echo ${whfsBaseDir} | grep '$(' > /dev/null 
-		then
-			tmpSubToken=$( echo ${whfsBaseDir} | sed -e "s/\$(//g" -e "s/).*//g" )
-			get_hydro_token ${appDefaultSiteFile} ${tmpSubToken}
-            if echo ${tokenValue} | grep '/' > /dev/null ; then tokenValue=$(echo ${tokenValue} | sed -e "s/\//\\\\\//g" ) ; fi
-			pprocDir=$( echo ${whfsBaseDir} | sed -e "s/\$(${tmpSubToken})/${tokenValue}/g" )
-		fi
-
-	fi
+	st3Value=$( grep ^st3_rfc ${EDEX_HOME}/data/utility/common_static/base/hydro/Apps_defaults | cut -f2 -d':'| sed -e "s/^[[:space:]]*//g" -e "s/#.*//g" -e "s/[[:space:]]*$//g" )
+	appsDirValue=/awips2/edex/data/share/hydroapps
+	pprocDir=${appsDirValue}/precip_proc
+	whfsBaseDir=${appsDirValue}/whfs
 
 	if find_awips_config ${locSite}-mainConfig.txt C || find_awips_config ${locSite}-mainConfig.txt L
 	then
@@ -929,9 +871,9 @@ function check_needed_mounts() {
 		echo "/awips/GFESuite/primary does not exist. Exiting."
 		exit 1
 	fi
-	if [ ! -d /awips/hydroapps/whfs ]
+	if [ ! -d awips2/edex/data/share/hydroapps/whfs ]
 	then
-		echo "/awips/hydroapps/whfs does not exist. Exiting."
+		echo "/awips2/edex/data/share/hydroapps/whfs does not exist. Exiting."
 		exit 1
 	fi
 
@@ -1436,7 +1378,7 @@ function config_common_hydro() {
 	echo -e "\tWorking in $(pwd)\n"
 	create_subtree hydro awips fxalpha
 	create_subtree shef awips fxalpha
-	#appDefaultSiteFile=$( echo $APPS_DEFAULTS_SITE )
+	appDefaultSiteFile=$( echo $APPS_DEFAULTS_SITE )
 
 	echo
 	if [[ "${FORCE}" || ! -f hydro/Apps_defaults ]]
