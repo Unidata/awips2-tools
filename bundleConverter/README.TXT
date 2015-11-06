@@ -80,7 +80,7 @@ convert old D-2D netcdf bundle files to A-II xml bundles. You have to tell
 it specifically what files to use as input and output. In a legacy system,
 netcdf bundles typically reside at a path like:
 
-  /data/fxa/userPrefs/$USER/procedureName/FXA.*
+  /awips2/fxa/userPrefs/$USER/procedureName/FXA.*
 
 For now, probably the best way to test individual converted bundles is to dump
 them in your home directory on your Cave host.  Then you can load them using

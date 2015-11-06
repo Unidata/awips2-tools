@@ -65,19 +65,19 @@ fi
 
 date > /tmp/date.out 
 cd /
-if [ -f /data/fxa/TEMP/${archiveName}.tar.gz ] 
+if [ -f /awips2/fxa/TEMP/${archiveName}.tar.gz ] 
 then
-	echo -e "Found /data/fxa/TEMP/${archiveName}.tar.gz -- removing"
-	rm -f  /data/fxa/TEMP/${archiveName}.tar.gz
+	echo -e "Found /awips2/fxa/TEMP/${archiveName}.tar.gz -- removing"
+	rm -f  /awips2/fxa/TEMP/${archiveName}.tar.gz
 fi
 
-tar -cf /data/fxa/TEMP/${archiveName}.tar /tmp/date.out
+tar -cf /awips2/fxa/TEMP/${archiveName}.tar /tmp/date.out
 
 
-### /data/fxa/nationalData Files ###
+### /awips2/fxa/nationalData Files ###
 for myFile in spotters.dat mosaicInfo.txt allAdjacentWFOs.txt "FFMP_aggr_basins.*" "FFMP_ref_sl.*" raobProductButtons.txt eavConfigTable.txt ldadTrigger.template adaptTrigger.template ldadTrigger.template ldadSiteBackupTrigger.template hazCollectTrigger.template ${_site}-hazCollectTrigger.template raob.goodness raob.primary raobMenus.txt scaleInfo.txt ispan_table.template national_category_table.template afosMasterPIL.txt
 do
-	tar ${archiveOps} /data/fxa/TEMP/${archiveName}.tar /data/fxa/nationalData/${myFile}
+	tar ${archiveOps} /awips2/fxa/TEMP/${archiveName}.tar /awips2/fxa/nationalData/${myFile}
 done
 
 ### /awips/fxa/data 
@@ -86,20 +86,20 @@ for myFile in afos2awips.txt station_table.dat wmoSiteInfo.txt ICAODICT.TBL meta
 do
 	if [ -f /awips/fxa/data/${myFile} ]
 	then
-		tar ${archiveOps} /data/fxa/TEMP/${archiveName}.tar /awips/fxa/data/${myFile}
+		tar ${archiveOps} /awips2/fxa/TEMP/${archiveName}.tar /awips/fxa/data/${myFile}
 	else
 		echo -e "\tNOTE:  /awips/fxa/data/${myFile} not found."
 	fi
 done
 
-### /data/fxa/customFiles
+### /awips2/fxa/customFiles
 for myFile in ${_site}-mosaicInfo.txt mosaicInfo.txt ${_site}-hydroSiteConfig.txt ${_site}-ldadSiteConfig.txt ${_site}-ldadSiteBackupConfig.txt ${_site}-wwaConfig.txt ${_site}-radarsInUse.txt ${_site}-dialRadars.txt radarsInUse.txt dialRadars.txt ldadTrigger.template ldadSiteBackupTrigger.template ${_site}-radarsOnMenu.txt radarsOnMenu.txt ${_site}-mainConfig.txt ${_site}-acqPatternAddOns.txt acqPatternAddOns.txt spotters.dat
 do
-	if [ -f /data/fxa/customFiles/${myFile} ]
+	if [ -f /awips2/fxa/customFiles/${myFile} ]
 	then
-		tar ${archiveOps} /data/fxa/TEMP/${archiveName}.tar /data/fxa/customFiles/${myFile}
+		tar ${archiveOps} /awips2/fxa/TEMP/${archiveName}.tar /awips2/fxa/customFiles/${myFile}
 	else
-		echo -e "\tNOTE:  /data/fxa/customFiles/${myFile} not found."
+		echo -e "\tNOTE:  /awips2/fxa/customFiles/${myFile} not found."
 	fi
 done
 
@@ -108,70 +108,70 @@ for myFile in ${_site}-radarsOnMenu.txt ${_site}-mosaicInfo.txt ${_site}-hydroSi
 do
 	if [ -f /awips/fxa/data/localization/${_site}/${myFile} ]
 	then
-		tar ${archiveOps} /data/fxa/TEMP/${archiveName}.tar /awips/fxa/data/localization/${_site}/${myFile}
+		tar ${archiveOps} /awips2/fxa/TEMP/${archiveName}.tar /awips/fxa/data/localization/${_site}/${myFile}
 	else
 		echo -e "\tNOTE:  /awips/fxa/data/localization/${_site}/${myFile} not found."
 	fi
 done
 
-### /data/fxa/workFiles  /data/fxa/siteConfig /data/fxa/ffmp
-tar ${archiveOps} /data/fxa/TEMP/${archiveName}.tar /data/fxa/workFiles/fax/${_site}-faxTrigger.template
-tar ${archiveOps} /data/fxa/TEMP/${archiveName}.tar /data/fxa/siteConfig/textApps/siteTrigger.template
-tar ${archiveOps} /data/fxa/TEMP/${archiveName}.tar /data/fxa/radarMultipleRequests 
-tar ${archiveOps} /data/fxa/TEMP/${archiveName}.tar /data/fxa/ffmp/FFMPsourceConfig.dat 
-tar ${archiveOps} /data/fxa/TEMP/${archiveName}.tar /data/fxa/workFiles/wanMsgHandling/NWWS_exclude_${_site}.txt
+### /awips2/fxa/workFiles  /awips2/fxa/siteConfig /awips2/fxa/ffmp
+tar ${archiveOps} /awips2/fxa/TEMP/${archiveName}.tar /awips2/fxa/workFiles/fax/${_site}-faxTrigger.template
+tar ${archiveOps} /awips2/fxa/TEMP/${archiveName}.tar /awips2/fxa/siteConfig/textApps/siteTrigger.template
+tar ${archiveOps} /awips2/fxa/TEMP/${archiveName}.tar /awips2/fxa/radarMultipleRequests 
+tar ${archiveOps} /awips2/fxa/TEMP/${archiveName}.tar /awips2/fxa/ffmp/FFMPsourceConfig.dat 
+tar ${archiveOps} /awips2/fxa/TEMP/${archiveName}.tar /awips2/fxa/workFiles/wanMsgHandling/NWWS_exclude_${_site}.txt
 
 ### /awips/fxa/data/localizationDataSets/${_site}/
 for myFile in cities.lpi goesBufr.spi poesBufr.spi modelBufr.spi raobLocalMenus.txt raobSubMenu.txt whichSat.txt radarsOnMenu.txt mosaicRadarList.txt localMPE.txt vb/browserFieldMenu.txt 
 do
-	if [ -f /awips/fxa/data/localizationDataSets/${_site}/${myFile} ] ; then tar ${archiveOps} /data/fxa/TEMP/${archiveName}.tar /awips/fxa/data/localizationDataSets/${_site}/${myFile}; fi
+	if [ -f /awips/fxa/data/localizationDataSets/${_site}/${myFile} ] ; then tar ${archiveOps} /awips2/fxa/TEMP/${archiveName}.tar /awips/fxa/data/localizationDataSets/${_site}/${myFile}; fi
 done
 for myFile in $( cd /awips/fxa/data/localizationDataSets/${_site} && ls ldad*.spi )
 do
-	tar ${archiveOps} /data/fxa/TEMP/${archiveName}.tar /awips/fxa/data/localizationDataSets/${_site}/${myFile}
+	tar ${archiveOps} /awips2/fxa/TEMP/${archiveName}.tar /awips/fxa/data/localizationDataSets/${_site}/${myFile}
 done
 
 ### hydro....
-if [ -f /awips/hydroapps/.Apps_defaults_site ]; then tar ${archiveOps} /data/fxa/TEMP/${archiveName}.tar /awips/hydroapps/.Apps_defaults_site ; else echo -e "NOTE:  No /awips/hydroapps/.Apps_defaults_site found!"; fi
-if [[ "${appDefaultSiteFile}" ]] ; then tar ${archiveOps} /data/fxa/TEMP/${archiveName}.tar ${appDefaultSiteFile} ; fi
+if [ -f /awips/hydroapps/.Apps_defaults_site ]; then tar ${archiveOps} /awips2/fxa/TEMP/${archiveName}.tar /awips/hydroapps/.Apps_defaults_site ; else echo -e "NOTE:  No /awips/hydroapps/.Apps_defaults_site found!"; fi
+if [[ "${appDefaultSiteFile}" ]] ; then tar ${archiveOps} /awips2/fxa/TEMP/${archiveName}.tar ${appDefaultSiteFile} ; fi
 for myFile in $( ls ${appsDirValue}/geo_data/${st3_rfc}/ )
 do
-	tar ${archiveOps} /data/fxa/TEMP/${archiveName}.tar ${appsDirValue}/geo_data/${st3_rfc}/${myFile}
+	tar ${archiveOps} /awips2/fxa/TEMP/${archiveName}.tar ${appsDirValue}/geo_data/${st3_rfc}/${myFile}
 done
-if [ -d ${appsDirValue}/rfc/xdat/parameters/groups ] ; then tar ${archiveOps} /data/fxa/TEMP/${archiveName}.tar ${appsDirValue}/rfc/xdat/parameters/groups ; fi
+if [ -d ${appsDirValue}/rfc/xdat/parameters/groups ] ; then tar ${archiveOps} /awips2/fxa/TEMP/${archiveName}.tar ${appsDirValue}/rfc/xdat/parameters/groups ; fi
 
 #MPE Directories 
 
 mpeDirectories=$( find ${pprocDir}/local/data/app/mpe -maxdepth 1 -type d -printf "%f " )
 for dirToTar in ${mpeDirectories} ; do
-  tar ${archiveOps} /data/fxa/TEMP/${archiveName}.tar ${pprocDir}/local/data/app/mpe/${dirToTar}
+  tar ${archiveOps} /awips2/fxa/TEMP/${archiveName}.tar ${pprocDir}/local/data/app/mpe/${dirToTar}
 done
-tar ${archiveOps} /data/fxa/TEMP/${archiveName}.tar ${pprocDir}/bin/convert_coord_file
+tar ${archiveOps} /awips2/fxa/TEMP/${archiveName}.tar ${pprocDir}/bin/convert_coord_file
 
-#tar ${archiveOps} /data/fxa/TEMP/${archiveName}.tar ${pprocDir}/local/data/app/mpe/misbin ${pprocDir}/local/data/app/mpe/prism ${pprocDir}/bin/convert_coord_file /awips/hydroapps/whfs/local/data/app/mpe/utiltriangles
+#tar ${archiveOps} /awips2/fxa/TEMP/${archiveName}.tar ${pprocDir}/local/data/app/mpe/misbin ${pprocDir}/local/data/app/mpe/prism ${pprocDir}/bin/convert_coord_file /awips/hydroapps/whfs/local/data/app/mpe/utiltriangles
 
 #for myFile in $( ls /awips/hydroapps/geo_data/${st3_rfc}/ascii/ )
 #do
-#	tar ${archiveOps} /data/fxa/TEMP/${archiveName}.tar /awips/hydroapps/geo_data/host/ascii/${myFile}
+#	tar ${archiveOps} /awips2/fxa/TEMP/${archiveName}.tar /awips/hydroapps/geo_data/host/ascii/${myFile}
 #done
 
-if [ -f ${whfsBaseDir}/local/data/app/timeseries/group_definition.cfg ] ; then tar ${archiveOps} /data/fxa/TEMP/${archiveName}.tar ${whfsBaseDir}/local/data/app/timeseries/group_definition.cfg ; else echo -e "NOTE:  No group_definition.cfg found!"; fi
+if [ -f ${whfsBaseDir}/local/data/app/timeseries/group_definition.cfg ] ; then tar ${archiveOps} /awips2/fxa/TEMP/${archiveName}.tar ${whfsBaseDir}/local/data/app/timeseries/group_definition.cfg ; else echo -e "NOTE:  No group_definition.cfg found!"; fi
 
-if [ -f ${whfsBaseDir}/whfs/local/data/app/metar2shef/metar.cfg ] ; then tar ${archiveOps} /data/fxa/TEMP/${archiveName}.tar ${whfsBaseDir}/local/data/app/metar2shef/metar.cfg; else echo -e "NOTE:  No metar.cfg found!"; fi
+if [ -f ${whfsBaseDir}/whfs/local/data/app/metar2shef/metar.cfg ] ; then tar ${archiveOps} /awips2/fxa/TEMP/${archiveName}.tar ${whfsBaseDir}/local/data/app/metar2shef/metar.cfg; else echo -e "NOTE:  No metar.cfg found!"; fi
 
-#tar ${archiveOps} /data/fxa/TEMP/${archiveName}.tar /awips/hydroapps/geo_data/host/ascii/*
-tar ${archiveOps} /data/fxa/TEMP/${archiveName}.tar /${whfsBaseDir}/local/data/geo/*
+#tar ${archiveOps} /awips2/fxa/TEMP/${archiveName}.tar /awips/hydroapps/geo_data/host/ascii/*
+tar ${archiveOps} /awips2/fxa/TEMP/${archiveName}.tar /${whfsBaseDir}/local/data/geo/*
 
 ###  gfe
 mkdir -p /data/local/gfe_editareas
-if [ -f /awips/GFESuite/primary/etc/SITE/localConfig.py ] ; then tar ${archiveOps} /data/fxa/TEMP/${archiveName}.tar /awips/GFESuite/primary/etc/SITE/localConfig.py ; else echo -e "NOTE:  No localConfig.py found!"; fi
-tar ${archiveOps} /data/fxa/TEMP/${archiveName}.tar /awips/GFESuite/primary/etc/SITE
-tar ${archiveOps} /data/fxa/TEMP/${archiveName}.tar /awips/GFESuite/primary/data/databases/SITE
+if [ -f /awips/GFESuite/primary/etc/SITE/localConfig.py ] ; then tar ${archiveOps} /awips2/fxa/TEMP/${archiveName}.tar /awips/GFESuite/primary/etc/SITE/localConfig.py ; else echo -e "NOTE:  No localConfig.py found!"; fi
+tar ${archiveOps} /awips2/fxa/TEMP/${archiveName}.tar /awips/GFESuite/primary/etc/SITE
+tar ${archiveOps} /awips2/fxa/TEMP/${archiveName}.tar /awips/GFESuite/primary/data/databases/SITE
 cd /awips/GFESuite/primary/data/databases
 for i in $( ls )
 do
 	case "${i}" in
-		[[:lower:]]* 	)	tar -C / ${archiveOps} /data/fxa/TEMP/${archiveName}.tar /awips/GFESuite/primary/data/databases/${i} ;
+		[[:lower:]]* 	)	tar -C / ${archiveOps} /awips2/fxa/TEMP/${archiveName}.tar /awips/GFESuite/primary/data/databases/${i} ;
 					if [[ ! -d /awips/GFESuite/primary/data/databases/${i}/TEXT/EditAreaGroup ]]; then continue ; else cd /awips/GFESuite/primary/data/databases/${i}/TEXT/EditAreaGroup ; fi
 					mkdir -p /data/local/gfe_editareas/${i}
 					rm -rf /data/local/gfe_editareas/${i}/*
@@ -203,7 +203,7 @@ cd /awips/GFESuite/primary/data/databases
 for i in $( ls -d */COLORTABLE )
 do
 	case "${i}" in
-		[[:lower:]]* 	)	#tar -C / ${archiveOps} /data/fxa/TEMP/${archiveName}.tar /awips/GFESuite/primary/data/databases/${i} ;
+		[[:lower:]]* 	)	#tar -C / ${archiveOps} /awips2/fxa/TEMP/${archiveName}.tar /awips/GFESuite/primary/data/databases/${i} ;
 					if [[ ! -d /awips/GFESuite/primary/data/databases/${i} ]]; then continue ; else cd /awips/GFESuite/primary/data/databases/${i} ; fi
 					dirName=$( echo $i | sed -e "s/\/COLORTABLE//g" )
 					mkdir -p /data/local/gfe_colortables/${dirName}
@@ -236,28 +236,28 @@ done
 cd /
 
 
-tar ${archiveOps} /data/fxa/TEMP/${archiveName}.tar /data/local/gfe_editareas/
-tar ${archiveOps} /data/fxa/TEMP/${archiveName}.tar /data/local/gfe_colortables/
+tar ${archiveOps} /awips2/fxa/TEMP/${archiveName}.tar /data/local/gfe_editareas/
+tar ${archiveOps} /awips2/fxa/TEMP/${archiveName}.tar /data/local/gfe_colortables/
 
 ### avnfps
 
-tar ${archiveOps} /data/fxa/TEMP/${archiveName}.tar /awips/adapt/avnfps/etc/tafs
-tar ${archiveOps} /data/fxa/TEMP/${archiveName}.tar /data/adapt/avnfps/climate
-tar ${archiveOps} /data/fxa/TEMP/${archiveName}.tar /awips/adapt/avnfps/etc/forecasters /awips/adapt/avnfps/etc/*.cfg /awips/adapt/avnfps/etc/ish-*
+tar ${archiveOps} /awips2/fxa/TEMP/${archiveName}.tar /awips/adapt/avnfps/etc/tafs
+tar ${archiveOps} /awips2/fxa/TEMP/${archiveName}.tar /data/adapt/avnfps/climate
+tar ${archiveOps} /awips2/fxa/TEMP/${archiveName}.tar /awips/adapt/avnfps/etc/forecasters /awips/adapt/avnfps/etc/*.cfg /awips/adapt/avnfps/etc/ish-*
 
 ### postgres
 
-tar ${archiveOps} /data/fxa/TEMP/${archiveName}.tar /data/fxa/DAILY_BACKUP/postgres/$(date --date='1 day ago' +%A)/lsrdata /data/fxa/DAILY_BACKUP/postgres/$(date --date='1 day ago' +%A)/hmdb /data/fxa/DAILY_BACKUP/postgres/$(date --date='1 day ago' +%A)/dc_ob7${littleSite} /data/fxa/DAILY_BACKUP/postgres/$(date --date='1 day ago' +%A)/hd_ob92${littleSite}
+tar ${archiveOps} /awips2/fxa/TEMP/${archiveName}.tar /awips2/fxa/DAILY_BACKUP/postgres/$(date --date='1 day ago' +%A)/lsrdata /awips2/fxa/DAILY_BACKUP/postgres/$(date --date='1 day ago' +%A)/hmdb /awips2/fxa/DAILY_BACKUP/postgres/$(date --date='1 day ago' +%A)/dc_ob7${littleSite} /awips2/fxa/DAILY_BACKUP/postgres/$(date --date='1 day ago' +%A)/hd_ob92${littleSite}
 
 ### textAlarmAlert 
-find /data/fxa/textWSwork/ -regextype posix-egrep -regex "/data/fxa/textWSwork/(lx|xt).*" -name "text*Products.txt" | while read myFile
+find /awips2/fxa/textWSwork/ -regextype posix-egrep -regex "/awips2/fxa/textWSwork/(lx|xt).*" -name "text*Products.txt" | while read myFile
 do
-	tar ${archiveOps} /data/fxa/TEMP/${archiveName}.tar ${myFile}
+	tar ${archiveOps} /awips2/fxa/TEMP/${archiveName}.tar ${myFile}
 done
 
 ### userPrefs
 
-tar ${archiveOps} /data/fxa/TEMP/${archiveName}.tar /data/fxa/workFiles/customColorMaps.nc
+tar ${archiveOps} /awips2/fxa/TEMP/${archiveName}.tar /awips2/fxa/workFiles/customColorMaps.nc
 
 
 echo -ne "Do you want to package AWIPS I procedure files as well (y|n)? "
@@ -266,7 +266,7 @@ userReturn=255
 while [[ ${userReturn} -ne 0 ]]
 do
 	case ${userAnswer} in 
-		[yY]	)	userReturn=0 ; tar ${archiveOps} /data/fxa/TEMP/${archiveName}.tar /data/fxa/userPrefs/ ;;
+		[yY]	)	userReturn=0 ; tar ${archiveOps} /awips2/fxa/TEMP/${archiveName}.tar /awips2/fxa/userPrefs/ ;;
 		[nN]	)	userReturn=0 ; echo -e "Ok, not including AWIPS I procedure files..." ;;
 		*	)	echo -e "Invalid Response." ; echo -ne "Do you want to package AWIPS I procedure files as well (y|n)? " ; read userAnswer ;;
 	esac
@@ -276,9 +276,9 @@ done
 echo -e "Running testGridKeyServer -- this may take a minute or three"
 su fxa -lc "/awips/fxa/bin/testGridKeyServer v" > /tmp/testGridKeyServer_v.txt
 
-tar ${archiveOps} /data/fxa/TEMP/${archiveName}.tar /tmp/testGridKeyServer_v.txt
+tar ${archiveOps} /awips2/fxa/TEMP/${archiveName}.tar /tmp/testGridKeyServer_v.txt
 
-gzip /data/fxa/TEMP/${archiveName}.tar
+gzip /awips2/fxa/TEMP/${archiveName}.tar
 
 exit 0
 

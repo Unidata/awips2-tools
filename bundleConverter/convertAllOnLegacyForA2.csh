@@ -2,7 +2,7 @@
 #
 # This script is meant to be run on a host with a legacy system environment
 # in place.  The default behavior is to convert all existing procedures 
-# and place them in a scratch partition under /data/local/ or /data/fxa/.
+# and place them in a scratch partition under /data/local/ or /awips2/fxa/.
 # They will then be tarred up for installation on the ADAM platform or
 # some other platform with direct access to the A-II procedure directories.
 #
@@ -311,11 +311,11 @@ rm -f $outXml
 if ( ! $?FXA_DATA ) setenv FXA_DATA ""
 if ( -d "$FXA_DATA" ) then
     echo >& /dev/null
-else if ( -d /data/fxa ) then
-    setenv FXA_DATA /data/fxa
+else if ( -d /awips2/fxa ) then
+    setenv FXA_DATA /awips2/fxa
 endif
 if ( "$devUser" == "no" ) then
-    set prefsPath = /data/fxa/userPrefs
+    set prefsPath = /awips2/fxa/userPrefs
     if ( ! ( -d $prefsPath ) ) then
         set prefsPath = $FXA_DATA/userPrefs
     endif

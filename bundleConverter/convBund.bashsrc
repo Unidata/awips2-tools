@@ -41,17 +41,17 @@ if [ "$FXA_DATA" == "" ] ; then
     export FXA_DATA=/quertyuiop/asdfghjkl
 fi
 if [ ! -d $FXA_DATA ] ; then
-    if [ -d /data/fxa ] ; then
-        export FXA_DATA=/data/fxa
+    if [ -d /awips2/fxa ] ; then
+        export FXA_DATA=/awips2/fxa
     else
-        mkdir -p /scratch/data/fxa >& /dev/null
-        chmod 775 /scratch/data/fxa >& /dev/null
-        if [ -d /scratch/data/fxa ] ; then
-            export FXA_DATA=/scratch/data/fxa
+        mkdir -p /scratch/awips2/fxa >& /dev/null
+        chmod 775 /scratch/awips2/fxa >& /dev/null
+        if [ -d /scratch/awips2/fxa ] ; then
+            export FXA_DATA=/scratch/awips2/fxa
         else
-            mkdir -p $FXA_HOME/data/fxa >& /dev/null
-            chmod 775 $FXA_HOME/data/fxa >& /dev/null
-            export FXA_DATA=$FXA_HOME/data/fxa
+            mkdir -p $FXA_HOME/awips2/fxa >& /dev/null
+            chmod 775 $FXA_HOME/awips2/fxa >& /dev/null
+            export FXA_DATA=$FXA_HOME/awips2/fxa
         fi
     fi
     mkdir -p $FXA_DATA/workFiles >& /dev/null

@@ -120,7 +120,7 @@
 ## 10 Aug 2012 	 : new functionality in config_local_shapefiles which creates submenus based on the structure defined by maps setup.
 ## 16 Aug 2012 	 : fixed bug in config_min_ffmp_run_config where -HiRes didn't get put after KTIR for newer builds
 ## 20 Aug 2012 	 : fixed bundle resourceData in config_local_shapefiles to include dbPointMapResourceData when necessary
-## 21 Aug 2012 	 : added support for /data/fxa/nationalData/national_category_table.template to NDM and collect_files.sh
+## 21 Aug 2012 	 : added support for /awips2/fxa/nationalData/national_category_table.template to NDM and collect_files.sh
 ##		 : fixed MxT and MnT for MDL MOS in fieldsMenu.xml and TURB for Aviation
 ## 27 Aug 2012 	 :  added support for renaming AMGM shapefiles to AWIPS shapefile name after import per tiger team.
 ## 	       	 :  fixed bug in config_local_shapefiles to properly create submenu structure in cave_static for multiple submenus.
@@ -141,7 +141,7 @@
 ## 29 Oct 2012	 :  fixed bug in build_ldad_triggers which added triggers even if they ended with xxx. 
 ## 19 Nov 2012	 :  cleanup on aisle config_ldm.  pqact.conf.local no longer preserved. 
 ## 19 Dec 2012	 :  fixed pqact.conf.local creation.  does not insert patterns already present in pqact.conf.template
-##		 :  added new migrate function for GFE.  Converts cdl files in /data/fxa/customFiles to parameterInfo files in AWIPS II
+##		 :  added new migrate function for GFE.  Converts cdl files in /awips2/fxa/customFiles to parameterInfo files in AWIPS II
 ## 04 Feb 2013	 :  Updated Jim Ramer's bundle conversion scripts. 
 ## 13 Feb 2013	 :  FFMPRunConfig - increased granularity to handle DPR in source and product sections
 ## 14 Feb 2013	 :  updated fixed ctRepairFinish.csh from Jim Ramer which accounts for procedures with spaces in the names

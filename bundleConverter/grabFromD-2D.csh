@@ -43,7 +43,7 @@ find data -follow -maxdepth 1 -name '*ey*txt' \
       -exec tar rfh convBundStage.tar '{}' \;
 find data -follow -maxdepth 1 -name '*nfo*' \
       -exec tar rfh convBundStage.tar '{}' \;
-tar rfh convBundStage.tar data/fxa.config
+tar rfh convBundStage.tar awips2/fxa.config
 tar rfh convBundStage.tar data/colorMaps.nc
 tar rfh convBundStage.tar data/afos2awips.txt
 echo adding some files from nationalData/ to tar
@@ -58,7 +58,7 @@ tar rfh convBundStage.tar data/localization/nationalData/virtualFieldTable.txt
 echo adding some executables to tar
 tar rfh convBundStage.tar bin/textBufferTest
 if ( ! $?FXA_DATA ) then
-    setenv FXA_DATA /data/fxa
+    setenv FXA_DATA /awips2/fxa
 endif
 if ( -e $FXA_DATA/workFiles/customColorMaps.nc ) then
     cp -s $FXA_DATA/workFiles/customColorMaps.nc \

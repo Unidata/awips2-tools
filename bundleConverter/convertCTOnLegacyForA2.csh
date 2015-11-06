@@ -2,7 +2,7 @@
 #
 # This script is meant to be run on a host with a legacy system environment
 # in place.  The default behavior is to convert all existing non-default color
-# tables and place them in a scratch partition under /data_store/ or /data/fxa/.
+# tables and place them in a scratch partition under /data_store/ or /awips2/fxa/.
 # They will then be tarred up for installation on the ADAM platform or some
 # other platform with direct access to the A-II color table directories.
 #
@@ -196,11 +196,11 @@ endif
 if ( ! $?FXA_DATA ) setenv FXA_DATA ""
 if ( -d "$FXA_DATA" ) then
     echo /dev/null
-else if ( -d /data/fxa ) then
-    setenv FXA_DATA /data/fxa
+else if ( -d /awips2/fxa ) then
+    setenv FXA_DATA /awips2/fxa
 endif
 if ( "$devUser" == "no" ) then
-    set prefsPath = /data/fxa/userPrefs
+    set prefsPath = /awips2/fxa/userPrefs
     if ( ! ( -d $prefsPath ) ) then
         set prefsPath = $FXA_DATA/userPrefs
     endif
