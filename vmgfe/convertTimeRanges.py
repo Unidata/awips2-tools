@@ -1,4 +1,4 @@
-#!/usr/local/python/bin/python
+#!/awips2/python/bin/python
 ################################################################################
 #                                                                              #
 # Program name:     convertTimeRanges.py                                       #
@@ -14,13 +14,14 @@
 # Program description:  Moves AWIPS I GFE Time Range files into AWIPS II files.#
 #                       Some file naming required.                             #
 #                                                                   	       #
-# Directory program runs from:  /awips/dev/awips2 as root on dx1.              #
+# Directory program runs from:  /tmp/dev/awips2 as root on dx1.              #
 #                                                                    	       #
-# Other needed configuration: need gfe/text/selecttr under /awips/dev/awips2   #
+# Other needed configuration: need gfe/text/selecttr under /tmp/dev/awips2   #
 #                                                                              #
 # Program History:                                                    	       #
 # *** Version 1.4 ***                                                          #
 # 03/17/11:  Created script. vtm                                               #
+# 11/06/15:  mjames@ucar: use AWIPS 2 python and run standalone                #
 ################################################################################
 # import statements
 import sys,re,os,string
@@ -28,12 +29,9 @@ from sys import argv
 from socket import gethostname
 
 # configuration section
-WORKDIR="/awips/dev/awips2/"
+WORKDIR="/tmp/dev/awips2/"
 
-# Check to see if script is running on the correct server and user.
-if "adam1" not in gethostname():
-	print "Script is not running on adam1.\n\nProgram will now die."
-	exit()
+# Check to see if script is running by the correct user.
 if string.replace(os.popen("whoami").read(),"\n","") != "root":
 	print "Script is not running as root.\n\nProgram will now die."
 	exit()
@@ -91,8 +89,6 @@ cmd = "cd " + WORKDIR + " ; tar cvf timerange.tar ./gfe/text/selecttr/*.SELECTTR
 os.system(cmd)
 print "timerange.tar file has been created."
 
-# move file to adam1 and untar it. Change permissions.
-#print "Get ready to enter root password two times..."
 if A2USER != "SITE":
 	destPath = "/awips2/edex/data/utility/common_static/user/" + A2USER
 else:
@@ -109,5 +105,5 @@ if not existFlag:
 cmd = "cd " + WORKDIR + " ; tar -C " + destPath + " -xvf timerange.tar ; rm -f timerange.tar ; cd " + destPath
 cmd = cmd + " ; find . -type d -exec chmod 775 {} \; ; find . -type f -exec chmod 664 {} \; ; chown -R awips:fxalpha ./*"
 os.system(cmd)
-print "tar file unpacked on adam1 and permissions/ownership set."
+print "tar file unpacked and permissions/ownership set."
 print "script is done!"
