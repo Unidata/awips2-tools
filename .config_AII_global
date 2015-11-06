@@ -81,9 +81,9 @@ function find_awips_config() {
 #
 # order of precidents:
 # /awips/fxa/data/localization/XXX
-# /data/fxa/customFiles/
-# /data/fxa/nationalData
-# /data/fxa/workFiles
+# /awips2/fxa/customFiles/
+# /awips2/fxa/nationalData
+# /awips2/fxa/workFiles
 # /awips/fxa/data/localizationDataSets/XXX  (last resort to use AWIPS I output file)
 
 userFile=$1
@@ -108,10 +108,10 @@ retLocation=
 	
 	if [ "${searchCustomFiles}" ] && [ ${foundFile} -ne 0 ]
 	then
-		if [ -f ${pathPrefix}/data/fxa/customFiles/${userFile} ] 
+		if [ -f ${pathPrefix}/awips2/fxa/customFiles/${userFile} ] 
 		then
 			foundFile=0
-			retLocation=${pathPrefix}/data/fxa/customFiles
+			retLocation=${pathPrefix}/awips2/fxa/customFiles
 		fi
 	fi	
 
@@ -126,19 +126,19 @@ retLocation=
 	
 	if [ "${searchNationalData}" ] && [ ${foundFile} -ne 0 ]
 	then
-		if [ -f ${pathPrefix}/data/fxa/nationalData/${userFile} ] 
+		if [ -f ${pathPrefix}/awips2/fxa/nationalData/${userFile} ] 
 		then
 			foundFile=0
-			retLocation=${pathPrefix}/data/fxa/nationalData
+			retLocation=${pathPrefix}/awips2/fxa/nationalData
 		fi
 	fi
 	
 	if [ "${searchWorkFiles}" ] && [ ${foundFile} -ne 0 ]
 	then
-		if [ -f ${pathPrefix}/data/fxa/workFiles/${userFile} ] 
+		if [ -f ${pathPrefix}/awips2/fxa/workFiles/${userFile} ] 
 		then
 			foundFile=0
-			retLocation=${pathPrefix}/data/fxa/workFiles
+			retLocation=${pathPrefix}/awips2/fxa/workFiles
 		fi
 	fi
 		
@@ -524,7 +524,7 @@ function get_site_type {
 	then
 		siteType=WFO
 		wfoSite=${testSite}
-		arAdjacent=( $( grep ^${LOC_SITE} ${pathPrefix}/data/fxa/nationalData/allAdjacentWFOs.txt | cut -f2 -d"|" | sed "s/PUC/${LOC_SITE}/" ) )
+		arAdjacent=( $( grep ^${LOC_SITE} ${pathPrefix}/awips2/fxa/nationalData/allAdjacentWFOs.txt | cut -f2 -d"|" | sed "s/PUC/${LOC_SITE}/" ) )
 	else
 		siteType=RFC
 		case "${testSite}" in 
@@ -542,7 +542,7 @@ function get_site_type {
 			"TIR"	)	wfoSite=ILN ;;
 			"TUA"	)	wfoSite=TSA ;;
 		esac
-		arAdjacent=( $( grep ^${wfoSite} ${pathPrefix}/data/fxa/nationalData/allAdjacentWFOs.txt | cut -f2 -d"|" | sed "s/PUC/${LOC_SITE}/" ) )
+		arAdjacent=( $( grep ^${wfoSite} ${pathPrefix}/awips2/fxa/nationalData/allAdjacentWFOs.txt | cut -f2 -d"|" | sed "s/PUC/${LOC_SITE}/" ) )
 	fi
 
 	echo "select lat,lon from mapdata.cwa where wfo='${wfoSite}'" > /tmp/sdc.sql 
@@ -652,10 +652,10 @@ function initialize_configuration_variables {
 
 	locSite=$1
 
-	shpFFMPBasins=( "${pathPrefix}/data/fxa/nationalData/FFMP_aggr_basins.shp" "${pathPrefix}/data/fxa/nationalData/FFMP_aggr_basins.shx" "${pathPrefix}/data/fxa/nationalData/FFMP_aggr_basins.dbf" )
-	shpFFMPStreams=( "${pathPrefix}/data/fxa/nationalData/FFMP_ref_sl.shp" "${pathPrefix}/data/fxa/nationalData/FFMP_ref_sl.shx" "${pathPrefix}/data/fxa/nationalData/FFMP_ref_sl.dbf" )
+	shpFFMPBasins=( "${pathPrefix}/awips2/fxa/nationalData/FFMP_aggr_basins.shp" "${pathPrefix}/awips2/fxa/nationalData/FFMP_aggr_basins.shx" "${pathPrefix}/awips2/fxa/nationalData/FFMP_aggr_basins.dbf" )
+	shpFFMPStreams=( "${pathPrefix}/awips2/fxa/nationalData/FFMP_ref_sl.shp" "${pathPrefix}/awips2/fxa/nationalData/FFMP_ref_sl.shx" "${pathPrefix}/awips2/fxa/nationalData/FFMP_ref_sl.dbf" )
 
-	neededDirectories=( "/data/fxa/nationalData" "/awips/fxa/data/acq_patterns.txt" "/awips/fxa/data/localization/${LOC_SITE}" "/data/fxa/nationalData/raobProductButtons.txt" "/awips/fxa/data/station_table.dat" "/data/fxa/nationalData/allAdjacentWFOs.txt")
+	neededDirectories=( "/awips2/fxa/nationalData" "/awips/fxa/data/acq_patterns.txt" "/awips/fxa/data/localization/${LOC_SITE}" "/awips2/fxa/nationalData/raobProductButtons.txt" "/awips/fxa/data/station_table.dat" "/awips2/fxa/nationalData/allAdjacentWFOs.txt")
 
 	case ${siteType} in
 		"WFO"	)	return_rfc ${locSite} ;; #${myCenterPoint[@]} ;;
@@ -775,7 +775,7 @@ function import_shape_file() {
 	# Usage: import_shape_file SCHEMA SHAPE_FILE_NAME
 	#
 	# Where SCHEMA is the schema to update in the maps database (e.g ffmp_streams)
-	# Where SHAPE_FILE_NAME is the name of the shape files, including full path (e.g. /data/fxa/nationalData/FFMP_ref_sl)
+	# Where SHAPE_FILE_NAME is the name of the shape files, including full path (e.g. /awips2/fxa/nationalData/FFMP_ref_sl)
 
 	echo -e "Beginning $FUNCNAME ......"
 
@@ -802,7 +802,7 @@ function import_shape_file() {
 
 	if [[ ! ${dbSchema} && ! ${shpFile} ]]
 	then
-		echo -e "Usage: import_shape_file SCHEMA SHAPE_FILE_NAME\n\tWhere SCHEMA is the schema to update in the maps database (e.g ffmp_streams)\n\tWhere SHAPE_FILE_NAME is the name of the shape files, including full path (e.g. /data/fxa/nationalData/FFMP_ref_sl)"
+		echo -e "Usage: import_shape_file SCHEMA SHAPE_FILE_NAME\n\tWhere SCHEMA is the schema to update in the maps database (e.g ffmp_streams)\n\tWhere SHAPE_FILE_NAME is the name of the shape files, including full path (e.g. /awips2/fxa/nationalData/FFMP_ref_sl)"
 		exit 1
 	fi
 
@@ -833,7 +833,7 @@ function import_shape_file() {
 
 	if [[ ${_remount} ]]
 	then
-		umount /data/fxa && mount /data/fxa
+		umount /awips2/fxa && mount /awips2/fxa
 	fi
 	
 	echo -e "Completed $FUNCNAME ......\n"
@@ -847,7 +847,7 @@ function import_wg_file() {
 	
 	# Usage: import_wg_file IMPORT_TYPE FILE_NAME TABLENAME
 	# Where IMPORT_TYPE is either marker or point
-	# Where FILE_NAME is the name of the shape files, including full path (e.g. /data/fxa/nationalData/FFMP_ref_sl)
+	# Where FILE_NAME is the name of the shape files, including full path (e.g. /awips2/fxa/nationalData/FFMP_ref_sl)
 	# Where TABLENAME is the name of the table to be imported into.  IF IT EXISTS IT WILL DROP!!! 
 
 	echo -e "Beginning $FUNCNAME ......"
@@ -894,7 +894,7 @@ function import_wg_file() {
 
 	if [[ ${_remount} ]]
 	then
-		umount /data/fxa && mount /data/fxa
+		umount /awips2/fxa && mount /awips2/fxa
 	fi
 	
 	echo -e "Completed $FUNCNAME ......\n"
@@ -903,8 +903,8 @@ function import_wg_file() {
 function check_needed_mounts() {
 
 	# needed directories for localization
-	# /data/fxa/nationalData
-	# /data/fxa/customFiles
+	# /awips2/fxa/nationalData
+	# /awips2/fxa/customFiles
 	# /awips/fxa/data
 	# /awips/fxa/data/localizationDataSets/XXX
 	# /awips/fxa/data/localization/XXX
@@ -1914,7 +1914,7 @@ function config_common_menus() {
 
 	if [[ ! -f radar/eavConfigTable.txt || "${FORCE}" ]]
 	then
-		if ! copy_awips_file ${pathPrefix}/data/fxa/nationalData/eavConfigTable.txt radar/eavConfigTable.txt awips fxalpha 644 ; then exit 1 ; fi
+		if ! copy_awips_file ${pathPrefix}/awips2/fxa/nationalData/eavConfigTable.txt radar/eavConfigTable.txt awips fxalpha 644 ; then exit 1 ; fi
 	else
 		echo -e "\tNOTE: radar/eavConfigTable.txt exists \t SKIPPING"
 	fi
@@ -2011,13 +2011,13 @@ function config_min_ffmp_run_config() {
 
         cd ${EDEX_HOME}/data/utility/${locRoot}/site/${locSite}
 
-	if [[ ! -f ${pathPrefix}/data/fxa/ffmp/FFMPsourceConfig.dat ]]
+	if [[ ! -f ${pathPrefix}/awips2/fxa/ffmp/FFMPsourceConfig.dat ]]
 	then
 		color_echo yellow 0 "\tNOTE:  Can not find ${pathPrefix}/FFMPSourceConfig -- you won't have radars in your FFMPRunConfig!"
 	else
-		ffmp_backupList=( $( grep -wE '^\+\|[A-Z]{3}' ${pathPrefix}/data/fxa/ffmp/FFMPsourceConfig.dat | cut -f2- -d'|' | sed -e 's/|/ /g' | xargs ) ) 
-		ffmp_dhrRadarList=( $( grep -wE '^[kpt][a-z]{3}' ${pathPrefix}/data/fxa/ffmp/FFMPsourceConfig.dat | cut -f1 -d'|' | xargs ) ) 
-		ffmp_dprRadarList=( $( grep -wE '^[kpt][a-z]{3}DPR' ${pathPrefix}/data/fxa/ffmp/FFMPsourceConfig.dat | cut -f1 -d'|' | sed -e 's/DPR//1' | xargs ) )
+		ffmp_backupList=( $( grep -wE '^\+\|[A-Z]{3}' ${pathPrefix}/awips2/fxa/ffmp/FFMPsourceConfig.dat | cut -f2- -d'|' | sed -e 's/|/ /g' | xargs ) ) 
+		ffmp_dhrRadarList=( $( grep -wE '^[kpt][a-z]{3}' ${pathPrefix}/awips2/fxa/ffmp/FFMPsourceConfig.dat | cut -f1 -d'|' | xargs ) ) 
+		ffmp_dprRadarList=( $( grep -wE '^[kpt][a-z]{3}DPR' ${pathPrefix}/awips2/fxa/ffmp/FFMPsourceConfig.dat | cut -f1 -d'|' | sed -e 's/DPR//1' | xargs ) )
 		ffmp_locRadarList=( $( echo ${ffmp_dhrRadarList[@]} ${ffmp_dprRadarList[@]} | sed -e "s/ /\n/g" | sort -n | uniq | xargs ) )
 	fi
 
@@ -2406,13 +2406,13 @@ function config_cleanup() {
 
 	echo -e "\tOK!  Complete!"
 
-	if [[ -f ${pathPrefix}/data/fxa/workFiles/wanMsgHandling/NWWS_exclude_${locSite}.txt ]]
+	if [[ -f ${pathPrefix}/awips2/fxa/workFiles/wanMsgHandling/NWWS_exclude_${locSite}.txt ]]
 	then
 		targetDir=${EDEX_HOME}/data/utility/edex_static/base/dissemination
 		echo -e "\tMigrating NWWS_exclude_${locSite}.txt"
 		if [[ ! -f ${targetDir}/NWWS_exclude_${locSite}.txt || "${FORCE}" ]]
 		then
-			cp -a ${pathPrefix}/data/fxa/workFiles/wanMsgHandling/NWWS_exclude_${locSite}.txt ${targetDir}/
+			cp -a ${pathPrefix}/awips2/fxa/workFiles/wanMsgHandling/NWWS_exclude_${locSite}.txt ${targetDir}/
 			chown awips:awips ${targetDir}/NWWS_exclude_${locSite}.txt
 			debug_echo "\t$( ls -l ${targetDir}/NWWS_exclude_${locSite}.txt )"
 		else
@@ -2643,7 +2643,7 @@ function config_triggers() {
 	
 	
 	# Site Configurable Triggers
-	siteTriggerTemplate=${pathPrefix}/data/fxa/siteConfig/textApps/siteTrigger.template
+	siteTriggerTemplate=${pathPrefix}/awips2/fxa/siteConfig/textApps/siteTrigger.template
 	if [ ! -f ${siteTriggerTemplate} ]
 	then
 		color_echo yellow 0 "\tNOTE:  No local site triggers setup in ${siteTriggerTemplate}"
@@ -3066,7 +3066,7 @@ function config_cave_menus() {
 				chown awips:fxalpha ${compLocDir}/productsMenus.xml 
 			fi
 		else
-			echo -e "\tCould not find ${locSite}-textOfficeMenuProducts.txt or textOfficeMenuProducts.txt in /data/fxa/customFiles -- Skipping"
+			echo -e "\tCould not find ${locSite}-textOfficeMenuProducts.txt or textOfficeMenuProducts.txt in /awips2/fxa/customFiles -- Skipping"
 		fi
 
 	echo_function Completed $FUNCNAME
@@ -3591,21 +3591,21 @@ function config_postgres() {
 
 	echo -e "\n\tChecking in backup directory for files < 24 hours old matching most current backup"
 	# cycle through the list until we find backups within a day
-	find ${pathPrefix}/data/fxa/DAILY_BACKUP/postgres/$(date +%A) -regextype posix-egrep  -mtime -1 -type f ! -regex '.*(fxatext|globals|postgres|aa|maps|metadata)' -printf "%f\n" | while read _file
+	find ${pathPrefix}/awips2/fxa/DAILY_BACKUP/postgres/$(date +%A) -regextype posix-egrep  -mtime -1 -type f ! -regex '.*(fxatext|globals|postgres|aa|maps|metadata)' -printf "%f\n" | while read _file
 	do
 		echo -e "\t\tFound ${_file}........"
 	done
 	echo
-	_bkupList=( $(find ${pathPrefix}/data/fxa/DAILY_BACKUP/postgres/$(date +%A) -regextype posix-egrep  -mtime -1 -type f ! -regex '.*(fxatext|globals|postgres|aa|maps|metadata)' -printf "%f\n" ) )
+	_bkupList=( $(find ${pathPrefix}/awips2/fxa/DAILY_BACKUP/postgres/$(date +%A) -regextype posix-egrep  -mtime -1 -type f ! -regex '.*(fxatext|globals|postgres|aa|maps|metadata)' -printf "%f\n" ) )
 	bkupDir=$(date +%A)
 	if [[ ${#_bkupList[@]} -eq 0 ]] 
 	then
-		find ${pathPrefix}/data/fxa/DAILY_BACKUP/postgres/$(date --date='1 day ago' +%A) -regextype posix-egrep -mtime -1 -type f ! -regex '.*(fxatext|globals|postgres|aa|maps|metadata)' -printf "%f\n" | while read _file
+		find ${pathPrefix}/awips2/fxa/DAILY_BACKUP/postgres/$(date --date='1 day ago' +%A) -regextype posix-egrep -mtime -1 -type f ! -regex '.*(fxatext|globals|postgres|aa|maps|metadata)' -printf "%f\n" | while read _file
 		do
 			echo -e "\t\tFound ${_file}........"
 		done
 		echo
-		_bkupList=( $(find ${pathPrefix}/data/fxa/DAILY_BACKUP/postgres/$(date --date='1 day ago' +%A) -regextype posix-egrep  -mtime -1 -type f ! -regex '.*(fxatext|globals|postgres|aa|maps|metadata)' -printf "%f\n" ) )
+		_bkupList=( $(find ${pathPrefix}/awips2/fxa/DAILY_BACKUP/postgres/$(date --date='1 day ago' +%A) -regextype posix-egrep  -mtime -1 -type f ! -regex '.*(fxatext|globals|postgres|aa|maps|metadata)' -printf "%f\n" ) )
 		bkupDir=$(date --date='1 day ago' +%A)
 	fi
 	for i in ${_bkupList[@]}
@@ -3648,7 +3648,7 @@ function config_postgres() {
 					echo -e "\t\tRE-Creating database before the restore...."
 					createdb -U awips ${xtraCmds} ${i}
 					echo -e "\t\tRestoring database from backup file....."
-					pg_restore -U awips -Fc -d ${i} ${pathPrefix}/data/fxa/DAILY_BACKUP/postgres/${bkupDir}/${i}
+					pg_restore -U awips -Fc -d ${i} ${pathPrefix}/awips2/fxa/DAILY_BACKUP/postgres/${bkupDir}/${i}
 					# If this is the hydro database, remove some lines per SeanB and JoeO
 					if [[ ${i} == hd_ob* ]]
 					then
@@ -3677,7 +3677,7 @@ function config_postgres() {
 				echo -e "\t\tCreating database before the restore...."
 				su awips -lc "createdb -U awips ${xtraCmds} ${i}"
 				echo -e "\t\tRestoring database from backup file....."
-				pg_restore -U awips -Fc -d ${i} ${pathPrefix}/data/fxa/DAILY_BACKUP/postgres/${bkupDir}/${i}
+				pg_restore -U awips -Fc -d ${i} ${pathPrefix}/awips2/fxa/DAILY_BACKUP/postgres/${bkupDir}/${i}
 			fi
 		else
 			echo -e "\tSkipping ${i}......."
@@ -4068,8 +4068,8 @@ function config_ffmp_shapefiles () {
 
 	#modify_pgsec ${dbaccessType} maps trust
 	modify_pgsec local maps trust
-	import_shape_file ffmp_basins ${pathPrefix}/data/fxa/nationalData/FFMP_aggr_basins.shp "0.064,0.016,0.004,0.001"
-	import_shape_file ffmp_streams ${pathPrefix}/data/fxa/nationalData/FFMP_ref_sl.shp "0.064,0.016,0.004,0.001"
+	import_shape_file ffmp_basins ${pathPrefix}/awips2/fxa/nationalData/FFMP_aggr_basins.shp "0.064,0.016,0.004,0.001"
+	import_shape_file ffmp_streams ${pathPrefix}/awips2/fxa/nationalData/FFMP_ref_sl.shp "0.064,0.016,0.004,0.001"
 	#modify_pgsec local maps md5
 	#modify_pgsec ${dbaccessType} maps md5
 
@@ -4143,8 +4143,8 @@ function config_ndm() {
         done 
     fi
 
-    # /data/fxa/nationalData
-    PS3="Select file from /data/fxa/nationalData/ to ingest into AWIPS II: "
+    # /awips2/fxa/nationalData
+    PS3="Select file from /awips2/fxa/nationalData/ to ingest into AWIPS II: "
     arrayOfFiles=( raob.goodness raob.primary fsl-w88d.dbf fsl-w88d.shp fsl-w88d.shx national_category_table.template afosMasterPIL.txt rps-RPGOP-tcp.clear-air rps-RPGOP-tcp.storm rps-SPGOP-tcp.storm )
     if [[ "${ndmMenus}" ]] ; then 
         select filesToMigrate in "ALL" ${arrayOfFiles[@]} "EXIT"
@@ -4153,24 +4153,24 @@ function config_ndm() {
                 "ALL"   )   echo -e "\nUser Choice: ALL"
                             for myFile in ${arrayOfFiles[@]}
                             do
-                                debug_echo "\tCopying ${pathPrefix}/data/fxa/nationalData/${myFile} to ${compLocDir}/${myFile}"
-                                copy_awips_file ${pathPrefix}/data/fxa/nationalData/${myFile} ${compLocDir}/${myFile} awips fxalpha 644
+                                debug_echo "\tCopying ${pathPrefix}/awips2/fxa/nationalData/${myFile} to ${compLocDir}/${myFile}"
+                                copy_awips_file ${pathPrefix}/awips2/fxa/nationalData/${myFile} ${compLocDir}/${myFile} awips fxalpha 644
                             done 
                             ;;
                 "EXIT"  )   echo -e "\nUser Choice: EXIT" ; break ;; 
                 ""      )   break ;; 
                 *       )   myFile=${filesToMigrate}
                             echo -e "\nUser Choice: ${myFile}"
-                            debug_echo "\tCopying ${pathPrefix}/data/fxa/nationalData/${myFile} to ${compLocDir}/${myFile}"
-                            copy_awips_file ${pathPrefix}/data/fxa/nationalData/${myFile} ${compLocDir}/${myFile} awips fxalpha 644
+                            debug_echo "\tCopying ${pathPrefix}/awips2/fxa/nationalData/${myFile} to ${compLocDir}/${myFile}"
+                            copy_awips_file ${pathPrefix}/awips2/fxa/nationalData/${myFile} ${compLocDir}/${myFile} awips fxalpha 644
                             ;;
             esac
         done
     else
         for myFile in ${arrayOfFiles[@]}
         do
-            debug_echo "\tCopying ${pathPrefix}/data/fxa/nationalData/${myFile} to ${compLocDir}/${myFile}"
-            copy_awips_file ${pathPrefix}/data/fxa/nationalData/${myFile} ${compLocDir}/${myFile} awips fxalpha 644
+            debug_echo "\tCopying ${pathPrefix}/awips2/fxa/nationalData/${myFile} to ${compLocDir}/${myFile}"
+            copy_awips_file ${pathPrefix}/awips2/fxa/nationalData/${myFile} ${compLocDir}/${myFile} awips fxalpha 644
         done
     fi
 
@@ -4280,7 +4280,7 @@ function reload_base_shapefiles() {
 	locSite=$1
 	compLocRoot=${EDEX_HOME}/data/utility/edex_static
 	compLocDir=base/shapefiles
-	stagingLocation=/data/fxa/nationalData
+	stagingLocation=/awips2/fxa/nationalData
 
 	echo_function BEGIN $FUNCNAME
 
@@ -4557,9 +4557,9 @@ function reload_base_shapefiles() {
                         for tmpfile in $( ls ${shpFileName}.* ) 
                         do
                             tmpExt=$( echo ${tmpfile} | cut -f 2 -d'.' )
-                            mv --force ${tmpfile} ${pathPrefix}/data/fxa/nationalData/${awipsName}.${tmpExt}
-                            chmod 775 ${pathPrefix}/data/fxa/nationalData/${awipsName}.${tmpExt}
-                            if [[ "${isCompressed}" && "${tmpExt}" == "shp" ]]; then debug_echo "\t\t\tRecompressing using ${compressUtil}" ; ${compressUtil} ${pathPrefix}/data/fxa/nationalData/${awipsName}.shp ; unset isCompressed ; fi
+                            mv --force ${tmpfile} ${pathPrefix}/awips2/fxa/nationalData/${awipsName}.${tmpExt}
+                            chmod 775 ${pathPrefix}/awips2/fxa/nationalData/${awipsName}.${tmpExt}
+                            if [[ "${isCompressed}" && "${tmpExt}" == "shp" ]]; then debug_echo "\t\t\tRecompressing using ${compressUtil}" ; ${compressUtil} ${pathPrefix}/awips2/fxa/nationalData/${awipsName}.shp ; unset isCompressed ; fi
                         done
                         unset isUsingAgmgName
                     fi
@@ -5219,7 +5219,7 @@ function wrap_text_alarmalert() {
 	local arrayOfMigrated
 
 	color_echo green 1 "|\n|----> Beginning migration text alarm alert files from AWIPS I to AWIPS II syntax"
-	cd ${pathPrefix}/data/fxa/textWSwork
+	cd ${pathPrefix}/awips2/fxa/textWSwork
 	touch ${tmpPath}/.$FUNCNAME
 	find . -regextype posix-egrep -type f -regex "./(lx|xt)([0-9]|[a-z])-${platformName}.*/text.*Products.txt" | while read theFile
 	do
@@ -5285,21 +5285,21 @@ function wrap_text_alarmalert() {
 		if [ ! -f ${compLocRoot}/${compLocDir}/${defaultXmlName} ] 
 		then
 			debug_echo "\tNo ${compLocRoot}/${compLocDir}/${defaultXmlName} exists, copying into place"
-			su awips -lc "cp ${pathPrefix}/data/fxa/textWSwork/${fileToMigrate}.xml ${compLocRoot}/${compLocDir}/${defaultXmlName}"
+			su awips -lc "cp ${pathPrefix}/awips2/fxa/textWSwork/${fileToMigrate}.xml ${compLocRoot}/${compLocDir}/${defaultXmlName}"
 		elif [[ ${compLocRoot}/${compLocDir}/${defaultXmlName} -nt ${tmpPath}/.$FUNCNAME ]]
 		then
 			# file was created, but by this script .. so append to it.  Because textAA and PA go in the same file 
 			debug_echo "\t${compLocRoot}/${compLocDir}/${defaultXmlName} exists, appending onto this file"
 			sed -i -e "/^<\/aapaCombined>/d " ${compLocRoot}/${compLocDir}/${defaultXmlName}
-			sed -e "/^<?xml version/d " -e "/^<aapaCombined/d " ${pathPrefix}/data/fxa/textWSwork/${fileToMigrate}.xml >> ${compLocRoot}/${compLocDir}/${defaultXmlName}
+			sed -e "/^<?xml version/d " -e "/^<aapaCombined/d " ${pathPrefix}/awips2/fxa/textWSwork/${fileToMigrate}.xml >> ${compLocRoot}/${compLocDir}/${defaultXmlName}
 		elif [[ "${FORCE}" ]]
 		then
 			debug_echo "\tDue to FORCE option, removing ${compLocRoot}/${compLocDir}/${defaultXmlName}"
 			su awips -lc "rm -f ${compLocRoot}/${compLocDir}/${defaultXmlName}"
-			su awips -lc "cp ${pathPrefix}/data/fxa/textWSwork/${fileToMigrate}.xml ${compLocRoot}/${compLocDir}/${defaultXmlName}"
+			su awips -lc "cp ${pathPrefix}/awips2/fxa/textWSwork/${fileToMigrate}.xml ${compLocRoot}/${compLocDir}/${defaultXmlName}"
 			chown awips:fxalpha ${compLocRoot}/${compLocDir}/${defaultXmlName}
 		fi
-		cd ${pathPrefix}/data/fxa/textWSwork
+		cd ${pathPrefix}/awips2/fxa/textWSwork
 	done
 
 	cd /
@@ -5410,7 +5410,7 @@ function migrate_gfe_paraminfo_from_cdl() {
 	compLocRoot=${EDEX_HOME}/data/utility/
 	compLocDir=edex_static/site/${locSite}/grib/parameterInfo
 	convScript=/awips2/fxa/bin/convertCDL2XML
-	stagingLocation="${pathPrefix}/data/fxa/customFiles"
+	stagingLocation="${pathPrefix}/awips2/fxa/customFiles"
 
 	cd ${compLocRoot}
 	
@@ -5481,7 +5481,7 @@ function wrap_migrate_rmr() {
 	color_echo green 1 "\t--> Beginning migration of Radar Multiple Request Files from AWIPS I to AWIPS II syntax"
 	if [[ ! -f ${compLocRoot}/${compLocDir}/${defaultXmlName} || "${FORCE}" ]]
 	then
-		if ! ${fullScriptPath}/${wrappedScript} ${pathPrefix}/data/fxa/radarMultipleRequests > ${compLocRoot}/${compLocDir}/${defaultXmlName} 
+		if ! ${fullScriptPath}/${wrappedScript} ${pathPrefix}/awips2/fxa/radarMultipleRequests > ${compLocRoot}/${compLocDir}/${defaultXmlName} 
 		then
 			case $? in
 				1	)	color_echo red 1 "\tERROR!  ${wrappedScript} exited with an error code.  This is most likely due to a bad entry in your AWIPS I radarMultipleRequests file.  Exiting"
@@ -5516,7 +5516,7 @@ function run_bundle_converter() {
 					if [[ "${procDir}" == "customColorMaps.nc" ]]
 					then
 						# this is site level 
-						fullPathDir=/data/fxa/workFiles
+						fullPathDir=/awips2/fxa/workFiles
 					else
 						fullPathDir=${inputRoot}/${inputUser}/${procDir}
 					fi
@@ -5631,7 +5631,7 @@ function wrap_bundle_converter() {
 	echo_function Begin $FUNCNAME
 	
 	locSite=$1
-	inputRoot=/data/fxa/userPrefs
+	inputRoot=/awips2/fxa/userPrefs
 	compLocRoot=${EDEX_HOME}/data/utility/
 	bundleStartText="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>
 <procedure xmlns:ns2=\"group\" xmlns:ns3=\"http://www.example.org/productType\">
@@ -5665,7 +5665,7 @@ function wrap_bundle_converter() {
 	select migrateType in "ALL USERS" "SINGLE USER" 
 	do
 		case "${migrateType}" in
-			"ALL USERS"	)	# ok, cycle through /data/fxa/userPrefs ... 
+			"ALL USERS"	)	# ok, cycle through /awips2/fxa/userPrefs ... 
 						cd ${inputRoot}
 						for inputUser in $( ls )
 						do
@@ -5698,7 +5698,7 @@ function wrap_bundle_converter() {
 							case "${inputUser}" in 
 								"office_colormaps"	)	colorMapDir="common_static/site/${locSite}" 
 												cd / && create_subtree ${compLocRoot}/${colorMapDir}/colormaps awips fxalpha 
-												cd /data/fxa/workFiles
+												cd /awips2/fxa/workFiles
 												echo -e "customColorMaps.nc" > /tmp/${FUNCNAME}.tmp 
 												;;
 								[a-z]*			)	compLocDir="cave_static/user/${inputUser}" 
