@@ -680,7 +680,8 @@ function initialize_configuration_variables {
 			color_echo red 1 "\tERROR:  No ${EDEX_HOME}/data/utility/common_static/base/textdb/national_category_table.template ... Exiting" 
 			exit 1
 		else
-			cccid=$( grep ^K${locSite} ${EDEX_HOME}/data/utility/common_static/base/textdb/national_category_table.template | awk '{print $2}' ) 
+			#cccID=$( grep ^K${locSite} ${EDEX_HOME}/data/utility/common_static/base/textdb/national_category_table.template | awk '{print $2}' ) 
+			cccID=${1}
 		fi
 	fi
 

@@ -1,4 +1,4 @@
-#!/usr/local/python/bin/python
+#!/awips2/python/bin/python
 ################################################################################
 #                                                                              #
 # Program name:     convertEditAreas.py                                        #
@@ -14,11 +14,11 @@
 # Program description:  Converts AWIPS I GFE Edit Area and Edit Area Groups    #
 #                       files into AWIPS II xml files.                         #
 #                                                                   	       #
-# Directory program runs from:  /awips/dev/awips2 as root on dx1.              #
+# Directory program runs from:  /tmp/dev/awips2 as root on dx1.              #
 #                                                                    	       #
 # Other needed configuration: need gfe/editAreas, gfe/editAreaGroups, and      #
 #                             gfebaseline/editAreaGroups subdirectories under  #
-#                             /awips/dev/awips2                                #
+#                             /tmp/dev/awips2                                #
 #                                                                              #
 # Program History:                                                    	       #
 # *** Version 1.0 ***                                                          #
@@ -42,6 +42,7 @@
 # 07/06/11:  Can now store SITE level configurations on awips 2. vtm           #
 # *** Version 1.6 ***                                                          #
 # 07/02/14   Fixed conversion of edit area group files. Some cleanup. ryu/ASM  #
+# 11/06/15:  mjames@ucar: use AWIPS 2 python and run standalone                #
 ################################################################################
 # import statements
 import sys,re,os,string
@@ -52,10 +53,7 @@ from GFE_unmangler import *
 # configuration section
 WORKDIR="/var/tmp/sdc/vmgfe/"
 
-# Check to see if script is running on the correct server and user.
-if "adam1" not in gethostname():
-	print "Script is not running on adam1.\n\nProgram will now die."
-	exit()
+# Check to see if script is running by the correct user.
 if string.replace(os.popen("whoami").read(),"\n","") != "root":
 	print "Script is not running as root.\n\nProgram will now die."
 	exit()
@@ -192,20 +190,6 @@ for root, dirs, files in os.walk(awips1dir):
                	# closing the xml file
 		oFile.close()
 
-# clean out directory
-#cmd = "rm " + WORKDIR + "gfe/editAreaGroups/*.txt"
-#os.system(cmd)
-
-# clean out baseline directory
-#cmd = "rm " + WORKDIR + "gfebaseline/editAreaGroups/*.txt"
-#os.system(cmd)
-
-# move baseline edit area group files from adam to AWIPS I -- changed for wrap into config_awip2
-#print "Get ready to provide root password for adam1..."
-#cmd = "scp root@adam1:" + baseGroupDir + "*.txt " + WORKDIR + "gfebaseline/editAreaGroups/"
-#cmd = "scp " + baseGroupDir + "*.txt " + WORKDIR + "gfebaseline/editAreaGroups/"
-#os.system(cmd)
-
 # set the directory of where the AWIPS 1 edit area groups are
 awips1dir="/data/local/gfe_editareas/" + A1USER
 
@@ -267,17 +251,6 @@ for root, dirs, files in os.walk(awips1dir):
 #os.system(cmd)
 #print "editarea.tar file has been created."
 
-# move file to adam1 and untar it. Change permissions.
-#print "Get ready to enter root password two times..."
-#print "getting ready to untar...."
-#if A2USER != "SITE":
-#	destPath = "/awips2/edex/data/utility/common_static/user/" + A2USER
-#else:
-#	destPath = "/awips2/edex/data/utility/common_static/site/" + siteID
-#cmd = "cd " + WORKDIR + " ; tar -C + " + destPath + " -xf editarea.tar "
-#os.system(cmd)
-#print "tar file moved to adam1"
-#cmd = "ssh root@adam1 \"cd " + destPath + " ; tar xvf editarea.tar ; rm -f editarea.tar ; "
 cmd = "cd " + destPath + " ; find . -type d -exec chmod 775 {} \; ; find . -type f -exec chmod 664 {} \; ; chown -R awips:fxalpha ./*"
 os.system(cmd)
 print "Permissions/ownership set."

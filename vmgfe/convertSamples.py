@@ -1,4 +1,4 @@
-#!/usr/local/python/bin/python
+#!/awips2/python/bin/python
 # -*- coding: utf-8 -*-
 ################################################################################
 #                                                                              #
@@ -15,9 +15,9 @@
 # Program description:  Converts AWIPS I GFE Edit Sample Set files into AWIPS  #
 #                       II xml files.                                          #
 #                                                                   	       #
-# Directory program runs from:  /awips/dev/awips2 as root on dx1.              #
+# Directory program runs from:  /tmp/dev/awips2 as root on dx1.              #
 #                                                                    	       #
-# Other needed configuration: need gfe/sampleSets under /awips/dev/awips2      #
+# Other needed configuration: need gfe/sampleSets under /tmp/dev/awips2      #
 #                                                                              #
 # Program History:                                                    	       #
 # *** Version 1.2 ***                                                          #
@@ -29,6 +29,7 @@
 # *** Version 1.5 ***                                                          #
 # 07/06/11:  Now using GFE_unmangler to clean up file names. vtm               #
 # 07/06/11:  Can now store SITE level configurations on awips 2. vtm           #
+# 11/06/15:  mjames@ucar: use AWIPS 2 python and run standalone                #
 ################################################################################
 # import statements
 import sys,re,os,string
@@ -37,12 +38,9 @@ from socket import gethostname
 from GFE_unmangler import *
 
 # configuration section
-WORKDIR="/awips/dev/awips2/"
+WORKDIR="/tmp/dev/awips2/"
 
-# Check to see if script is running on the correct server and user.
-if "adam1" not in gethostname():
-	print "Script is not running on adam1.\n\nProgram will now die."
-	exit()
+# Check to see if script is running by the correct user.
 if string.replace(os.popen("whoami").read(),"\n","") != "root":
 	print "Script is not running as root.\n\nProgram will now die."
 	exit()
@@ -125,8 +123,6 @@ cmd = "cd " + WORKDIR + " ; tar cvf sampleset.tar ./gfe/sampleSets/*.xml"
 os.system(cmd)
 print "sampleset.tar file has been created."
 
-# move file to adam1 and untar it. Change permissions.
-#print "Get ready to enter root password two times..."
 if A2USER != "SITE":
 	destPath = "/awips2/edex/data/utility/common_static/user/" + A2USER
 else:
@@ -143,5 +139,5 @@ if not existFlag:
 cmd = "cd " + WORKDIR + " ; tar -C " + destPath + " -xvf sampleset.tar ; rm -f sampleset.tar ; cd " + destPath
 cmd = cmd + " ; find . -type d -exec chmod 775 {} \; ; find . -type f -exec chmod 664 {} \; ; chown -R awips:fxalpha ./*"
 os.system(cmd)
-print "tar file unpacked on adam1 and permissions/ownership set."
+print "tar file unpacked and permissions/ownership set."
 print "script is done!"
