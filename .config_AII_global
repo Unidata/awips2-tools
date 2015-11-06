@@ -773,11 +773,6 @@ function import_shape_file() {
 		gzip ${shpFile}
 	fi
 
-	if [[ ${_remount} ]]
-	then
-		umount /awips2/fxa && mount /awips2/fxa
-	fi
-	
 	echo -e "Completed $FUNCNAME ......\n"
 	return ${shapeFileSuccess}
 }
@@ -821,8 +816,7 @@ function import_wg_file() {
 		echo -e "Usage: import_wg_file IMPORT_TYPE FILE_NAME TABLE_NAME\n\tWhere IMPORT_TYPE is either marker or point\n\tWhere FILE_NAME is the name of the shape files, including full path\n\tWhere TABLENAME is the name of the table to be imported into.  IF IT EXISTS IT WILL DROP!!!"
 		return 1
 	fi
-
-
+	
 	su - awips -lc " ${sqlBasename}/${scriptName} ${shpFile} mapdata ${dbTable}"  2>&1 | while read line
 	do
 		echo -e "\t${line}"
@@ -834,11 +828,6 @@ function import_wg_file() {
 		gzip ${shpFile}
 	fi
 
-	if [[ ${_remount} ]]
-	then
-		umount /awips2/fxa && mount /awips2/fxa
-	fi
-	
 	echo -e "Completed $FUNCNAME ......\n"
 }
 
@@ -871,7 +860,7 @@ function check_needed_mounts() {
 		echo "/awips/GFESuite/primary does not exist. Exiting."
 		exit 1
 	fi
-	if [ ! -d awips2/edex/data/share/hydroapps/whfs ]
+	if [ ! -d /awips2/edex/data/share/hydroapps/whfs ]
 	then
 		echo "/awips2/edex/data/share/hydroapps/whfs does not exist. Exiting."
 		exit 1
